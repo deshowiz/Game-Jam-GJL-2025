@@ -292,10 +292,12 @@ MonoBehaviour:
   _tilesParentTransform: {fileID: 1103658268}
   _tilePrefabs:
   - {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+  _tileGroups:
+  - {fileID: 11400000, guid: d91e68afbecfccd4285d696548e1195a, type: 2}
   _steppedEventListener: {fileID: 842789170}
   _maximumQueueSpawnSize: 50
   _positions: []
-  _lastPosition: {x: -1, y: -10, z: 0}
+  _lastPosition: {x: 0, y: -10, z: 0}
 --- !u!114 &842789170
 MonoBehaviour:
   m_ObjectHideFlags: 0

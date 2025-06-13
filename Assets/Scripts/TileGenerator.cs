@@ -13,6 +13,8 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private List<Tile> _tilePrefabs = new List<Tile>();
     [SerializeField]
+    private List<TileGroup> _tileGroups = new List<TileGroup>();
+    [SerializeField]
     private GameEventListener _steppedEventListener = null;
 
     private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
@@ -33,6 +35,10 @@ public class TileGenerator : MonoBehaviour
     private Vector3 _lastPosition = Vector3.zero;
 
     private bool _isRunning = false;
+
+    private List<TileGroup.PositionedGroup> _currentTileGroup = null;
+    private int _tileGroupStepIndex = 0;
+    private Vector3 _groupAnchorPosition = Vector3.negativeInfinity;
 
     //private Tile _furthestTile = null;
 
@@ -60,6 +66,8 @@ public class TileGenerator : MonoBehaviour
             }
             tilePrefabIndex++;
         }
+        SetNewTileGroup();
+        _tileGroupStepIndex = 0;
         PlaceNextTile();
         SteppedTile();
         PlaceNextTile();
@@ -128,19 +136,33 @@ public class TileGenerator : MonoBehaviour
         _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
     }
 
-    private void PlaceNextTile() // Very basic initial tile placement in straight line
+    private void PlaceNextTile()
     {
-        int chosenOption = (int)(UnityEngine.Random.value * _currentlyAvailableTiles.Count);
+        int chosenOption = _currentTileGroup[_tileGroupStepIndex].tilePrefab._listIndex;
         Tile newPlaceableTile = _currentlyAvailableTiles[chosenOption].Dequeue();
-        newPlaceableTile.transform.position = _lastPosition + new Vector3(1f, 0f, 0f);
+        newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
         _lastPosition = newPlaceableTile.transform.position;
         newPlaceableTile.gameObject.SetActive(true);
         _steppingTileQueue.AddLast(newPlaceableTile);
+        _tileGroupStepIndex++;
+        if (_tileGroupStepIndex >= _currentTileGroup.Count)
+        {
+            SetNewTileGroup();
+        }
+    }
+
+    private void SetNewTileGroup()
+    {
+        _currentTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)].PositionedTilePrefabs;
+        _groupAnchorPosition = _lastPosition;
+        _tileGroupStepIndex = 0;
     }
 
     private void PlaceNextTileSet() // Use later for shapes?
     {
-        
+        // Call PlaceNextTileSet before calling placenexttile
+        // Use the placed set as a blueprint for the next X tiles
+
     }
 
 

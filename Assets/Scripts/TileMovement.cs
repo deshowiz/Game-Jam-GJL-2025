@@ -40,7 +40,7 @@ public class TileMovement : MonoBehaviour
 
             if (_orbRotater.CheckOrbAccuracy() != 0)
             {
-                GameManager.Instance.Player.position += Vector3.right * _moveDistance;
+                GameManager.Instance.Player.position = newTargetPosition;
                 _cameraFollow._startShifting = true;
                 _steppedEvent.Raise();
             }
