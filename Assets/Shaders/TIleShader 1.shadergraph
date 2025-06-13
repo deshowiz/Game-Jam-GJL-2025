@@ -17,6 +17,9 @@
         },
         {
             "m_Id": "8146c9e2bddc45ea9df41defc95cc7c9"
+        },
+        {
+            "m_Id": "5867430d1bb84980b17b401b7cc277c8"
         }
     ],
     "m_Keywords": [],
@@ -125,6 +128,9 @@
         },
         {
             "m_Id": "16febe1a18574920b226a6ea3e61f00d"
+        },
+        {
+            "m_Id": "81b50726c5aa456296c9813824645b77"
         }
     ],
     "m_GroupDatas": [],
@@ -483,6 +489,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "81b50726c5aa456296c9813824645b77"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "5399226c9e604238b683e0141b96a210"
+                },
+                "m_SlotId": 2
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "909f7c2d66074e7aa9b920cb7938aac8"
                 },
                 "m_SlotId": 2
@@ -590,20 +610,6 @@
                     "m_Id": "2a7dbee173d64dd5a2b88f77d76e49f9"
                 },
                 "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "f5a8b00c142c4a51a9d435647e67b018"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "5399226c9e604238b683e0141b96a210"
-                },
-                "m_SlotId": 2
             }
         },
         {
@@ -1961,6 +1967,36 @@
 }
 
 {
+    "m_SGVersion": 3,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
+    "m_ObjectId": "5867430d1bb84980b17b401b7cc277c8",
+    "m_Guid": {
+        "m_GuidSerialized": "6c65140f-8412-4671-a0dd-b6f0bfe361c7"
+    },
+    "m_Name": "TileSideColor",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "TileSideColor",
+    "m_DefaultReferenceName": "_TileSideColor",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "isMainColor": false,
+    "m_ColorMode": 0
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PreviewNode",
     "m_ObjectId": "5acbc768e1514640995cd47965190188",
@@ -2578,6 +2614,42 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "81b50726c5aa456296c9813824645b77",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -868.2718505859375,
+            "y": 533.1493530273438,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "cc98987a83d74b028c75465249edbfba"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "5867430d1bb84980b17b401b7cc277c8"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "8547fb39e8b2419da71f2c3888f2e8c3",
     "m_Id": 1,
@@ -3032,6 +3104,9 @@
         },
         {
             "m_Id": "8146c9e2bddc45ea9df41defc95cc7c9"
+        },
+        {
+            "m_Id": "5867430d1bb84980b17b401b7cc277c8"
         }
     ]
 }
@@ -3536,6 +3611,31 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "cc98987a83d74b028c75465249edbfba",
+    "m_Id": 0,
+    "m_DisplayName": "TileSideColor",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
 }
 
 {
