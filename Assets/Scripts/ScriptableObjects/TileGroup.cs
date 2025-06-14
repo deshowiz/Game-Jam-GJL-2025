@@ -59,6 +59,16 @@ public class GroupSpawner : Editor
             }
         }
 
+        if (GUILayout.Button("Remove Group"))
+        {
+            GameObject currentHolder = GameObject.Find(currentGroupHolder);
+
+            if (currentHolder != null)
+            {
+                DestroyImmediate(currentHolder);
+            }
+        }
+
     }
 }
 #endif
