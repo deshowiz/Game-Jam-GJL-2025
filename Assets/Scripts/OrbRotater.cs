@@ -49,6 +49,11 @@ public class OrbRotater : MonoBehaviour
     [SerializeField]
     private float _okayThreshold = 0f;
 
+    private void Awake()
+    {
+        _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
+        _orbTrail2.GetComponent<TrailRenderer>().material.renderQueue = 4000;
+    }
 
     public void LateUpdate()
     {

@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b913821639b6804a8002deba6462174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetCameraOffset: {x: 0, y: 2.92, z: -3.18}
+  _targetCameraOffset: {x: 0, y: 8, z: -4}
   _cameraFollowTime: 0.1
   _startShifting: 0
 --- !u!1 &1103658267
@@ -1208,6 +1208,7 @@ MonoBehaviour:
   _steppedEvent: {fileID: 11400000, guid: c3b37e80cfc714c469b6380984ec4a39, type: 2}
   _moveDistance: 1
   _movementKey0: 97
+  _movementKey1: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

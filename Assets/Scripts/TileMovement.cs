@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using DigitalRuby.Tween;
 
 public class TileMovement : MonoBehaviour
 {
@@ -49,7 +50,19 @@ public class TileMovement : MonoBehaviour
 
             if (_orbRotater.CheckOrbAccuracy(keyNum) != 0)
             {
-                GameManager.Instance.Player.position = new Vector3(newTargetPosition.x, GameManager.Instance.Player.position.y, newTargetPosition.z);
+                Vector3 targetPos = new Vector3(newTargetPosition.x, GameManager.Instance.Player.position.y,
+                    newTargetPosition.z);
+                
+                gameObject.Tween("PlayerMove", 
+                    GameManager.Instance.Player.position,
+                    targetPos, 
+                    0.15f,
+                    TweenScaleFunctions.CubicEaseIn,
+                    (t) => GameManager.Instance.Player.position = t.CurrentValue
+                );
+                
+                //GameManager.Instance.Player.position = new Vector3(newTargetPosition.x, GameManager.Instance.Player.position.y, newTargetPosition.z);
+                
                 _cameraFollow._startShifting = true;
                 _steppedEvent.Raise();
             }
