@@ -1189,9 +1189,9 @@ MonoBehaviour:
   _minimumBoost: -1.5
   _radius: 1
   _trailLength: 1.5
-  _perfectThreshold: 0.225
-  _goodThreshold: 0.325
-  _okayThreshold: 0.425
+  _perfectThreshold: 0.3
+  _goodThreshold: 0.4
+  _okayThreshold: 0.5
 --- !u!114 &1776429268
 MonoBehaviour:
   m_ObjectHideFlags: 0
