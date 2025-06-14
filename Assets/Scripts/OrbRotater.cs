@@ -93,6 +93,10 @@ public class OrbRotater : MonoBehaviour
             _currentBoost = Mathf.Max(_currentBoost - _missBoostDecrement, _minimumBoost);
             return 0; // Miss
         }
+    }
 
+    public void SetRadius(float newRadius)
+    {
+        _radius = newRadius;
     }
 }

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [NonSerialized]
     public Vector3 _nextTilePosition = Vector3.negativeInfinity;
+    public Vector3 CurrentTilePosition = Vector3.negativeInfinity;
 
     public void Awake()
     {

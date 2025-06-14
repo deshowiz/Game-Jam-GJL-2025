@@ -28,9 +28,12 @@ public class TileMovement : MonoBehaviour
 
     public void Update()
     {
+        _orbRotater.SetRadius(DistanceToNextTile());
+        
         if (Input.GetKeyDown(_movementKey0))
         {
             Vector3 newTargetPosition = GameManager.Instance._nextTilePosition;
+            
             if (newTargetPosition.x == Mathf.NegativeInfinity)
             {
                 Debug.LogError("Position not set yet?");
@@ -40,7 +43,7 @@ public class TileMovement : MonoBehaviour
 
             if (_orbRotater.CheckOrbAccuracy() != 0)
             {
-                GameManager.Instance.Player.position = newTargetPosition;
+                GameManager.Instance.Player.position = new Vector3(newTargetPosition.x, GameManager.Instance.Player.position.y, newTargetPosition.z);
                 _cameraFollow._startShifting = true;
                 _steppedEvent.Raise();
             }
@@ -48,7 +51,14 @@ public class TileMovement : MonoBehaviour
             {
                 Debug.Log("Missed");
             }
-            
         }
+    }
+
+    private float DistanceToNextTile()
+    {
+        if (!GameManager.Instance) return 0.0f;
+        Vector3 currentTilePosition = GameManager.Instance.CurrentTilePosition;
+        Vector3 nextTilePosition = GameManager.Instance._nextTilePosition;
+        return Vector3.Distance(currentTilePosition, nextTilePosition);
     }
 }

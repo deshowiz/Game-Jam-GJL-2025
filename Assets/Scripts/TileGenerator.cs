@@ -114,6 +114,9 @@ public class TileGenerator : MonoBehaviour
     public void SteppedTile()
     {
         Tile lastRemovedTile = _steppingTileQueue.First();
+        
+        GameManager.Instance.CurrentTilePosition = lastRemovedTile.transform.position;
+        
         _steppingTileQueue.RemoveFirst();
         _usedTileQueue.AddLast(lastRemovedTile);
         //lastRemovedTile.gameObject.SetActive(false);
@@ -154,7 +157,7 @@ public class TileGenerator : MonoBehaviour
     private void SetNewTileGroup()
     {
         _currentTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)].PositionedTilePrefabs;
-        _groupAnchorPosition = _lastPosition;
+        _groupAnchorPosition = _lastPosition + Vector3.right;
         _tileGroupStepIndex = 0;
     }
 
@@ -162,8 +165,5 @@ public class TileGenerator : MonoBehaviour
     {
         // Call PlaceNextTileSet before calling placenexttile
         // Use the placed set as a blueprint for the next X tiles
-
     }
-
-
 }
