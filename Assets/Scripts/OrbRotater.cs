@@ -66,10 +66,11 @@ public class OrbRotater : MonoBehaviour
         _orbTrail2.time = _trailLength / fullSpeed;
     }
 
-    public int CheckOrbAccuracy()
+    public int CheckOrbAccuracy(int orbIndex)
     {
+        Transform chosenOrb = orbIndex == 0 ? _orbTransform : _orbTransform2;
         Vector3 grabbedNextPos = GameManager.Instance._nextTilePosition;
-        float accuracyDistance = Vector2.Distance(new Vector2(_orbTransform.position.x, _orbTransform.position.z), new Vector2(grabbedNextPos.x, grabbedNextPos.z)); // switch out with current orb variable later if double orbing?
+        float accuracyDistance = Vector2.Distance(new Vector2(chosenOrb.position.x, chosenOrb.position.z), new Vector2(grabbedNextPos.x, grabbedNextPos.z)); // switch out with current orb variable later if double orbing?
         Debug.Log(accuracyDistance);
         if (accuracyDistance < _perfectThreshold) // Not doing a pre-calc for a switch atm, maybe later
         {

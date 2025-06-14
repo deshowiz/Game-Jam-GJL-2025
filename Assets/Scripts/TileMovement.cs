@@ -14,7 +14,8 @@ public class TileMovement : MonoBehaviour
     private float _moveDistance = 1f;
     [SerializeField]
     private KeyCode _movementKey0 = KeyCode.A;
-    //private KeyCode _movementKey1 = KeyCode.D;
+    [SerializeField]
+    private KeyCode _movementKey1 = KeyCode.D;
 
     private Vector3 _nextTargetPosition = Vector3.negativeInfinity;
 
@@ -30,8 +31,13 @@ public class TileMovement : MonoBehaviour
     {
         _orbRotater.SetRadius(DistanceToNextTile());
         
-        if (Input.GetKeyDown(_movementKey0))
+        if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
         {
+            int keyNum = 0;
+            if (Input.GetKeyDown(_movementKey1))
+            {
+                keyNum = 1;
+            }
             Vector3 newTargetPosition = GameManager.Instance._nextTilePosition;
             
             if (newTargetPosition.x == Mathf.NegativeInfinity)
@@ -41,7 +47,7 @@ public class TileMovement : MonoBehaviour
             }
             // _targetPosition += Vector3.right;
 
-            if (_orbRotater.CheckOrbAccuracy() != 0)
+            if (_orbRotater.CheckOrbAccuracy(keyNum) != 0)
             {
                 GameManager.Instance.Player.position = new Vector3(newTargetPosition.x, GameManager.Instance.Player.position.y, newTargetPosition.z);
                 _cameraFollow._startShifting = true;
