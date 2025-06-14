@@ -8,7 +8,29 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "TileGroup", menuName = "Scriptable Objects/TileGroup")]
 public class TileGroup : ScriptableObject
 {
-    // [Header("Ordered Tile References")]
+    [Header("Wall Data")]
+    [SerializeField]
+    private Tile _wallPrefab;
+    public Tile WallPrefab {get{ return _wallPrefab; }}
+
+    [SerializeField]
+    private List<WallPositionList> _wallSectionVariations;
+    public List<WallPositionList> WallSectionVariations{get{ return _wallSectionVariations;}}
+
+    public int WallSectionCount {get{ return _wallSectionVariations.Count; }}
+
+    [Serializable]
+    public struct WallPositionList
+    {
+        public List<Vector3> positions; // local, add offset
+    }
+
+    public List<Vector3> WallSectionVariation(int directionIndex)
+    {
+        return _wallSectionVariations[directionIndex].positions;
+    }
+
+    
     [SerializeField]
     private List<PositionedGroup> _positionedTilePrefabs = new List<PositionedGroup>();
     public List<PositionedGroup> PositionedTilePrefabs { get { return _positionedTilePrefabs; } }
@@ -19,6 +41,8 @@ public class TileGroup : ScriptableObject
         public Tile tilePrefab;
         public Vector3 position; // local, add offset
     }
+
+    
 }
 #if UNITY_EDITOR
 
@@ -28,7 +52,7 @@ public class GroupSpawner : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+
         TileGroup tileGroup = (TileGroup)target;
         const string currentGroupHolder = "CurrentGroupHolder";
 
@@ -44,6 +68,12 @@ public class GroupSpawner : Editor
             GameObject newHolderT = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
             newHolderT.name = currentGroupHolder;
 
+            GameObject lastExtra = GameObject.Find("New Game Object");
+            if (lastExtra != null)
+            {
+                DestroyImmediate(lastExtra);
+            }
+
             List<TileGroup.PositionedGroup> groupToSpawn = tileGroup.PositionedTilePrefabs;
 
             for (int i = 0; i < groupToSpawn.Count; i++)
@@ -52,11 +82,18 @@ public class GroupSpawner : Editor
                 currentTile.gameObject.SetActive(true);
             }
 
-            GameObject lastExtra = GameObject.Find("New Game Object");
-            if (lastExtra != null)
+            UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+
+            GameObject newWallPrefab = tileGroup.WallPrefab.gameObject;
+            
+            List<Vector3> currentWallSection = tileGroup.WallSectionVariation(UnityEngine.Random.Range(0, tileGroup.WallSectionVariations.Count));
+
+            for (int j = 0; j < currentWallSection.Count; j++)
             {
-                DestroyImmediate(lastExtra);
+                GameObject currentWall = Instantiate(newWallPrefab, currentWallSection[j], Quaternion.identity, newHolderT.transform);
+                currentWall.SetActive(true);
             }
+            
         }
 
         if (GUILayout.Button("Remove Group"))
@@ -68,7 +105,7 @@ public class GroupSpawner : Editor
                 DestroyImmediate(currentHolder);
             }
         }
-
+        DrawDefaultInspector();
     }
 }
 #endif

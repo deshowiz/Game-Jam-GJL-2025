@@ -30,6 +30,7 @@ public class TileMovement : MonoBehaviour
 
     public void Update()
     {
+        //if (!runnning) return;
         _orbRotater.SetRadius(DistanceToNextTile());
         
         if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))

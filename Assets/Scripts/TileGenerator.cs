@@ -13,15 +13,22 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private List<Tile> _tilePrefabs = new List<Tile>();
     [SerializeField]
+    private List<Tile> _wallPrefabs = new List<Tile>();
+    [SerializeField]
     private List<TileGroup> _tileGroups = new List<TileGroup>();
     [SerializeField]
     private GameEventListener _steppedEventListener = null;
 
+    [SerializeField]
+    private GameEvent _runningEvent = null;
+
     private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
+    private List<Queue<Tile>> _currentlyAvailableWalls = new List<Queue<Tile>>();
 
     // Create a Queue that waits until a certain number of tiles have been collected before sending them back to available lists
     private LinkedList<Tile> _usedTileQueue = new LinkedList<Tile>();
     private LinkedList<Tile> _steppingTileQueue = new LinkedList<Tile>();
+    private LinkedList<Tile> _usedWallTileQueue = new LinkedList<Tile>();
 
     [Header("Settings")]
     [SerializeField]
@@ -66,14 +73,28 @@ public class TileGenerator : MonoBehaviour
             }
             tilePrefabIndex++;
         }
+
+        tilePrefabIndex = 0;
+        foreach (Tile wallPrefab in _wallPrefabs)
+        {
+            _currentlyAvailableWalls.Add(new Queue<Tile>());
+            for (int i = 0; i < _maximumQueueSpawnSize; i++)
+            {
+                Tile wallCopy = Instantiate(wallPrefab, _tilesParentTransform);
+                wallCopy._listIndex = tilePrefabIndex;
+                _currentlyAvailableWalls[tilePrefabIndex].Enqueue(wallCopy);
+            }
+            tilePrefabIndex++;
+        }
         SetNewTileGroup();
-        _tileGroupStepIndex = 0;
         PlaceNextTile();
         SteppedTile();
         PlaceNextTile();
         _lastPosition = _steppingTileQueue.First().transform.position;
         GameManager.Instance._nextTilePosition = _lastPosition;
         _isRunning = true;
+        Debug.Log("Raising running event");
+        _runningEvent.Raise();
     }
 
     public void Reset()
@@ -107,7 +128,14 @@ public class TileGenerator : MonoBehaviour
             if (_usedTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _usedTileQueue.First().transform.position) > 20f) // Magic number to change when tweaking later with variable
             {
                 RemoveTile();
+                //Debug.Log(GameManager.Instance.Player.position.x + " > " + _usedWallTileQueue.Last().transform.position.x);
+                if (_usedWallTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _usedWallTileQueue.First().transform.position) > 20f
+                && GameManager.Instance.Player.position.x > _usedWallTileQueue.First().transform.position.x) // Magic number to change when tweaking later with variable
+                {
+                    RemoveWall();
+                }
             }
+            
         }
     }
 
@@ -125,10 +153,10 @@ public class TileGenerator : MonoBehaviour
         {
             GameManager.Instance._nextTilePosition = _steppingTileQueue.First().transform.position;
         }
-        else
-        {
-            Debug.LogError("Stepping with no stepping tiles");
-        }
+        // else
+        // {
+        //     Debug.LogError("Stepping with no stepping tiles");
+        // }
     }
 
     private void RemoveTile()
@@ -137,6 +165,14 @@ public class TileGenerator : MonoBehaviour
         _usedTileQueue.RemoveFirst();
         lastRemovedTile.gameObject.SetActive(false);
         _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
+    }
+
+    private void RemoveWall()
+    {
+        Tile lastRemovedWall = _usedWallTileQueue.First();
+        _usedWallTileQueue.RemoveFirst();
+        lastRemovedWall.gameObject.SetActive(false);
+        _currentlyAvailableWalls[lastRemovedWall._listIndex].Enqueue(lastRemovedWall);
     }
 
     private void PlaceNextTile()
@@ -156,8 +192,20 @@ public class TileGenerator : MonoBehaviour
 
     private void SetNewTileGroup()
     {
-        _currentTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)].PositionedTilePrefabs;
+        TileGroup newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+        _currentTileGroup = newTileGroup.PositionedTilePrefabs;
+        List<Vector3> wallPositions = newTileGroup.WallSectionVariation(UnityEngine.Random.Range(0, newTileGroup.WallSectionCount));
+        int newWallIndex = newTileGroup.WallPrefab._listIndex;
         _groupAnchorPosition = _lastPosition + Vector3.right;
+        for (int i = 0; i < wallPositions.Count; i++)
+        {
+            Tile newPlaceableWall = _currentlyAvailableWalls[newWallIndex].Dequeue();
+            newPlaceableWall.transform.position = _groupAnchorPosition + wallPositions[i];
+            _usedWallTileQueue.AddLast(newPlaceableWall);
+            newPlaceableWall.gameObject.SetActive(true);
+        }
+        
+        
         _tileGroupStepIndex = 0;
     }
 

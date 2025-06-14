@@ -277,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1776429266}
   _tileGenerator: {fileID: 842789169}
-  CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
+  CurrentTilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &842789169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,10 +293,14 @@ MonoBehaviour:
   _tilesParentTransform: {fileID: 1103658268}
   _tilePrefabs:
   - {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+  _wallPrefabs:
+  - {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _tileGroups:
-  - {fileID: 11400000, guid: 4cab6b86418317a45a328bc8b9c587f1, type: 2}
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: 53bcd709e1d677644b65a584c76ab7f1, type: 2}
   _steppedEventListener: {fileID: 842789170}
-  _maximumQueueSpawnSize: 50
+  _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
+  _maximumQueueSpawnSize: 100
   _positions: []
   _lastPosition: {x: 0, y: -10, z: 0}
 --- !u!114 &842789170
@@ -1131,6 +1135,7 @@ GameObject:
   - component: {fileID: 1776429265}
   - component: {fileID: 1776429267}
   - component: {fileID: 1776429268}
+  - component: {fileID: 1776429269}
   m_Layer: 0
   m_Name: Player Placeholder
   m_TagString: Untagged
@@ -1209,6 +1214,34 @@ MonoBehaviour:
   _moveDistance: 1
   _movementKey0: 97
   _movementKey1: 100
+--- !u!114 &1776429269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776429262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1776429267}
+        m_TargetAssemblyTypeName: OrbRotater, Assembly-CSharp
+        m_MethodName: BeginRunning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

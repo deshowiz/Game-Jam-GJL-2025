@@ -49,23 +49,31 @@ public class OrbRotater : MonoBehaviour
     [SerializeField]
     private float _okayThreshold = 0f;
 
+    private bool _isRunning = false;
+
     private void Awake()
     {
         _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
         _orbTrail2.GetComponent<TrailRenderer>().material.renderQueue = 4000;
     }
 
+    public void BeginRunning()
+    {
+        _isRunning = true;
+    }
+
     public void LateUpdate()
     {
+        if (!_isRunning) return;
         //_totalTime += Time.deltaTime * _speed;
         float fullSpeed = _speed + _currentBoost;
         _currentAngle += fullSpeed * Time.deltaTime;
         Vector3 offset = new Vector3(Mathf.Sin(_currentAngle), Mathf.Cos(_currentAngle), 0f) * _radius;
-        _orbTransform.localPosition = _playerPosition + offset;
+        _orbTransform.localPosition = offset;
 
         float nextAngle = _currentAngle + 135f;
         offset = new Vector3(Mathf.Sin(nextAngle), Mathf.Cos(nextAngle), 0f) * _radius;
-        _orbTransform2.localPosition = _playerPosition + offset;
+        _orbTransform2.localPosition = offset;
 
         _orbTrail.time = _trailLength / fullSpeed;
         _orbTrail2.time = _trailLength / fullSpeed;
@@ -76,26 +84,26 @@ public class OrbRotater : MonoBehaviour
         Transform chosenOrb = orbIndex == 0 ? _orbTransform : _orbTransform2;
         Vector3 grabbedNextPos = GameManager.Instance._nextTilePosition;
         float accuracyDistance = Vector2.Distance(new Vector2(chosenOrb.position.x, chosenOrb.position.z), new Vector2(grabbedNextPos.x, grabbedNextPos.z)); // switch out with current orb variable later if double orbing?
-        Debug.Log(accuracyDistance);
+        //Debug.Log(accuracyDistance);
         if (accuracyDistance < _perfectThreshold) // Not doing a pre-calc for a switch atm, maybe later
         {
-            _currentBoost = Mathf.Min(_currentBoost + _perfectBoostIncrement, _maximumBoost); Debug.Log("Perfect");
+            _currentBoost = Mathf.Min(_currentBoost + _perfectBoostIncrement, _maximumBoost); //Debug.Log("Perfect");
             return 3; // Perfect
         }
         else if (accuracyDistance < _goodThreshold)
         {
-            Debug.Log("Good");
+            //Debug.Log("Good");
             return 2; //Good
         }
         else if (accuracyDistance < _okayThreshold)
         {
             _currentBoost = Mathf.Max(_currentBoost - _okayBoostDecrement, _minimumBoost);
-            Debug.Log("Okay");
+            //Debug.Log("Okay");
             return 1; // Okay
         }
         else
         {
-            Debug.Log("Miss");
+            //Debug.Log("Miss");
             _currentBoost = Mathf.Max(_currentBoost - _missBoostDecrement, _minimumBoost);
             return 0; // Miss
         }

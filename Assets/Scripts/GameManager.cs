@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // Replace with player script or whatever
     [SerializeField]
     private Transform _player = null;
-    public Transform Player {get{ return _player; }}
+    public Transform Player { get { return _player; } }
 
     [SerializeField]
     private TileGenerator _tileGenerator = null;
@@ -30,7 +30,10 @@ public class GameManager : MonoBehaviour
         {
             _tileGenerator = GetComponent<TileGenerator>();
         }
+    }
 
+    public void Start()
+    {
         // Add to navigation later
         _tileGenerator.FullInitialization();
     }
