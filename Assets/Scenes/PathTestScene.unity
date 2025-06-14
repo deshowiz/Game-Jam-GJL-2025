@@ -277,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1776429266}
   _tileGenerator: {fileID: 842789169}
+  CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
 --- !u!114 &842789169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,8 +294,7 @@ MonoBehaviour:
   _tilePrefabs:
   - {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
   _tileGroups:
-  - {fileID: 11400000, guid: d91e68afbecfccd4285d696548e1195a, type: 2}
-  - {fileID: 11400000, guid: 596f48f974ed4ff4baada5dfe0af1b51, type: 2}
+  - {fileID: 11400000, guid: 4cab6b86418317a45a328bc8b9c587f1, type: 2}
   _steppedEventListener: {fileID: 842789170}
   _maximumQueueSpawnSize: 50
   _positions: []
@@ -1154,8 +1154,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776429262}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5434674, y: 0, z: 0, w: 0.8394303}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1163,7 +1163,7 @@ Transform:
   - {fileID: 1642660795}
   - {fileID: 1716894005}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 65.84, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1776429267
 MonoBehaviour:
   m_ObjectHideFlags: 0
