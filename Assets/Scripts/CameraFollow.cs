@@ -27,7 +27,11 @@ public class CameraFollow : MonoBehaviour
         {
             ShiftCamera();
         }
+    }
 
+    public void StartShifting()
+    {
+        _startShifting = true;
     }
 
     private void ShiftCamera()

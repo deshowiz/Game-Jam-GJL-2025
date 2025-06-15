@@ -3,27 +3,29 @@ using DigitalRuby.Tween;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public OrbRotater orbRotater;
     public GameEvent OnPlayerStepEvent;
     
     private float movementTweenSpeed = 0.15f;
     private int stepDistance = 1;
-    private float timeBetweenSteps = 0.5f;
-    private float slowDownRate = 0.01f;
+    private float timeBetweenSteps = 0.73f;
+    private float timeTillSlowDown = 5f;
+    private float slowDownRate = 0.1f; //10%
 
     private float lastStepTime;
+    private float lastTimeSlowed;
     
     private bool ready;
 
-    private void Start()
-    {
-        lastStepTime = Time.time;
-    }
-
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        orbRotater.SetRadius(DistanceToNextTile());
+        
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Step();
+            lastStepTime = Time.time;
+            lastTimeSlowed = Time.time;
+            ready = !ready;
         }
         
         if (!ready) return;
@@ -31,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         if (Time.time >= lastStepTime + timeBetweenSteps)
         {
             Step();
-            lastStepTime += timeBetweenSteps;
         }
     }
 
@@ -50,9 +51,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetPos = new Vector3(newTargetPosition.x, transform.position.y,
             newTargetPosition.z);
         
-        transform.position = targetPos;
-        
-        /*
         gameObject.Tween("PlayerMove", 
             transform.position,
             targetPos, 
@@ -60,8 +58,16 @@ public class PlayerMovement : MonoBehaviour
             TweenScaleFunctions.CubicEaseIn,
             (t) => transform.position = t.CurrentValue
         );
-        */
         
+        lastStepTime += timeBetweenSteps;
         OnPlayerStepEvent.Raise();
+    }
+    
+    private float DistanceToNextTile()
+    {
+        if (!GameManager.Instance) return 0.0f;
+        Vector3 currentTilePosition = GameManager.Instance.CurrentTilePosition;
+        Vector3 nextTilePosition = GameManager.Instance._nextTilePosition;
+        return Vector3.Distance(currentTilePosition, nextTilePosition);
     }
 }

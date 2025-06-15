@@ -64,7 +64,7 @@ public class TileMovement : MonoBehaviour
                 
                 //GameManager.Instance.Player.position = new Vector3(newTargetPosition.x, GameManager.Instance.Player.position.y, newTargetPosition.z);
                 
-                _cameraFollow._startShifting = true;
+                //_cameraFollow._startShifting = true;
                 _steppedEvent.Raise();
             }
             else // Missed
