@@ -9,6 +9,8 @@ public class TileGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
+    private List<BiomeInteractableData> _interactableBiomes = null;
+    [SerializeField]
     private Transform _tilesParentTransform = null;
     [SerializeField]
     private List<Tile> _tilePrefabs = new List<Tile>();
@@ -34,8 +36,9 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private int _maximumQueueSpawnSize = 50;
     [SerializeField]
-    private List<Vector3> _positions = new List<Vector3>(); //  To be changed for more complexity later
-    //private int _currentTileIndex = 0;
+    [Range(0f, 1f)]
+    [Tooltip("Percentage of spawned interactables that are boosts instead of traps")]
+    private float _boostPercentage = 0.5f;
 
     [Tooltip("Set Initial Height of tiles with this variable")]
     [SerializeField]
@@ -46,6 +49,10 @@ public class TileGenerator : MonoBehaviour
     private List<TileGroup.PositionedGroup> _currentTileGroup = null;
     private int _tileGroupStepIndex = 0;
     private Vector3 _groupAnchorPosition = Vector3.negativeInfinity;
+    private uint _lastInteractableTileIndex = 0;
+    private uint _fullTileIndexCount = 0;
+
+    private BiomeInteractableData _currentBiome = null;
 
     //private Tile _furthestTile = null;
 
@@ -59,8 +66,15 @@ public class TileGenerator : MonoBehaviour
         InitializeTiles();
     }
 
+    private void SetCurrentBiome(int biomeIndex)
+    {
+        _currentBiome = _interactableBiomes[biomeIndex];
+        _currentBiome.InitializeBiome();
+    }
+
     private void InitializeTiles()
     {
+        SetCurrentBiome(0);
         int tilePrefabIndex = 0;
         foreach (Tile tilePrefab in _tilePrefabs)
         {
@@ -188,6 +202,18 @@ public class TileGenerator : MonoBehaviour
         {
             SetNewTileGroup();
         }
+        _fullTileIndexCount++;
+        if (_fullTileIndexCount == _lastInteractableTileIndex)
+        {
+            if (UnityEngine.Random.Range(0f, 1f) <= _boostPercentage)
+            {
+                SetNextBoostInteractable();
+            }
+            else
+            {
+                //SetNextTrapInteractable();
+            }
+        }
     }
 
     private void SetNewTileGroup()
@@ -205,13 +231,12 @@ public class TileGenerator : MonoBehaviour
             newPlaceableWall.gameObject.SetActive(true);
         }
         
-        
         _tileGroupStepIndex = 0;
     }
 
-    private void PlaceNextTileSet() // Use later for shapes?
+    private void SetNextBoostInteractable()
     {
-        // Call PlaceNextTileSet before calling placenexttile
-        // Use the placed set as a blueprint for the next X tiles
+        // uint tileIndexAdditive = _currentBiome.GetNextBoost();
+        // _lastInteractableTileIndex += tileIndexAdditive;
     }
 }
