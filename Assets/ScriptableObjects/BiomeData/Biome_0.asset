@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _powerups:
   - {fileID: 1055441929676286720, guid: 2278d4f0a7fd4b24f93190290dc7445e, type: 3}
+  - {fileID: 1055441929676286720, guid: 2278d4f0a7fd4b24f93190290dc7445e, type: 3}
   _traps:
   - {fileID: 1055441929676286720, guid: 5c8d4270f172f6f48b8d818901e343ed, type: 3}
+  - {fileID: 1055441929676286720, guid: 5c8d4270f172f6f48b8d818901e343ed, type: 3}
+  _boostMinimumTileSpacing: 10
+  _boostMaximumTileSpacing: 20
+  _trapMinimumTileSpacing: 10
+  _trapMaximumTileSpacing: 20

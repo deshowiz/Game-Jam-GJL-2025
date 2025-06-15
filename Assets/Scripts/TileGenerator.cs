@@ -56,6 +56,8 @@ public class TileGenerator : MonoBehaviour
 
     //private Tile _furthestTile = null;
 
+    private bool _forcedBoost = true;
+
     public void FullInitialization()
     {
         if (_steppedEventListener.Event == null)
@@ -75,6 +77,7 @@ public class TileGenerator : MonoBehaviour
     private void InitializeTiles()
     {
         SetCurrentBiome(0);
+        _lastInteractableTileIndex = 5;
         int tilePrefabIndex = 0;
         foreach (Tile tilePrefab in _tilePrefabs)
         {
@@ -203,16 +206,33 @@ public class TileGenerator : MonoBehaviour
             SetNewTileGroup();
         }
         _fullTileIndexCount++;
-        if (_fullTileIndexCount == _lastInteractableTileIndex)
+        if (_fullTileIndexCount >= _lastInteractableTileIndex)
         {
-            if (UnityEngine.Random.Range(0f, 1f) <= _boostPercentage)
-            {
-                SetNextBoostInteractable();
-            }
-            else
-            {
-                //SetNextTrapInteractable();
-            }
+            SetNextInteractable();
+        }
+    }
+
+    private void SetNextInteractable()
+    {
+        if (_forcedBoost)
+        {
+            _forcedBoost = false;
+            _currentBiome.SetRandomPowerup(_lastPosition + new Vector3(0f, 10.01f, 0f)); // Magic number set until we merge and I can make it a setting without disrupting scene
+            _lastInteractableTileIndex = _lastInteractableTileIndex + (uint)_currentBiome.GetNextBoostPosition();
+            return;
+        }
+        //Debug.Log("Setting next interactable at index " + _fullTileIndexCount);
+        float randomNum = UnityEngine.Random.Range(0f, 1f);
+        if (randomNum <= _boostPercentage)
+        {
+            //Debug.Log(_currentBiome);
+            _currentBiome.SetRandomPowerup(_lastPosition + new Vector3(0f, 10.01f, 0f)); // Magic number set until we merge and I can make it a setting without disrupting scene
+            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextBoostPosition();
+        }
+        else
+        {
+            _currentBiome.SetRandomTrap(_lastPosition + new Vector3(0f, 10.01f, 0f)); // ^
+            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextTrapPosition();
         }
     }
 
@@ -230,13 +250,7 @@ public class TileGenerator : MonoBehaviour
             _usedWallTileQueue.AddLast(newPlaceableWall);
             newPlaceableWall.gameObject.SetActive(true);
         }
-        
-        _tileGroupStepIndex = 0;
-    }
 
-    private void SetNextBoostInteractable()
-    {
-        // uint tileIndexAdditive = _currentBiome.GetNextBoost();
-        // _lastInteractableTileIndex += tileIndexAdditive;
+        _tileGroupStepIndex = 0;
     }
 }

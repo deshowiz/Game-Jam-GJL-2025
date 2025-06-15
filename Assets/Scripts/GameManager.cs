@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public Vector3 _nextTilePosition = Vector3.negativeInfinity;
     public Vector3 CurrentTilePosition = Vector3.negativeInfinity;
 
+    [Header("Settings")]
+    public int _interactablePoolSize = 20;
+
     public void Awake()
     {
         Instance = this;
