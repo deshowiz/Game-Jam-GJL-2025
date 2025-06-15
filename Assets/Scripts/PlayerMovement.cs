@@ -17,19 +17,27 @@ public class PlayerMovement : MonoBehaviour
     
     private bool ready;
 
+
+    // Use next position in GameManager to get move direction
+    // record travel distance between interactables
+    // in the beginning, ^the first interactable position will need to be the starting tile position, 0,0,0
+    // frame by frame, below \\
+    // take that distance and dynamically, divide how long it will take to get there
+    // Use that time and take the current speed of the player and divide for number of rotations
+    // round down
     private void Update()
     {
         orbRotater.SetRadius(DistanceToNextTile());
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             lastStepTime = Time.time;
             lastTimeSlowed = Time.time;
             ready = !ready;
         }
-        
+
         if (!ready) return;
-        
+
         if (Time.time >= lastStepTime + timeBetweenSteps)
         {
             Step();
