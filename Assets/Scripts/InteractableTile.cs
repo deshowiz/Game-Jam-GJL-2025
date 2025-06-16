@@ -1,16 +1,58 @@
+using System;
 using UnityEngine;
 
 public class InteractableTile : Tile
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public InteractableType interactableType;
+    
+    public void Interact(Player player, bool success)
     {
-        
+        switch (interactableType)
+        {
+            case InteractableType.Spikes:
+                if (success)
+                {
+                    RemoveTile();
+                }
+                else
+                {
+                    player.SlowMovement();
+                }
+                break;
+            case InteractableType.Enemy:
+                if (success)
+                {
+                    RemoveTile();
+                }
+                else
+                {
+                    player.Stun();
+                }
+                break;
+            case InteractableType.Boost:
+                if (success)
+                {
+                    RemoveTile();
+                }
+                else
+                {
+                    player.Boost();
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RemoveTile()
     {
-        
+        //how to correctly remove tile from tilegenerator, also should be a Tile method
     }
+}
+
+public enum InteractableType
+{
+    Spikes,
+    Enemy,
+    Boost
 }
