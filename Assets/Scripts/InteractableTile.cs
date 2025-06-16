@@ -3,28 +3,23 @@ using UnityEngine;
 
 public class InteractableTile : Tile
 {
+    public bool used = false;
     public InteractableType interactableType;
     
     public void Interact(Player player, bool success)
     {
+        if (used) return;
+        
         switch (interactableType)
         {
             case InteractableType.Spikes:
-                if (success)
-                {
-                    RemoveTile();
-                }
-                else
+                if (!success)
                 {
                     player.SlowMovement();
                 }
                 break;
             case InteractableType.Enemy:
-                if (success)
-                {
-                    RemoveTile();
-                }
-                else
+                if (!success)
                 {
                     player.Stun();
                 }
@@ -32,21 +27,14 @@ public class InteractableTile : Tile
             case InteractableType.Boost:
                 if (success)
                 {
-                    RemoveTile();
-                }
-                else
-                {
                     player.Boost();
                 }
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-    }
-
-    private void RemoveTile()
-    {
-        //how to correctly remove tile from tilegenerator, also should be a Tile method
+        
+        used = true;
     }
 }
 

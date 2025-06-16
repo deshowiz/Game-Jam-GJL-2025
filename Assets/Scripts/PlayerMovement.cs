@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using DigitalRuby.Tween;
 using System.Linq;
@@ -6,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public OrbRotater orbRotater;
     public GameEvent OnPlayerStepEvent;
-
+    
     [Header("Settings")]
     [SerializeField]
     [Range(0f, 10f)]
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!ready) return;
+        
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
         {
             Slide();
@@ -50,6 +52,25 @@ public class PlayerMovement : MonoBehaviour
         {
             Step();
         }
+    }
+
+    public void Slow(float slowPercentage)
+    {
+        _boostSpeed *= (1f - slowPercentage / 100f);
+        _boostSpeed = Mathf.Max(_boostSpeed, 0f);
+    }
+    
+    public void Boost(float boostPercentage)
+    {
+        _boostSpeed *= (1f + boostPercentage / 100f);
+        _boostSpeed = Mathf.Max(_boostSpeed, 0f);
+    }
+
+    public IEnumerator Stun(float seconds)
+    {
+        ready = false;
+        yield return new WaitForSeconds(seconds);
+        ready = true;
     }
 
     // Changing the movement to be sliding when not originally intended is a bit scuffed structure wise
