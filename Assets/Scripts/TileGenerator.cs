@@ -23,12 +23,14 @@ public class TileGenerator : MonoBehaviour
 
     [SerializeField]
     private GameEvent _runningEvent = null;
+    [SerializeField]
+    private GameEvent _newGap = null;
 
     private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
     private List<Queue<Tile>> _currentlyAvailableWalls = new List<Queue<Tile>>();
 
     // Create a Queue that waits until a certain number of tiles have been collected before sending them back to available lists
-    private LinkedList<Tile> _usedTileQueue = new LinkedList<Tile>();
+    //private LinkedList<Tile> _usedTileQueue = new LinkedList<Tile>();
     private LinkedList<Tile> _steppingTileQueue = new LinkedList<Tile>();
     private LinkedList<Tile> _usedWallTileQueue = new LinkedList<Tile>();
 
@@ -47,14 +49,14 @@ public class TileGenerator : MonoBehaviour
     private bool _isRunning = false;
 
     private List<TileGroup.PositionedGroup> _currentTileGroup = null;
+    private LinkedList<Vector3> _gapList = new LinkedList<Vector3>();
+
     private int _tileGroupStepIndex = 0;
     private Vector3 _groupAnchorPosition = Vector3.negativeInfinity;
     private uint _lastInteractableTileIndex = 0;
     private uint _fullTileIndexCount = 0;
 
     private BiomeInteractableData _currentBiome = null;
-
-    //private Tile _furthestTile = null;
 
     private bool _forcedBoost = true;
 
@@ -105,33 +107,33 @@ public class TileGenerator : MonoBehaviour
         }
         SetNewTileGroup();
         PlaceNextTile();
-        SteppedTile();
+        //SteppedTile();
         PlaceNextTile();
         _lastPosition = _steppingTileQueue.First().transform.position;
         GameManager.Instance._nextTilePosition = _lastPosition;
         _isRunning = true;
-        Debug.Log("Raising running event");
+        //Debug.Log("Raising running event");
         _runningEvent.Raise();
     }
 
     public void Reset()
     {
         //_currentTileIndex = 0;
-        if (_usedTileQueue != null)
-        {
-            for (int i = _usedTileQueue.Count; i > 0; i--)
-            {
-                RemoveTile();
-            }
-            for (int i = _steppingTileQueue.Count; i > 0; i--)
-            {
-                Tile lastRemovedTile = _steppingTileQueue.First();
-                _steppingTileQueue.RemoveFirst();
-                lastRemovedTile.gameObject.SetActive(false);
-                _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
-            }
-            Debug.Log(_usedTileQueue.Count);
-        }
+        // if (_usedTileQueue != null)
+        // {
+        //     for (int i = _usedTileQueue.Count; i > 0; i--)
+        //     {
+        //         RemoveTile();
+        //     }
+        //     for (int i = _steppingTileQueue.Count; i > 0; i--)
+        //     {
+        //         Tile lastRemovedTile = _steppingTileQueue.First();
+        //         _steppingTileQueue.RemoveFirst();
+        //         lastRemovedTile.gameObject.SetActive(false);
+        //         _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
+        //     }
+        //     //Debug.Log(_usedTileQueue.Count);
+        // }
     }
 
     private void Update()
@@ -142,7 +144,7 @@ public class TileGenerator : MonoBehaviour
             {
                 PlaceNextTile();
             }
-            if (_usedTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _usedTileQueue.First().transform.position) > 20f) // Magic number to change when tweaking later with variable
+            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _steppingTileQueue.First().transform.position) > 20f) // Magic number to change when tweaking later with variable
             {
                 RemoveTile();
                 //Debug.Log(GameManager.Instance.Player.position.x + " > " + _usedWallTileQueue.Last().transform.position.x);
@@ -152,36 +154,39 @@ public class TileGenerator : MonoBehaviour
                     RemoveWall();
                 }
             }
-            
+            _currentBiome.UpdateInteractables();
+
         }
     }
 
-    public void SteppedTile()
-    {
-        Tile lastRemovedTile = _steppingTileQueue.First();
-        
-        GameManager.Instance.CurrentTilePosition = lastRemovedTile.transform.position;
-        
-        _steppingTileQueue.RemoveFirst();
-        _usedTileQueue.AddLast(lastRemovedTile);
-        //lastRemovedTile.gameObject.SetActive(false);
-        //_currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
-        if (_steppingTileQueue.Count != 0)
-        {
-            GameManager.Instance._nextTilePosition = _steppingTileQueue.First().transform.position;
-        }
-        // else
-        // {
-        //     Debug.LogError("Stepping with no stepping tiles");
-        // }
-    }
+    // public void SteppedTile()
+    // {
+    //     Tile lastRemovedTile = _steppingTileQueue.First();
+
+    //     GameManager.Instance.SetCurrentTilePosition(lastRemovedTile.transform.position);
+
+    //     _steppingTileQueue.RemoveFirst();
+    //     //_usedTileQueue.AddLast(lastRemovedTile);
+    //     //lastRemovedTile.gameObject.SetActive(false);
+    //     //_currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
+    //     if (_steppingTileQueue.Count != 0)
+    //     {
+    //         GameManager.Instance._nextTilePosition = _steppingTileQueue.First().transform.position;
+    //     }
+    //     // else
+    //     // {
+    //     //     Debug.LogError("Stepping with no stepping tiles");
+    //     // }
+    // }
 
     private void RemoveTile()
     {
-        Tile lastRemovedTile = _usedTileQueue.First();
-        _usedTileQueue.RemoveFirst();
+        Tile lastRemovedTile = _steppingTileQueue.First();
+        _steppingTileQueue.RemoveFirst();
         lastRemovedTile.gameObject.SetActive(false);
         _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
+        GameManager.Instance._playerPathPositions.RemoveAt(0);
+        GameManager.Instance._currentlyTravelledIndex--;
     }
 
     private void RemoveWall()
@@ -197,7 +202,10 @@ public class TileGenerator : MonoBehaviour
         int chosenOption = _currentTileGroup[_tileGroupStepIndex].tilePrefab._listIndex;
         Tile newPlaceableTile = _currentlyAvailableTiles[chosenOption].Dequeue();
         newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
-        _lastPosition = newPlaceableTile.transform.position;
+        Vector3 newTilePosition = newPlaceableTile.transform.position;
+        GameManager.Instance._playerPathPositions.Add(newTilePosition);
+        
+        _lastPosition = newTilePosition;
         newPlaceableTile.gameObject.SetActive(true);
         _steppingTileQueue.AddLast(newPlaceableTile);
         _tileGroupStepIndex++;
@@ -252,5 +260,10 @@ public class TileGenerator : MonoBehaviour
         }
 
         _tileGroupStepIndex = 0;
+    }
+
+    public void RemoveStepGap()
+    {
+        //_gapList.RemoveFirst();
     }
 }

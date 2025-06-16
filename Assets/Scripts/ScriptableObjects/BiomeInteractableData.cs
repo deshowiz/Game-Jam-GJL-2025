@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BiomeInteractableData", menuName = "Scriptable Objects/BiomeInteractableData")]
@@ -11,13 +12,13 @@ public class BiomeInteractableData : ScriptableObject
     private List<InteractableTile> _traps = new List<InteractableTile>();
 
     private List<Queue<InteractableTile>> _availablePowerups = null;
-    private Queue<InteractableTile> _activePowerups = null;
+    private LinkedList<InteractableTile> _activePowerups = null;
 
     private List<InteractableTile> _copiedPowerups = null;
     private InteractableTile _usedPowerup = null;
 
     private List<Queue<InteractableTile>> _availableTraps = null;
-    private Queue<InteractableTile> _activeTraps = null;
+    private LinkedList<InteractableTile> _activeTraps = null;
 
     private List<InteractableTile> _copiedTraps = null;
     private InteractableTile _usedTrap = null;
@@ -42,6 +43,25 @@ public class BiomeInteractableData : ScriptableObject
     {
         return UnityEngine.Random.Range(_trapMinimumTileSpacing, _trapMaximumTileSpacing);
     }
+
+    public void UpdateInteractables()
+    {
+        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.position) > 20f)
+        {
+            InteractableTile removablePowerup = _activePowerups.First();
+            removablePowerup.gameObject.SetActive(false);
+            _activePowerups.RemoveFirst();
+            _availablePowerups[removablePowerup._listIndex].Enqueue(removablePowerup);
+        }
+
+        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.position) > 20f)
+        {
+            InteractableTile removableTrap = _activeTraps.First();
+            removableTrap.gameObject.SetActive(false);
+            _activeTraps.RemoveFirst();
+            _availablePowerups[removableTrap._listIndex].Enqueue(removableTrap);
+        }
+    }
     
 
     public void InitializeBiome()
@@ -57,7 +77,7 @@ public class BiomeInteractableData : ScriptableObject
                 _availablePowerups[i].Enqueue(newPowerupCopy);
             }
         }
-        _activePowerups = new Queue<InteractableTile>();
+        _activePowerups = new LinkedList<InteractableTile>();
         _copiedPowerups = new List<InteractableTile>(_powerups);
         _usedPowerup = null;
 
@@ -73,7 +93,7 @@ public class BiomeInteractableData : ScriptableObject
                 _availableTraps[i].Enqueue(newTrapCopy);
             }
         }
-        _activeTraps = new Queue<InteractableTile>();
+        _activeTraps = new LinkedList<InteractableTile>();
         _copiedTraps = new List<InteractableTile>(_traps);
         _usedTrap = null;
     }
@@ -83,7 +103,7 @@ public class BiomeInteractableData : ScriptableObject
         int chosenIndex = UnityEngine.Random.Range(0, _copiedPowerups.Count);
         InteractableTile chosenTile = _copiedPowerups[chosenIndex];
         InteractableTile _newActiveTile = _availablePowerups[chosenTile._listIndex].Dequeue();
-        _activePowerups.Enqueue(_newActiveTile);
+        _activePowerups.AddLast(_newActiveTile);
         _newActiveTile.transform.position = boostPosition;
         _newActiveTile.gameObject.SetActive(true);
 
@@ -100,7 +120,7 @@ public class BiomeInteractableData : ScriptableObject
         int chosenIndex = UnityEngine.Random.Range(0, _copiedTraps.Count);
         InteractableTile chosenTile = _copiedTraps[chosenIndex];
         InteractableTile _newActiveTile = _availableTraps[chosenTile._listIndex].Dequeue();
-        _activeTraps.Enqueue(_newActiveTile);
+        _activeTraps.AddLast(_newActiveTile);
         _newActiveTile.transform.position = trapPosition;
         _newActiveTile.gameObject.SetActive(true);
 
