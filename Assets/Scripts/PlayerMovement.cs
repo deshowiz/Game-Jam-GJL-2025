@@ -101,7 +101,6 @@ public class PlayerMovement : MonoBehaviour
         };
 
         _jumping = true;
-        Debug.Log("Starting Tween");
         gameObject.Tween("PlayerMove",
             transform.position,
             targetPos,
