@@ -1,0 +1,390 @@
+fileFormatVersion: 2
+guid: bc4a247c99927524796ffdd4232a760f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5053481925893427112
+    second: Sprite_Player_Anim_Back_Float_0
+  - first:
+      213: 4572777462864195400
+    second: Sprite_Player_Anim_Back_Float_1
+  - first:
+      213: -1552548530700295184
+    second: Sprite_Player_Anim_Back_Float_2
+  - first:
+      213: 4013928888148162059
+    second: Sprite_Player_Anim_Back_Float_3
+  - first:
+      213: 9046754670499591890
+    second: Sprite_Player_Anim_Back_Float_4
+  - first:
+      213: -2003158589045554044
+    second: Sprite_Player_Anim_Back_Float_5
+  - first:
+      213: -908286894532117721
+    second: Sprite_Player_Anim_Back_Float_6
+  - first:
+      213: 6271915801575775783
+    second: Sprite_Player_Anim_Back_Float_7
+  - first:
+      213: 1626518423035523702
+    second: Sprite_Player_Anim_Back_Float_8
+  - first:
+      213: 3075260036810827705
+    second: Sprite_Player_Anim_Back_Float_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_0
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 1000
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8af0cbf7903912640800000000000000
+      internalID: 5053481925893427112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_1
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 30
+        width: 803
+        height: 989
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84faee6ffd4c57f30800000000000000
+      internalID: 4572777462864195400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_2
+      rect:
+        serializedVersion: 2
+        x: 2164
+        y: 30
+        width: 803
+        height: 983
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f3ed0b465d347ae0800000000000000
+      internalID: -1552548530700295184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_3
+      rect:
+        serializedVersion: 2
+        x: 2552
+        y: 1008
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b06ffbb9e0754b730800000000000000
+      internalID: 4013928888148162059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_4
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 30
+        width: 809
+        height: 957
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d6fb39e0778c8d70800000000000000
+      internalID: 9046754670499591890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_5
+      rect:
+        serializedVersion: 2
+        x: 1947
+        y: 629
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 484ca2f50e95334e0800000000000000
+      internalID: -2003158589045554044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_6
+      rect:
+        serializedVersion: 2
+        x: 2973
+        y: 629
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72b3549b1ed1563f0800000000000000
+      internalID: -908286894532117721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_7
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 21
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72e551601325a0750800000000000000
+      internalID: 6271915801575775783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_8
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 21
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67239a953ed829610800000000000000
+      internalID: 1626518423035523702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Player_Anim_Back_Float_9
+      rect:
+        serializedVersion: 2
+        x: 2147
+        y: 21
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b76016c5b48daa20800000000000000
+      internalID: 3075260036810827705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sprite_Player_Anim_Back_Float_0: 5053481925893427112
+      Sprite_Player_Anim_Back_Float_1: 4572777462864195400
+      Sprite_Player_Anim_Back_Float_2: -1552548530700295184
+      Sprite_Player_Anim_Back_Float_3: 4013928888148162059
+      Sprite_Player_Anim_Back_Float_4: 9046754670499591890
+      Sprite_Player_Anim_Back_Float_5: -2003158589045554044
+      Sprite_Player_Anim_Back_Float_6: -908286894532117721
+      Sprite_Player_Anim_Back_Float_7: 6271915801575775783
+      Sprite_Player_Anim_Back_Float_8: 1626518423035523702
+      Sprite_Player_Anim_Back_Float_9: 3075260036810827705
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
