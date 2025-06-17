@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6405e7c3314f547bd44d379a1463a0, type: 3}
+  m_Name: GapGroup_0 1
+  m_EditorClassIdentifier: 
+  _wallPrefab: {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
+  _wallSectionVariations:
+  - positions: []
+  _positionedTilePrefabs:
+  - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+    position: {x: 0, y: 0, z: 0}
+  - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+    position: {x: 2, y: 0, z: 0}
+  - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+    position: {x: 4, y: 0, z: 0}
+  - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+    position: {x: 7, y: 0, z: 0}
+  - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+    position: {x: 9, y: 0, z: 0}

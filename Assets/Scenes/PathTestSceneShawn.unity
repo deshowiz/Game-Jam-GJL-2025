@@ -130,8 +130,6 @@ GameObject:
   - component: {fileID: 842789167}
   - component: {fileID: 842789168}
   - component: {fileID: 842789169}
-  - component: {fileID: 842789170}
-  - component: {fileID: 842789171}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -170,7 +168,8 @@ MonoBehaviour:
   _tileGenerator: {fileID: 842789169}
   CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
   _currentlyTravelledIndex: 0
-  _interactablePoolSize: 20
+  _interactablePoolSize: 25
+  _jumpBaseTiming: 2.63
 --- !u!114 &842789169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,69 +191,12 @@ MonoBehaviour:
   - {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _tileGroups:
   - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
-  - {fileID: 11400000, guid: 53bcd709e1d677644b65a584c76ab7f1, type: 2}
-  _steppedEventListener: {fileID: 842789170}
+  _steppedEventListener: {fileID: 0}
   _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
   _newGap: {fileID: 0}
   _maximumQueueSpawnSize: 200
   _boostPercentage: 0.5
   _lastPosition: {x: 0, y: -10, z: 0}
---- !u!114 &842789170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842789166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: c3b37e80cfc714c469b6380984ec4a39, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 842789169}
-        m_TargetAssemblyTypeName: TileGenerator, Assembly-CSharp
-        m_MethodName: SteppedTile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &842789171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842789166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: c3b37e80cfc714c469b6380984ec4a39, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 842789169}
-        m_TargetAssemblyTypeName: TileGenerator, Assembly-CSharp
-        m_MethodName: RemoveStepGap
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,10 +427,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4429511489208351189, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7470579860152058172, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -7113992610201165819, guid: f498abc98ddca9649ad01613f6f8e2d0, type: 3}
+    - target: {fileID: 7470579860152058172, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 9100280036871797377, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: m_Name
       value: NewPlayer
@@ -499,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: _baseSpeed
-      value: 10
+      value: 5.06
       objectReference: {fileID: 0}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: orbRotater
@@ -507,7 +457,7 @@ PrefabInstance:
       objectReference: {fileID: 1216750090}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: movementTweenSpeed
-      value: 0.15
+      value: 2.63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -644,6 +594,7 @@ MonoBehaviour:
   _perfectThreshold: 0.3
   _goodThreshold: 0.4
   _okayThreshold: 0.5
+  _currentAngle: 0
 --- !u!114 &1216750091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,6 +611,18 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1216750092}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: StartFirstRoute
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1216750090}
         m_TargetAssemblyTypeName: OrbRotater, Assembly-CSharp
         m_MethodName: BeginRunning
@@ -672,6 +635,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1216750092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
+  m_PrefabInstance: {fileID: 1035288881}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216750087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0bd8dabd3543b184a85a53a480a9f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1344083453
 GameObject:
   m_ObjectHideFlags: 0

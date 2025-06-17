@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class OrbRotater : MonoBehaviour
@@ -14,12 +15,12 @@ public class OrbRotater : MonoBehaviour
 
     public Vector3 _playerPosition = Vector3.zero;
 
-    //private float _totalTime = 0f;
+    private float _totalTime = 0f;
     [Header("Visual Stats")]
     [SerializeField]
     public float _speed = 1f;
 
-    private float _currentAngle = 0f;
+    //private float _currentAngle = 0f;
 
     private float _currentBoost = 0f;
 
@@ -51,6 +52,8 @@ public class OrbRotater : MonoBehaviour
 
     private bool _isRunning = false;
 
+    public float _currentAngle = 90f;
+
     private void Awake()
     {
         _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
@@ -61,22 +64,25 @@ public class OrbRotater : MonoBehaviour
     {
         _isRunning = true;
     }
-
-    public void LateUpdate()
+    public void SetNewRotation(float newRotationAdditive)
     {
         if (!_isRunning) return;
+        //Debug.Log(newRotationAngle);
         //_totalTime += Time.deltaTime * _speed;
-        float fullSpeed = _speed + _currentBoost;
-        _currentAngle += fullSpeed * Time.deltaTime;
-        Vector3 offset = new Vector3(Mathf.Sin(_currentAngle), Mathf.Cos(_currentAngle), 0f) * _radius;
+        //Debug.Log("Total time: " + _totalTime);
+        // newRotationAngle = newRotationAngle / 360f;
+        //float fullSpeed = _speed + _currentBoost;
+        _currentAngle += newRotationAdditive;
+        float angleRadians = _currentAngle * Mathf.Deg2Rad;
+        Vector3 offset = new Vector3(Mathf.Sin(angleRadians), Mathf.Cos(angleRadians), 0f) * _radius;
         _orbTransform.localPosition = offset;
 
-        float nextAngle = _currentAngle + 135f;
+        float nextAngle = angleRadians + Mathf.PI;
         offset = new Vector3(Mathf.Sin(nextAngle), Mathf.Cos(nextAngle), 0f) * _radius;
         _orbTransform2.localPosition = offset;
 
-        _orbTrail.time = _trailLength / fullSpeed;
-        _orbTrail2.time = _trailLength / fullSpeed;
+        // _orbTrail.time = _trailLength / fullSpeed;
+        // _orbTrail2.time = _trailLength / fullSpeed;
     }
 
     public int CheckOrbAccuracy(int orbIndex)
