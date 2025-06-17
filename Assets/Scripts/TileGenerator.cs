@@ -272,6 +272,7 @@ public class TileGenerator : MonoBehaviour
     private void SetNextInteractable(Vector3 newPos)
     {
         Vector3 placementPos = newPos + new Vector3(0f, 10.01f, 0f);
+        //Debug.Log("Interactable position: " + placementPos);
         if (_forcedBoost)
         {
             _forcedBoost = false;

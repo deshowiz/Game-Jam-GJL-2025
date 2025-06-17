@@ -167,7 +167,7 @@ MonoBehaviour:
   _player: {fileID: 1216750089}
   _tileGenerator: {fileID: 842789169}
   CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
-  _interactablePoolSize: 25
+  _interactablePoolSize: 100
   _jumpBaseTiming: 2.63
 --- !u!114 &842789169
 MonoBehaviour:
@@ -191,6 +191,9 @@ MonoBehaviour:
   - {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _tileGroups:
   - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: 53bcd709e1d677644b65a584c76ab7f1, type: 2}
+  - {fileID: 11400000, guid: 4e987fefba7928b4c921b5782a118cec, type: 2}
+  - {fileID: 11400000, guid: cdd71f92c84c9a641a315b0c76006214, type: 2}
   _steppedEventListener: {fileID: 0}
   _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
   _newGap: {fileID: 0}
@@ -455,6 +458,10 @@ PrefabInstance:
       propertyPath: orbRotater
       value: 
       objectReference: {fileID: 1216750090}
+    - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
+      propertyPath: _rotationScalar
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: movementTweenSpeed
       value: 2.63

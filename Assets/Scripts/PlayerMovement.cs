@@ -77,6 +77,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Step();
         }
+        // if (_pathPositionsToRemove != 0)
+        // {
+        //     Debug.Log("REMOVING PATH POSITIONS OF NUMBER " + _pathPositionsToRemove);
+        //     _playerPathPositions.RemoveRange(0, _pathPositionsToRemove);
+        //     _currentlyTravelledIndex -= _pathPositionsToRemove;
+        //     _pathPositionsToRemove = 0;
+        // }
     }
 
     private void LateUpdate()
@@ -85,19 +92,9 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerPathPositions.AddRange(_pathPositionsToAdd);
             _pathPositionsToAdd.Clear();
-
-            // if (_pathPositionsToRemove != 0)
-            // {
-            //     _playerPathPositions.RemoveRange(0, _pathPositionsToRemove);
-            //     _pathPositionsToRemove = 0;
-            // }
         }
 
-        // if (_pathPositionsToRemove.Count > 0)
-        // {
-        //     _playerPathPositions.RemoveRange(0, _pathPositionsToRemove.Count);
-        //     _pathPositionsToRemove.Clear();
-        // }
+        
     }
 
     public void Slow(float slowPercentage)
@@ -142,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
                 //Time.timeScale = 0f;
                 if (GetNextTileInteractable())
                 {
-                    Debug.Log("grabbing Next");
                     InteractableRouteComplete();
                 }
                 Vector3 nextTile = GetNextTilePos();
@@ -157,14 +153,13 @@ public class PlayerMovement : MonoBehaviour
     private void Step()
     {
         //todo: if stepDistance > 1, check which tile it is
+        //Debug.Log(GetNextTilePos());
         Vector3 newTargetPosition = GetNextTilePos();
-        Debug.Log(Time.time);
         if (newTargetPosition.x == Mathf.NegativeInfinity)
         {
             Debug.LogError("Position not set yet?");
             return;
         }
-
         Vector3 targetPos = new Vector3(newTargetPosition.x, transform.position.y,
             newTargetPosition.z);
 
@@ -174,7 +169,6 @@ public class PlayerMovement : MonoBehaviour
             _jumping = false;
             if (GetNextTileInteractable())
             {
-                Debug.Log("grabbing Next");
                 InteractableRouteComplete();
             }
         };
@@ -204,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         _incrementedTiming = 0f;
         _interactableRouteTimings.RemoveFirst();
         RouteData newRouteData = _interactableRouteTimings.First();
-        Debug.Log(newRouteData.fullTiming);
+        //Debug.Log(newRouteData.fullTiming);
         _currentRouteBaseTiming = newRouteData.fullTiming;
         // float newAngle = Vector2.Angle(new Vector2(newRouteData.interactableTilePosition.x, newRouteData.interactableTilePosition.z),
         // new Vector2(newRouteData.lastTilePosition.x, newRouteData.lastTilePosition.z));
@@ -217,7 +211,12 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(_startRouteRotation);
 
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        float extraCircles = Mathf.Max(Mathf.RoundToInt(_fullRouteTiming / 3f), 1) * 360f * Mathf.Sign(angleDiff);
+        float orbChoiceOffset = UnityEngine.Random.Range(0, 1);
+        if (orbChoiceOffset == 1)
+        {
+            orbChoiceOffset = 180f;
+        }
+        float extraCircles = (Mathf.Max(Mathf.RoundToInt(_fullRouteTiming / _rotationScalar), 1) * 360f) + 180f * Mathf.Sign(angleDiff);
         _totalDegreesThisRoute = angleDiff + extraCircles;
         //Debug.Log(angleDiff);
         _currentRouteRotation = angleDiff + _startRouteRotation;
@@ -245,7 +244,12 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(_startRouteRotation);
 
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        float extraCircles = Mathf.Max(Mathf.RoundToInt(_fullRouteTiming / 3f), 1) * 360f * Mathf.Sign(angleDiff);
+        float orbChoiceOffset = UnityEngine.Random.Range(0, 1);
+        if (orbChoiceOffset == 1)
+        {
+            orbChoiceOffset = 180f;
+        }
+        float extraCircles = (Mathf.Max(Mathf.RoundToInt(_fullRouteTiming / _rotationScalar), 1) * 360f) + orbChoiceOffset * Mathf.Sign(angleDiff);
         _totalDegreesThisRoute = angleDiff + extraCircles;
         //Debug.Log(angleDiff);
         _currentRouteRotation = angleDiff + _startRouteRotation;
@@ -317,14 +321,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private int _pathPositionsToRemove = 0;
+    //private int _pathPositionsToRemove = 0;
 
     public Vector3 TileIncrement()
     {
-        _pathPositionsToRemove++;
-        Debug.Log("Increment currentlyTravelled: " + _currentlyTravelledIndex);
-        _playerPathPositions.RemoveAt(0);
-        return _playerPathPositions[0].position;
+        //_pathPositionsToRemove++;
+        //_playerPathPositions.RemoveAt(0);
+        _currentlyTravelledIndex++;
+        return _playerPathPositions[_currentlyTravelledIndex].position;
     }
 
     // public Vector3 TileDecrement()
@@ -342,7 +346,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetNextTileInteractable()
     {
-        Debug.Log("CurrentlyTravelledNext: " + _currentlyTravelledIndex);
         return _playerPathPositions[_currentlyTravelledIndex].hasInteractable;
     }
 

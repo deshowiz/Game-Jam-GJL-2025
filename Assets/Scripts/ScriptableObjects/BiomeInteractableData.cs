@@ -46,7 +46,8 @@ public class BiomeInteractableData : ScriptableObject
 
     public void UpdateInteractables()
     {
-        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.position) > 20f)
+        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.position) > 20f
+        && GameManager.Instance.Player.position.x > _activePowerups.First().transform.position.y)
         {
             InteractableTile removablePowerup = _activePowerups.First();
             removablePowerup.gameObject.SetActive(false);
@@ -54,12 +55,13 @@ public class BiomeInteractableData : ScriptableObject
             _availablePowerups[removablePowerup._listIndex].Enqueue(removablePowerup);
         }
 
-        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.position) > 20f)
+        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.position) > 20f
+         && GameManager.Instance.Player.position.x > _activeTraps.First().transform.position.x)
         {
             InteractableTile removableTrap = _activeTraps.First();
             removableTrap.gameObject.SetActive(false);
             _activeTraps.RemoveFirst();
-            _availablePowerups[removableTrap._listIndex].Enqueue(removableTrap);
+            _availableTraps[removableTrap._listIndex].Enqueue(removableTrap);
         }
     }
     
