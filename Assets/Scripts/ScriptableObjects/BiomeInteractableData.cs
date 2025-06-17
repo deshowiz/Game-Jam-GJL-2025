@@ -47,7 +47,7 @@ public class BiomeInteractableData : ScriptableObject
     public void UpdateInteractables()
     {
         if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.position) > 20f
-        && GameManager.Instance.Player.position.x > _activePowerups.First().transform.position.y)
+        && GameManager.Instance.Player.position.x > _activePowerups.First().transform.position.x)
         {
             InteractableTile removablePowerup = _activePowerups.First();
             removablePowerup.gameObject.SetActive(false);
