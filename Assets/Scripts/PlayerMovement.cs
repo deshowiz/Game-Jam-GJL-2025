@@ -4,6 +4,8 @@ using DigitalRuby.Tween;
 using System.Linq;
 using System;
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     // take that distance and dynamically, divide how long it will take to get there
     // Use that time and take the current speed of the player and divide for number of rotations
     // round down
-    private void LateUpdate()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -77,12 +79,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (_pathPositionsToAdd.Count > 0)
+        {
+            _playerPathPositions.AddRange(_pathPositionsToAdd);
+            _pathPositionsToAdd.Clear();
+
+            // if (_pathPositionsToRemove != 0)
+            // {
+            //     _playerPathPositions.RemoveRange(0, _pathPositionsToRemove);
+            //     _pathPositionsToRemove = 0;
+            // }
+        }
+
+        // if (_pathPositionsToRemove.Count > 0)
+        // {
+        //     _playerPathPositions.RemoveRange(0, _pathPositionsToRemove.Count);
+        //     _pathPositionsToRemove.Clear();
+        // }
+    }
+
     public void Slow(float slowPercentage)
     {
         _boostSpeed *= (1f - slowPercentage / 100f);
         _boostSpeed = Mathf.Max(_boostSpeed, 0f);
     }
-    
+
     public void Boost(float boostPercentage)
     {
         _boostSpeed *= (1f + boostPercentage / 100f);
@@ -108,21 +131,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (_stepPercentageCompleted < 1f)
         {
-            finalDestination += GameManager.Instance.GetNormalizedDirection() * distanceThisFrame;
+            finalDestination += GetNormalizedDirection() * distanceThisFrame;
         }
         else
         {
             do
             { // In case the player moves more than one tile's space during a frame
                 _stepPercentageCompleted--;
-                finalDestination = GameManager.Instance.TileIncrement();
+                finalDestination = TileIncrement();
                 //Time.timeScale = 0f;
-                if (GameManager.Instance.GetNextTileInteractable())
+                if (GetNextTileInteractable())
                 {
                     Debug.Log("grabbing Next");
                     InteractableRouteComplete();
                 }
-                Vector3 nextTile = GameManager.Instance.GetNextTilePos();
+                Vector3 nextTile = GetNextTilePos();
                 finalDestination = Vector3.Lerp(finalDestination, nextTile, _stepPercentageCompleted);
             }
             while (_stepPercentageCompleted > 1f);
@@ -134,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     private void Step()
     {
         //todo: if stepDistance > 1, check which tile it is
-        Vector3 newTargetPosition = GameManager.Instance.GetNextTilePos();
+        Vector3 newTargetPosition = GetNextTilePos();
         Debug.Log(Time.time);
         if (newTargetPosition.x == Mathf.NegativeInfinity)
         {
@@ -147,9 +170,9 @@ public class PlayerMovement : MonoBehaviour
 
         System.Action<ITween<Vector3>> updateNextTile = (t) =>
         {
-            Vector3 nextTile = GameManager.Instance.TileIncrement();
+            Vector3 nextTile = TileIncrement();
             _jumping = false;
-            if (GameManager.Instance.GetNextTileInteractable())
+            if (GetNextTileInteractable())
             {
                 Debug.Log("grabbing Next");
                 InteractableRouteComplete();
@@ -172,17 +195,15 @@ public class PlayerMovement : MonoBehaviour
     private float DistanceToNextTile()
     {
         if (!GameManager.Instance) return 0.0f;
-        Vector3 currentTilePosition = GameManager.Instance.CurrentTilePosition;
-        Vector3 nextTilePosition = GameManager.Instance._nextTilePosition;
-        return Vector3.Distance(GameManager.Instance.GetCurrentTilePos(),
-         GameManager.Instance.GetNextTilePos());
+        return Vector3.Distance(GetCurrentTilePos(),
+         GetNextTilePos());
     }
 
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
     {
         _incrementedTiming = 0f;
-        GameManager.Instance._interactableRouteTimings.RemoveFirst();
-        GameManager.RouteData newRouteData = GameManager.Instance._interactableRouteTimings.First();
+        _interactableRouteTimings.RemoveFirst();
+        RouteData newRouteData = _interactableRouteTimings.First();
         Debug.Log(newRouteData.fullTiming);
         _currentRouteBaseTiming = newRouteData.fullTiming;
         // float newAngle = Vector2.Angle(new Vector2(newRouteData.interactableTilePosition.x, newRouteData.interactableTilePosition.z),
@@ -208,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
     public void StartFirstRoute()
     {
         _incrementedTiming = 0f;
-        GameManager.RouteData newRouteData = GameManager.Instance._interactableRouteTimings.First();
+        RouteData newRouteData = _interactableRouteTimings.First();
         //Debug.Log(newRouteData.fullTiming);
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Debug.Log(newRouteData.fullTiming);
@@ -232,5 +253,103 @@ public class PlayerMovement : MonoBehaviour
         orbRotater.SetRadius(Vector3.Distance(newRouteData.interactableTilePosition, newRouteData.lastTilePosition));
         //Time.timeScale = 0f;
     }
+
+    #region Lists and List Methods
+
+
+     public Vector3 GetNormalizedDirection()
+    {
+        return (_playerPathPositions[_currentlyTravelledIndex + 1].position
+         - _playerPathPositions[_currentlyTravelledIndex].position).normalized;
+    }
+    // public void SetCurrentTilePosition(Vector3 newPos)
+    // {
+    //     CurrentTilePosition = newPos;
+    //     // if (_playerPathPositions.Count != 0) return;
+    //     // _playerPathPositions.RemoveFirst();
+    // }
+
+    [NonSerialized]
+    public List<PathIndexData> _playerPathPositions = new List<PathIndexData>();
+
+    public struct PathIndexData
+    {
+        public Vector3 position;
+        public bool hasInteractable;
+
+        public PathIndexData(Vector3 newPosition, bool isInteractable)
+        {
+            this.position = newPosition;
+            this.hasInteractable = isInteractable;
+        }
+    }
+
+    public List<PathIndexData> _pathPositionsToAdd = new List<PathIndexData>();
+
+    public void AddtoPathQueue(PathIndexData newPathData)
+    {
+        _pathPositionsToAdd.Add(newPathData);
+    }
+
+    // Removal will be done on this script with every tile increment!!!!!!!!!!!!
+
+    // public List<PathIndexData> _pathPositionsToRemove = new List<PathIndexData>();
+
+    // public void RemoveFromPathQueue(PathIndexData newPathData)
+    // {
+    //     _pathPositionsToRemove.Add(newPathData);
+    // }
+
+    [NonSerialized]
+    public LinkedList<RouteData> _interactableRouteTimings = new LinkedList<RouteData>();
+
+    public struct RouteData
+    {
+        public float fullTiming;
+        public Vector3 lastTilePosition; // Convert the angle between the last two tile into a rotation
+        public Vector3 interactableTilePosition;
+
+        public RouteData(float newTiming, Vector3 newLastPos, Vector3 newIntPos)
+        {
+            this.fullTiming = newTiming;
+            this.lastTilePosition = newLastPos;
+            this.interactableTilePosition = newIntPos;
+        }
+    }
+
+    private int _pathPositionsToRemove = 0;
+
+    public Vector3 TileIncrement()
+    {
+        _pathPositionsToRemove++;
+        Debug.Log("Increment currentlyTravelled: " + _currentlyTravelledIndex);
+        _playerPathPositions.RemoveAt(0);
+        return _playerPathPositions[0].position;
+    }
+
+    // public Vector3 TileDecrement()
+    // {
+    //     Debug.Log("Increment currentlyTravelled: " + _currentlyTravelledIndex);
+    //     return _playerPathPositions[_currentlyTravelledIndex].position;
+    // }
+
+    public int _currentlyTravelledIndex = 0;
+
+    public Vector3 GetCurrentTilePos()
+    {
+        return _playerPathPositions[_currentlyTravelledIndex].position;
+    }
+
+    public bool GetNextTileInteractable()
+    {
+        Debug.Log("CurrentlyTravelledNext: " + _currentlyTravelledIndex);
+        return _playerPathPositions[_currentlyTravelledIndex].hasInteractable;
+    }
+
+    public Vector3 GetNextTilePos()
+    {
+        return _playerPathPositions[_currentlyTravelledIndex + 1].position;
+    }
+    #endregion
     
 }

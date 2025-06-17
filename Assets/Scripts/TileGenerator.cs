@@ -9,6 +9,8 @@ public class TileGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
+    private PlayerMovement _playerMovement = null;
+    [SerializeField]
     private List<BiomeInteractableData> _interactableBiomes = null;
     [SerializeField]
     private Transform _tilesParentTransform = null;
@@ -31,7 +33,7 @@ public class TileGenerator : MonoBehaviour
 
     // Create a Queue that waits until a certain number of tiles have been collected before sending them back to available lists
     //private LinkedList<Tile> _usedTileQueue = new LinkedList<Tile>();
-    private LinkedList<Tile> _steppingTileQueue = new LinkedList<Tile>();
+    private List<Tile> _steppingTileQueue = new List<Tile>();
     private LinkedList<Tile> _usedWallTileQueue = new LinkedList<Tile>();
 
     [Header("Settings")]
@@ -69,6 +71,10 @@ public class TileGenerator : MonoBehaviour
         // {
         //     Debug.LogError("Stepped event not assigned to listener");
         // }
+        if (_playerMovement == null)
+        {
+            _playerMovement = FindFirstObjectByType<PlayerMovement>();
+        }
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
         InitializeTiles();
     }
@@ -113,8 +119,8 @@ public class TileGenerator : MonoBehaviour
         {
             PlaceNextTile();
         }
-        float firstDistValue = Vector3.Distance(GameManager.Instance._playerPathPositions[0].position,
-         GameManager.Instance._playerPathPositions[1].position);
+        float firstDistValue = Vector3.Distance(_steppingTileQueue[0].transform.position,
+         _steppingTileQueue[1].transform.position);
         if (firstDistValue > 1f)
         {
             Debug.Log("Subtracted gap: " + GameManager.Instance._jumpBaseTiming);
@@ -131,7 +137,7 @@ public class TileGenerator : MonoBehaviour
         {
             PlaceNextTile();
         }
-        _lastPosition = _steppingTileQueue.First().transform.position;
+        _lastPosition = _steppingTileQueue[0].transform.position;
         GameManager.Instance._nextTilePosition = _lastPosition;
         _isRunning = true;
         //Debug.Log("Raising running event");
@@ -166,7 +172,7 @@ public class TileGenerator : MonoBehaviour
             {
                 PlaceNextTile();
             }
-            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _steppingTileQueue.First().transform.position) > 20f) // Magic number to change when tweaking later with variable
+            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _steppingTileQueue[0].transform.position) > 20f) // Magic number to change when tweaking later with variable
             {
                 RemoveTile();
                 //Debug.Log(GameManager.Instance.Player.position.x + " > " + _usedWallTileQueue.Last().transform.position.x);
@@ -204,11 +210,11 @@ public class TileGenerator : MonoBehaviour
     private void RemoveTile()
     {
         Tile lastRemovedTile = _steppingTileQueue.First();
-        _steppingTileQueue.RemoveFirst();
+        _steppingTileQueue.RemoveAt(0);
+
         lastRemovedTile.gameObject.SetActive(false);
         _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
-        GameManager.Instance._playerPathPositions.RemoveAt(0);
-        GameManager.Instance._currentlyTravelledIndex--;
+        //_playerMovement.RemoveFromPathQueue(new PlayerMovement.PathIndexData(lastRemovedTile.transform.position, isInteractable));
     }
 
     private void RemoveWall()
@@ -227,19 +233,19 @@ public class TileGenerator : MonoBehaviour
         Vector3 newTilePosition = newPlaceableTile.transform.position;
 
         newPlaceableTile.gameObject.SetActive(true);
-        _steppingTileQueue.AddLast(newPlaceableTile);
+        _steppingTileQueue.Add(newPlaceableTile);
         _tileGroupStepIndex++;
 
         _fullTileIndexCount++;
         bool isInteractable = _fullTileIndexCount >= _lastInteractableTileIndex;
-        GameManager.Instance._playerPathPositions.Add(new GameManager.PathIndexData(newTilePosition, isInteractable));
+        _playerMovement.AddtoPathQueue(new PlayerMovement.PathIndexData(newTilePosition, isInteractable));
         Vector3 storedLastPos = _lastPosition;
 
         if (isInteractable)
         {
             SetNextInteractable(newTilePosition);
             //Debug.Log("Route Timing: " + interactableRouteTimingTotal);
-            GameManager.Instance._interactableRouteTimings.AddLast(new GameManager.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition));
+            _playerMovement._interactableRouteTimings.AddLast(new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition));
             _interactableRouteTimingTotal = 0f;
         }
         else

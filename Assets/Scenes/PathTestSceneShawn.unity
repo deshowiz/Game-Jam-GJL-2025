@@ -167,7 +167,6 @@ MonoBehaviour:
   _player: {fileID: 1216750089}
   _tileGenerator: {fileID: 842789169}
   CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
-  _currentlyTravelledIndex: 0
   _interactablePoolSize: 25
   _jumpBaseTiming: 2.63
 --- !u!114 &842789169
@@ -182,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3b954e588bcf044bda4aa8c7dcfcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerMovement: {fileID: 1216750092}
   _interactableBiomes:
   - {fileID: 11400000, guid: 7d49fc27203d4c14b941f6d72f0e391b, type: 2}
   _tilesParentTransform: {fileID: 1103658268}
