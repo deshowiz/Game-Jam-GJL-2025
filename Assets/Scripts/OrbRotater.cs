@@ -77,6 +77,7 @@ public class OrbRotater : MonoBehaviour
              new Vector2(currentInteractable.transform.position.x, currentInteractable.transform.position.z));
             if (accuracyDistance < _hitThreshold)
             {
+                Debug.Log("interacting");
                 currentInteractable.Interact();
                 return true;
             }

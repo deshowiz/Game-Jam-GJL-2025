@@ -210,6 +210,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
     {
+        if (_interactableRouteTimings[0].interactableTile.isActiveAndEnabled)
+        {
+            _interactableRouteTimings[0].interactableTile.WalkedOver();
+        }
         _incrementedTiming = 0f;
         _interactableRouteTimings.RemoveAt(0);
         RouteData newRouteData = _interactableRouteTimings.First();

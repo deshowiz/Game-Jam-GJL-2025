@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3402404767549051662}
   - component: {fileID: 3929227939763729375}
   - component: {fileID: -6417791422544318775}
-  - component: {fileID: 1055441929676286720}
+  - component: {fileID: 7255295503875843899}
   m_Layer: 0
   m_Name: Interactable Booster
   m_TagString: Untagged
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1055441929676286720
+--- !u!114 &7255295503875843899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6423563874413735127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 081e527556a1d444ab50d5c8ea30a13e, type: 3}
+  m_Script: {fileID: 11500000, guid: efde31e830289934b912f610e0661a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _listIndex: 0
+  used: 0
+  _boostAmount: 2

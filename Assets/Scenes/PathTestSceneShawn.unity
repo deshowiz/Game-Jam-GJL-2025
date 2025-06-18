@@ -565,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 885320155}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: _baseSpeed
-      value: 5.06
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: orbRotater
