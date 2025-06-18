@@ -28,7 +28,7 @@ public class Orb : MonoBehaviour
         if (_isDisabled) return;
         _isDisabled = true;
         Color enabledColor = _orbMat.GetColor("_OrbColor");
-        _orbMat.SetColor("_OrbColor", Color.darkGray);
+        _orbMat.SetColor("_OrbColor", Color.black);
         _orbMat.SetFloat("_EmissionStrength", 1f);
         await Task.Delay(_missDisableTimeMilliseconds);
         _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
@@ -36,7 +36,7 @@ public class Orb : MonoBehaviour
         _isDisabled = false;
     }
 
-    public async void GlowOnHit()
+    public void GlowOnHit()
     {
         StartCoroutine(Glow());
     }

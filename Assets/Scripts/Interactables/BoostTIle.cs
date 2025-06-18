@@ -7,8 +7,7 @@ public class BoostTIle : InteractableTile
     
     public override void Interact()
     {
-        Debug.Log("boosting");
-        GameManager.Instance.Player.Boost(_boostAmount);
+        GameManager.Instance.Player.Boost(_boostAmount); // Add VFX for speed boost like climbing lines
         gameObject.SetActive(false);
     }
 
