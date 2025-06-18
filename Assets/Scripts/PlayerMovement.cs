@@ -246,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
     private float GetTotalRouteDegrees(float angleDiff)
     {
         float direction = Mathf.Sign(angleDiff);
-        if (direction == -1f) // 180f is a half rotation
+        if (direction == -1f || angleDiff == 0f) // 180f is a half rotation
         {
             angleDiff += 180f;
         }
