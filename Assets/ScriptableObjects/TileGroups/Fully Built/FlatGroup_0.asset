@@ -15,13 +15,13 @@ MonoBehaviour:
   _wallPrefab: {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _wallSectionVariations:
   - positions:
-    - {x: 0, y: 0, z: 1}
-    - {x: 1, y: 0, z: 1}
-    - {x: 2, y: 0, z: 1}
-    - {x: 0, y: 0, z: -1}
-    - {x: 1, y: 0, z: -1}
-    - {x: 2, y: 0, z: -1}
-    - {x: 3, y: 0, z: -1}
+    - {x: 0, y: 1, z: 1}
+    - {x: 1, y: 1, z: 1}
+    - {x: 2, y: 0.8, z: 1}
+    - {x: 0, y: -0.1, z: -1}
+    - {x: 1, y: 0.4, z: -1}
+    - {x: 2, y: 0.2, z: -1}
+    - {x: 3, y: 0.8, z: -1}
   _positionedTilePrefabs:
   - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
     position: {x: 0, y: 0, z: 0}

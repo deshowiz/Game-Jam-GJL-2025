@@ -17,9 +17,15 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
+    private KeyCode _movementKey0 = KeyCode.A;
+    [SerializeField]
+    private KeyCode _movementKey1 = KeyCode.D;
+    [SerializeField]
     [Range(0f, 10f)]
     private float _baseSpeed = 1f;
     private float _boostSpeed = 0f;
+    [SerializeField]
+    private float _boostMaximum = 20f;
     [SerializeField]
     private float _rotationScalar = 5f;
 
@@ -56,6 +62,17 @@ public class PlayerMovement : MonoBehaviour
         {
             //Time.timeScale = 1f;
             ready = !ready;
+        }
+
+        if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
+        {
+            int keyNum = 0;
+            if (Input.GetKeyDown(_movementKey1))
+            {
+                keyNum = 1;
+            }
+
+            orbRotater.CheckOrbAccuracy(keyNum, _interactableRouteTimings);
         }
 
         if (!ready) return;
@@ -97,16 +114,14 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    public void Slow(float slowPercentage)
+    public void Slow(float slowAmount)
     {
-        _boostSpeed *= (1f - slowPercentage / 100f);
-        _boostSpeed = Mathf.Max(_boostSpeed, 0f);
+        _boostSpeed = Mathf.Max(_boostSpeed - slowAmount, 0f);
     }
 
-    public void Boost(float boostPercentage)
+    public void Boost(float boostAmount)
     {
-        _boostSpeed *= (1f + boostPercentage / 100f);
-        _boostSpeed = Mathf.Max(_boostSpeed, 0f);
+        _boostSpeed = Mathf.Min(_boostSpeed + boostAmount, _boostMaximum);
     }
 
     public IEnumerator Stun(float seconds)
@@ -196,13 +211,13 @@ public class PlayerMovement : MonoBehaviour
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
     {
         _incrementedTiming = 0f;
-        _interactableRouteTimings.RemoveFirst();
+        _interactableRouteTimings.RemoveAt(0);
         RouteData newRouteData = _interactableRouteTimings.First();
         //Debug.Log(newRouteData.fullTiming);
         _currentRouteBaseTiming = newRouteData.fullTiming;
         // float newAngle = Vector2.Angle(new Vector2(newRouteData.interactableTilePosition.x, newRouteData.interactableTilePosition.z),
         // new Vector2(newRouteData.lastTilePosition.x, newRouteData.lastTilePosition.z));
-        Vector3 normalizedDir = (newRouteData.interactableTilePosition - newRouteData.lastTilePosition).normalized;
+        Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
         if (normalizedDir.z < 0) newAngle = 180f - newAngle;
         else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
@@ -211,17 +226,17 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(_startRouteRotation);
 
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        float orbChoiceOffset = UnityEngine.Random.Range(0, 1);
+        float orbChoiceOffset = UnityEngine.Random.Range(0, 2);
         if (orbChoiceOffset == 1)
         {
             orbChoiceOffset = 180f;
         }
-        float extraCircles = (Mathf.Max(Mathf.RoundToInt(_fullRouteTiming / _rotationScalar), 1) * 360f) + 180f * Mathf.Sign(angleDiff);
+        float extraCircles = (Mathf.Max(Mathf.RoundToInt(_fullRouteTiming / _rotationScalar), 1) * 360f) + orbChoiceOffset * Mathf.Sign(angleDiff);
         _totalDegreesThisRoute = angleDiff + extraCircles;
         //Debug.Log(angleDiff);
         _currentRouteRotation = angleDiff + _startRouteRotation;
         //Debug.Log("New Angle: " + _currentRouteRotation + " >>>>> between interactable " + newRouteData.interactableTilePosition + " and previous " + newRouteData.lastTilePosition);
-        orbRotater.SetRadius(Vector3.Distance(newRouteData.interactableTilePosition, newRouteData.lastTilePosition));
+        orbRotater.SetRadius(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
         //Time.timeScale = 0f;
     }
 
@@ -234,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(newRouteData.fullTiming);
         // float newAngle = Vector2.Angle(new Vector2(newRouteData.interactableTilePosition.x, newRouteData.interactableTilePosition.z),
         // new Vector2(newRouteData.lastTilePosition.x, newRouteData.lastTilePosition.z));
-        Vector3 normalizedDir = (newRouteData.interactableTilePosition - newRouteData.lastTilePosition).normalized;
+        Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
         if (normalizedDir.z < 0) newAngle = 180f - newAngle;
         else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
@@ -244,7 +259,7 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(_startRouteRotation);
 
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        float orbChoiceOffset = UnityEngine.Random.Range(0, 1);
+        float orbChoiceOffset = UnityEngine.Random.Range(0, 2);
         if (orbChoiceOffset == 1)
         {
             orbChoiceOffset = 180f;
@@ -254,7 +269,8 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(angleDiff);
         _currentRouteRotation = angleDiff + _startRouteRotation;
         //Debug.Log("New Angle: " + _currentRouteRotation + " >>>>> between interactable " + newRouteData.interactableTilePosition + " and previous " + newRouteData.lastTilePosition);
-        orbRotater.SetRadius(Vector3.Distance(newRouteData.interactableTilePosition, newRouteData.lastTilePosition));
+        orbRotater.SetRadius(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
+        Debug.Log(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
         //Time.timeScale = 0f;
     }
 
@@ -305,19 +321,21 @@ public class PlayerMovement : MonoBehaviour
     // }
 
     [NonSerialized]
-    public LinkedList<RouteData> _interactableRouteTimings = new LinkedList<RouteData>();
+    public List<RouteData> _interactableRouteTimings = new List<RouteData>();
 
     public struct RouteData
     {
         public float fullTiming;
         public Vector3 lastTilePosition; // Convert the angle between the last two tile into a rotation
-        public Vector3 interactableTilePosition;
+        public Vector3 newTilePosition;
+        public InteractableTile interactableTile;
 
-        public RouteData(float newTiming, Vector3 newLastPos, Vector3 newIntPos)
+        public RouteData(float newTiming, Vector3 newLastPos, Vector3 newTilePos, InteractableTile newInteractable)
         {
             this.fullTiming = newTiming;
             this.lastTilePosition = newLastPos;
-            this.interactableTilePosition = newIntPos;
+            this.newTilePosition = newTilePos;
+            this.interactableTile = newInteractable;
         }
     }
 
@@ -348,6 +366,8 @@ public class PlayerMovement : MonoBehaviour
     {
         return _playerPathPositions[_currentlyTravelledIndex].hasInteractable;
     }
+
+    //public bool 
 
     public Vector3 GetNextTilePos()
     {

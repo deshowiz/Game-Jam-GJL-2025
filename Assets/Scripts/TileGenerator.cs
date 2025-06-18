@@ -20,13 +20,9 @@ public class TileGenerator : MonoBehaviour
     private List<Tile> _wallPrefabs = new List<Tile>();
     [SerializeField]
     private List<TileGroup> _tileGroups = new List<TileGroup>();
-    [SerializeField]
-    private GameEventListener _steppedEventListener = null;
 
     [SerializeField]
     private GameEvent _runningEvent = null;
-    [SerializeField]
-    private GameEvent _newGap = null;
 
     private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
     private List<Queue<Tile>> _currentlyAvailableWalls = new List<Queue<Tile>>();
@@ -172,12 +168,12 @@ public class TileGenerator : MonoBehaviour
             {
                 PlaceNextTile();
             }
-            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _steppingTileQueue[0].transform.position) > 20f) // Magic number to change when tweaking later with variable
+            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.transform.position, _steppingTileQueue[0].transform.position) > 20f) // Magic number to change when tweaking later with variable
             {
                 RemoveTile();
                 //Debug.Log(GameManager.Instance.Player.position.x + " > " + _usedWallTileQueue.Last().transform.position.x);
-                if (_usedWallTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.position, _usedWallTileQueue.First().transform.position) > 20f
-                && GameManager.Instance.Player.position.x > _usedWallTileQueue.First().transform.position.x) // Magic number to change when tweaking later with variable
+                if (_usedWallTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.transform.position, _usedWallTileQueue.First().transform.position) > 20f
+                && GameManager.Instance.Player.transform.position.x > _usedWallTileQueue.First().transform.position.x) // Magic number to change when tweaking later with variable
                 {
                     RemoveWall();
                 }
@@ -243,9 +239,10 @@ public class TileGenerator : MonoBehaviour
 
         if (isInteractable)
         {
-            SetNextInteractable(newTilePosition);
+            InteractableTile newInteractable = SetNextInteractable(newTilePosition);
             //Debug.Log("Route Timing: " + interactableRouteTimingTotal);
-            _playerMovement._interactableRouteTimings.AddLast(new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition));
+            _playerMovement._interactableRouteTimings.Add(
+                new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition, newInteractable));
             _interactableRouteTimingTotal = 0f;
         }
         else
@@ -269,28 +266,27 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-    private void SetNextInteractable(Vector3 newPos)
+    private InteractableTile SetNextInteractable(Vector3 newPos)
     {
-        Vector3 placementPos = newPos + new Vector3(0f, 10.01f, 0f);
+        Vector3 placementPos = newPos + new Vector3(0f, 10f, 0f);
         //Debug.Log("Interactable position: " + placementPos);
         if (_forcedBoost)
         {
             _forcedBoost = false;
-            _currentBiome.SetRandomPowerup(placementPos); // Magic number set until we merge and I can make it a setting without disrupting scene
             _lastInteractableTileIndex = _lastInteractableTileIndex + (uint)_currentBiome.GetNextBoostPosition();
-            return;
+            return _currentBiome.SetRandomPowerup(placementPos); // Magic number set until we merge and I can make it a setting without disrupting scene
         }
         //Debug.Log("Setting next interactable at index " + _fullTileIndexCount);
         float randomNum = UnityEngine.Random.Range(0f, 1f);
         if (randomNum <= _boostPercentage)
         {
-            _currentBiome.SetRandomPowerup(placementPos); // Magic number set until we merge and I can make it a setting without disrupting scene
             _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextBoostPosition();
+            return _currentBiome.SetRandomPowerup(placementPos); // Magic number set until we merge and I can make it a setting without disrupting scene
         }
         else
         {
-            _currentBiome.SetRandomTrap(placementPos); // ^
             _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextTrapPosition();
+            return _currentBiome.SetRandomTrap(placementPos); // ^
         }
     }
 

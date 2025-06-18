@@ -46,8 +46,8 @@ public class BiomeInteractableData : ScriptableObject
 
     public void UpdateInteractables()
     {
-        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.position) > 20f
-        && GameManager.Instance.Player.position.x > _activePowerups.First().transform.position.x)
+        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.transform.position) > 20f
+        && GameManager.Instance.Player.transform.position.x > _activePowerups.First().transform.position.x)
         {
             InteractableTile removablePowerup = _activePowerups.First();
             removablePowerup.gameObject.SetActive(false);
@@ -55,8 +55,8 @@ public class BiomeInteractableData : ScriptableObject
             _availablePowerups[removablePowerup._listIndex].Enqueue(removablePowerup);
         }
 
-        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.position) > 20f
-         && GameManager.Instance.Player.position.x > _activeTraps.First().transform.position.x)
+        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.transform.position) > 20f
+         && GameManager.Instance.Player.transform.position.x > _activeTraps.First().transform.position.x)
         {
             InteractableTile removableTrap = _activeTraps.First();
             removableTrap.gameObject.SetActive(false);
@@ -100,7 +100,7 @@ public class BiomeInteractableData : ScriptableObject
         _usedTrap = null;
     }
 
-    public void SetRandomPowerup(Vector3 boostPosition)
+    public InteractableTile SetRandomPowerup(Vector3 boostPosition)
     {
         int chosenIndex = UnityEngine.Random.Range(0, _copiedPowerups.Count);
         InteractableTile chosenTile = _copiedPowerups[chosenIndex];
@@ -115,9 +115,10 @@ public class BiomeInteractableData : ScriptableObject
         }
         _usedPowerup = chosenTile;
         _copiedPowerups.RemoveAt(chosenIndex);
+        return _newActiveTile;
     }
 
-    public void SetRandomTrap(Vector3 trapPosition)
+    public InteractableTile SetRandomTrap(Vector3 trapPosition)
     {
         int chosenIndex = UnityEngine.Random.Range(0, _copiedTraps.Count);
         InteractableTile chosenTile = _copiedTraps[chosenIndex];
@@ -132,5 +133,6 @@ public class BiomeInteractableData : ScriptableObject
         }
         _usedTrap = chosenTile;
         _copiedTraps.RemoveAt(chosenIndex);
+        return _newActiveTile;
     }
 }

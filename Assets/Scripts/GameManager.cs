@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     // Replace with player script or whatever
     [SerializeField]
-    private Transform _player = null;
-    public Transform Player { get { return _player; } }
+    private Player _player = null;
+    public Player Player { get { return _player; } }
 
     [SerializeField]
     private TileGenerator _tileGenerator = null;
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player ref empty");
-            _player = GetComponent<PlayerMovement>()?.transform;
+            _player = GetComponent<Player>();
         }
 
         if (_tileGenerator == null)

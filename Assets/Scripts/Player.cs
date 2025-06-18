@@ -5,9 +5,9 @@ public class Player : MonoBehaviour
     public OrbRotater orbRotater;
     public PlayerMovement playerMovement;
 
-    public void SlowMovement()
+    public void SlowMovement(float slowAmount)
     {
-        playerMovement.Slow(10);
+        playerMovement.Slow(slowAmount);
     }
     
     public void Stun()
@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
         StartCoroutine(playerMovement.Stun(2));
     }
     
-    public void Boost()
+    public void Boost(float boostAmount)
     {
-        playerMovement.Boost(15);
+        playerMovement.Boost(boostAmount);
     }
 }

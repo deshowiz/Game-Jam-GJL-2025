@@ -1,13 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OrbRotater : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    private Transform _orbTransform = null;
-    [SerializeField]
-    private Transform _orbTransform2 = null;
+    private Orb[] _orbs = new Orb[2];
     [SerializeField]
     private TrailRenderer _orbTrail = null;
     [SerializeField]
@@ -15,40 +14,18 @@ public class OrbRotater : MonoBehaviour
 
     public Vector3 _playerPosition = Vector3.zero;
 
-    private float _totalTime = 0f;
     [Header("Visual Stats")]
     [SerializeField]
     public float _speed = 1f;
 
-    //private float _currentAngle = 0f;
-
-    private float _currentBoost = 0f;
-
     [Header("Settings")]
-
-    [SerializeField]
-    private float _perfectBoostIncrement = 0.5f;
-    [SerializeField]
-    [Range(0f, 5f)]
-    private float _okayBoostDecrement = 0.5f;
-    [SerializeField]
-    [Range(0f, 5f)]
-    private float _missBoostDecrement = 2f;
-    [SerializeField]
-    private float _maximumBoost = 15f;
-    [SerializeField]
-    private float _minimumBoost = -1.5f;
     
     [SerializeField]
     private float _radius = 1f;
     [SerializeField]
-    private float _trailLength = 0.5f;
+    private float _hitThreshold = 0f;
     [SerializeField]
-    private float _perfectThreshold = 0f;
-    [SerializeField]
-    private float _goodThreshold = 0f;
-    [SerializeField]
-    private float _okayThreshold = 0f;
+    private float _disableTiming = 0.3f;
 
     private bool _isRunning = false;
 
@@ -75,44 +52,39 @@ public class OrbRotater : MonoBehaviour
         _currentAngle += newRotationAdditive;
         float angleRadians = _currentAngle * Mathf.Deg2Rad;
         Vector3 offset = new Vector3(Mathf.Sin(angleRadians), Mathf.Cos(angleRadians), 0f) * _radius;
-        _orbTransform.localPosition = offset;
+        _orbs[0].transform.localPosition = offset;
 
         float nextAngle = angleRadians + Mathf.PI;
         offset = new Vector3(Mathf.Sin(nextAngle), Mathf.Cos(nextAngle), 0f) * _radius;
-        _orbTransform2.localPosition = offset;
+        _orbs[1].transform.localPosition = offset;
 
         // _orbTrail.time = _trailLength / fullSpeed;
         // _orbTrail2.time = _trailLength / fullSpeed;
     }
 
-    public int CheckOrbAccuracy(int orbIndex)
+    // Bad expensive Game Jam code activate!
+    public bool CheckOrbAccuracy(int orbIndex, List<PlayerMovement.RouteData> allInteractables)
     {
-        Transform chosenOrb = orbIndex == 0 ? _orbTransform : _orbTransform2;
-        Vector3 grabbedNextPos = GameManager.Instance._nextTilePosition;
-        float accuracyDistance = Vector2.Distance(new Vector2(chosenOrb.position.x, chosenOrb.position.z), new Vector2(grabbedNextPos.x, grabbedNextPos.z)); // switch out with current orb variable later if double orbing?
-        //Debug.Log(accuracyDistance);
-        if (accuracyDistance < _perfectThreshold) // Not doing a pre-calc for a switch atm, maybe later
+        if (_orbs[orbIndex].IsDisabled) return false;
+
+        Transform chosenOrb = _orbs[orbIndex].transform;
+        InteractableTile currentInteractable;
+        Vector2 orbXZ = new Vector2(chosenOrb.position.x, chosenOrb.position.z);
+        for (int i = 0; i < allInteractables.Count; i++)
         {
-            _currentBoost = Mathf.Min(_currentBoost + _perfectBoostIncrement, _maximumBoost); //Debug.Log("Perfect");
-            return 3; // Perfect
+            currentInteractable = allInteractables[i].interactableTile;
+            float accuracyDistance = Vector2.Distance(orbXZ,
+             new Vector2(currentInteractable.transform.position.x, currentInteractable.transform.position.z));
+            if (accuracyDistance < _hitThreshold)
+            {
+                currentInteractable.Interact();
+                return true;
+            }
         }
-        else if (accuracyDistance < _goodThreshold)
-        {
-            //Debug.Log("Good");
-            return 2; //Good
-        }
-        else if (accuracyDistance < _okayThreshold)
-        {
-            _currentBoost = Mathf.Max(_currentBoost - _okayBoostDecrement, _minimumBoost);
-            //Debug.Log("Okay");
-            return 1; // Okay
-        }
-        else
-        {
-            //Debug.Log("Miss");
-            _currentBoost = Mathf.Max(_currentBoost - _missBoostDecrement, _minimumBoost);
-            return 0; // Miss
-        }
+
+        // Timed Disabling of orb?
+        _orbs[orbIndex].DisableOrb();
+        return false;
     }
 
     public void SetRadius(float newRadius)

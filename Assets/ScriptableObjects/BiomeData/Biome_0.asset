@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Biome_0
   m_EditorClassIdentifier: 
   _powerups:
-  - {fileID: 1055441929676286720, guid: 2278d4f0a7fd4b24f93190290dc7445e, type: 3}
-  - {fileID: 1055441929676286720, guid: 2278d4f0a7fd4b24f93190290dc7445e, type: 3}
+  - {fileID: 1055441929676286720, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
+  - {fileID: 1055441929676286720, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   _traps:
-  - {fileID: 1055441929676286720, guid: 5c8d4270f172f6f48b8d818901e343ed, type: 3}
-  - {fileID: 1055441929676286720, guid: 5c8d4270f172f6f48b8d818901e343ed, type: 3}
+  - {fileID: 1055441929676286720, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
+  - {fileID: 1055441929676286720, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
   _boostMinimumTileSpacing: 5
   _boostMaximumTileSpacing: 13
   _trapMinimumTileSpacing: 5
