@@ -1143,6 +1143,9 @@ MonoBehaviour:
   _orbMat: {fileID: 2100000, guid: 47012709b9bd20a41964d4d2803fbf03, type: 2}
   _missDisableTimeMilliseconds: 300
   _usualColor: {r: 1, g: 0.58431375, b: 0, a: 1}
+  _emissionAdditive: 30
+  _emissionSpeed: 0.3
+  _baseEmissiveLevel: 5.9
 --- !u!1 &1398349142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,6 +1603,9 @@ MonoBehaviour:
   _orbMat: {fileID: 2100000, guid: ba70efb8fcac67847856915fc7a1dd3f, type: 2}
   _missDisableTimeMilliseconds: 300
   _usualColor: {r: 0, g: 0.1254902, b: 1, a: 1}
+  _emissionAdditive: 40
+  _emissionSpeed: 0.3
+  _baseEmissiveLevel: 14.9
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

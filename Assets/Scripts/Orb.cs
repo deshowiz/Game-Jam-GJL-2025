@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -10,23 +11,51 @@ public class Orb : MonoBehaviour
     private int _missDisableTimeMilliseconds = 300;
     [SerializeField]
     private Color _usualColor = Color.green;
+    [SerializeField]
+    private float _emissionAdditive = 1f;
+    [SerializeField]
+    private float _emissionSpeed = 0.3f;
+    [SerializeField]
+    private float _baseEmissiveLevel = 5.9f;
 
     private bool _isDisabled = false;
     public bool IsDisabled {get{ return _isDisabled; }}
+
+    private bool _isGlowing = false;
 
     public async void DisableOrb()
     {
         if (_isDisabled) return;
         _isDisabled = true;
         Color enabledColor = _orbMat.GetColor("_OrbColor");
-        _orbMat.SetColor("_OrbColor", Color.gray);
+        _orbMat.SetColor("_OrbColor", Color.darkGray);
+        _orbMat.SetFloat("_EmissionStrength", 1f);
         await Task.Delay(_missDisableTimeMilliseconds);
+        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
         _orbMat.SetColor("_OrbColor", enabledColor);
         _isDisabled = false;
+    }
+
+    public async void GlowOnHit()
+    {
+        StartCoroutine(Glow());
+    }
+
+    private IEnumerator Glow()
+    {
+        float endTime = Time.time + _emissionSpeed;
+        while (Time.time < endTime)
+        {
+            if (_isDisabled) break;
+            _orbMat.SetFloat("_EmissionStrength", Mathf.Lerp(_baseEmissiveLevel,
+            _baseEmissiveLevel + _emissionAdditive, (endTime - Time.time) / _emissionSpeed));
+           yield return null;
+        }
     }
 
     public void OnDisable()
     {
         _orbMat.SetColor("_OrbColor", _usualColor);
+        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
     }
 }

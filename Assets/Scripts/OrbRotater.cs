@@ -79,6 +79,7 @@ public class OrbRotater : MonoBehaviour
             {
                 Debug.Log("interacting");
                 currentInteractable.Interact();
+                _orbs[orbIndex].GlowOnHit();
                 return true;
             }
         }
