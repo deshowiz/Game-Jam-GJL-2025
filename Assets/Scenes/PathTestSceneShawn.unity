@@ -415,7 +415,7 @@ Camera:
   far clip plane: 50
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1098,6 +1098,8 @@ MonoBehaviour:
   _speed: 5
   _radius: 1
   _hitThreshold: 1.25
+  _orb0RecoveryKey: 97
+  _orb1RecoveryKey: 100
   _currentAngle: 0
 --- !u!114 &1216750091
 MonoBehaviour:

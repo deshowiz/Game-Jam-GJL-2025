@@ -10,9 +10,14 @@ public class Player : MonoBehaviour
         playerMovement.Slow(slowAmount);
     }
     
-    public void Stun()
+    public void Stun(float stunDuration)
     {
-        StartCoroutine(playerMovement.Stun(2));
+        playerMovement.Stun(stunDuration);
+    }
+
+    public void SlowMo(int numPresses)
+    {
+        playerMovement.SlowMo(numPresses);
     }
     
     public void Boost(float boostAmount)

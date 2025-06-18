@@ -38,6 +38,12 @@ public class Orb : MonoBehaviour
         _isDisabled = false;
     }
 
+    public void SetOrbRecovery(float progressPercentage)
+    {
+        _orbMat.SetColor("_OrbColor", Color.Lerp(Color.black, _usualColor, progressPercentage));
+        _orbMat.SetFloat("_EmissionStrength", Mathf.Lerp(1f, _baseEmissiveLevel, progressPercentage));
+    }
+
     public void GlowOnHit()
     {
         if (_glowRoutine != null)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,12 +20,16 @@ public class OrbRotater : MonoBehaviour
     public float _speed = 1f;
 
     [Header("Settings")]
-    
+
     [SerializeField]
     private float _radius = 1f;
     [SerializeField]
     private float _hitThreshold = 0f;
     private bool _isRunning = false;
+    [SerializeField]
+    private KeyCode _orb0RecoveryKey = KeyCode.A;
+    [SerializeField]
+    private KeyCode _orb1RecoveryKey = KeyCode.D;
 
     public float _currentAngle = 90f;
 
@@ -98,4 +103,43 @@ public class OrbRotater : MonoBehaviour
     {
         _radius = newRadius;
     }
+
+    public void StunRecovery(int numPresses)
+    {
+        StartCoroutine(SlowmoMinigame(numPresses));
+    }
+
+    public IEnumerator SlowmoMinigame(int numPresses)
+    {
+        _orbs[0].DisableOrb();
+        _orbs[1].DisableOrb();
+        _orbs[0].SetOrbRecovery(0f);
+        _orbs[1].SetOrbRecovery(0f);
+        int currentPresses = 0;
+        bool updateRecovery = false;
+        while (currentPresses < numPresses)
+        {
+            if (Input.GetKeyDown(_orb0RecoveryKey))
+            {
+                currentPresses++;
+                updateRecovery = true;
+            }
+
+            if (Input.GetKeyDown(_orb1RecoveryKey))
+            {
+                currentPresses++;
+                updateRecovery = true;
+            }
+
+            if (updateRecovery)
+            {
+                _orbs[0].SetOrbRecovery((float)currentPresses / numPresses);
+                _orbs[1].SetOrbRecovery((float)currentPresses / numPresses);
+            }
+
+            updateRecovery = false;
+            yield return null;
+        }
+    }
+
 }

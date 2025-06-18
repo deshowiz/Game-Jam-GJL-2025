@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
             //Time.timeScale = 1f;
             ready = !ready;
         }
-
+        if (!ready) return;
         if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
         {
             int keyNum = 0;
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             orbRotater.CheckOrbAccuracy(keyNum, _interactableRouteTimings);
         }
 
-        if (!ready) return;
+        
         Slow(_frictionCurve.Evaluate(_boostSpeed) * Time.deltaTime);
         _fullSpeed = _baseSpeed + _boostSpeed;
         float distToNext = DistanceToNextTile();
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
         
     }
-
+    #region Movement Effects
     public void Slow(float slowAmount)
     {
         _boostSpeed = Mathf.Max(_boostSpeed - slowAmount, 0f);
@@ -122,12 +122,24 @@ public class PlayerMovement : MonoBehaviour
         _boostSpeed = Mathf.Min(_boostSpeed + boostAmount, _boostMaximum);
     }
 
-    public IEnumerator Stun(float seconds)
+    public void Stun(float stunDuration)
     {
-        ready = false;
-        yield return new WaitForSeconds(seconds);
-        ready = true;
+        StartCoroutine(StunSequence(stunDuration));
     }
+
+    private IEnumerator StunSequence(float seconds)
+    {
+        //ready = false;
+        yield return new WaitForSeconds(seconds);
+        Time.timeScale = 1f;
+        //ready = true;
+    }
+
+    public void SlowMo(int numPresses)
+    {
+        
+    }
+    #endregion
 
     // Changing the movement to be sliding when not originally intended is a bit scuffed structure wise
     // Getting all of the edge cases for something not originally designed for the sliding was rough
