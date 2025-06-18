@@ -101,4 +101,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _listIndex: 0
   used: 0
-  _boostAmount: 2
+  _boostAmount: 1

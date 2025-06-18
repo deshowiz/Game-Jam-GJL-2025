@@ -27,9 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _boostMaximum = 20f;
     [SerializeField]
-    private float _maxRotationsPerSecond = 5f;
-    [SerializeField]
-    private float _rotationScalar = 5f;
+    private AnimationCurve _frictionCurve = new AnimationCurve();
     [SerializeField]
     private AnimationCurve _rotationMapping = new AnimationCurve();
     [SerializeField]
@@ -46,22 +44,9 @@ public class PlayerMovement : MonoBehaviour
 
     private float _currentRouteBaseTiming = 0f;
     private float _incrementedTiming = 0f;
-    private float _fullRouteTiming = 0f;
-
-    private float _currentRouteRotation = 0f;
-
     private float _startRouteRotation = 0f;
 
     private float _totalDegreesThisRoute = 0f;
-
-
-    // Use next position in GameManager to get move direction
-    // record travel distance between interactables
-    // in the beginning, ^the first interactable position will need to be the starting tile position, 0,0,0
-    // frame by frame, below \\
-    // take that distance and dynamically, divide how long it will take to get there
-    // Use that time and take the current speed of the player and divide for number of rotations
-    // round down
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -82,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!ready) return;
+        Slow(_frictionCurve.Evaluate(_boostSpeed) * Time.deltaTime);
         _fullSpeed = _baseSpeed + _boostSpeed;
         float distToNext = DistanceToNextTile();
         _incrementedTiming = ((_fullSpeed * Time.deltaTime / _currentRouteBaseTiming) * _totalDegreesThisRoute);
@@ -124,6 +110,11 @@ public class PlayerMovement : MonoBehaviour
     public void Slow(float slowAmount)
     {
         _boostSpeed = Mathf.Max(_boostSpeed - slowAmount, 0f);
+    }
+
+    public void Friction()
+    {
+        _boostSpeed = Mathf.Max(_boostSpeed - (_boostSpeed * _frictionCurve.Evaluate(_boostSpeed)), 0f);
     }
 
     public void Boost(float boostAmount)
@@ -224,32 +215,15 @@ public class PlayerMovement : MonoBehaviour
         _incrementedTiming = 0f;
         _interactableRouteTimings.RemoveAt(0);
         RouteData newRouteData = _interactableRouteTimings.First();
-        //Debug.Log(newRouteData.fullTiming);
         _currentRouteBaseTiming = newRouteData.fullTiming;
-        // float newAngle = Vector2.Angle(new Vector2(newRouteData.interactableTilePosition.x, newRouteData.interactableTilePosition.z),
-        // new Vector2(newRouteData.lastTilePosition.x, newRouteData.lastTilePosition.z));
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
         if (normalizedDir.z < 0) newAngle = 180f - newAngle;
         else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
         _startRouteRotation = orbRotater._currentAngle;
-
-        //Debug.Log(_startRouteRotation);
-
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        // float orbChoiceOffset = UnityEngine.Random.Range(0, 2);
-        // if (orbChoiceOffset == 1)
-        // {
-        //     orbChoiceOffset = 0.5f;
-        // }
-        // float extraCircles = GetRouteRotations(_currentRouteBaseTiming);
-        // extraCircles *= 360f * Mathf.Sign(angleDiff);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
-        //Debug.Log(angleDiff);
-        _currentRouteRotation = _totalDegreesThisRoute + _startRouteRotation;
-        //Debug.Log("New Angle: " + _currentRouteRotation + " >>>>> between interactable " + newRouteData.interactableTilePosition + " and previous " + newRouteData.lastTilePosition);
         orbRotater.SetRadius(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
-        //Time.timeScale = 0f;
     }
 
     public void StartFirstRoute()
@@ -257,40 +231,21 @@ public class PlayerMovement : MonoBehaviour
         _incrementedTiming = 0f;
         _fullSpeed = _baseSpeed + _boostSpeed;
         RouteData newRouteData = _interactableRouteTimings.First();
-        //Debug.Log(newRouteData.fullTiming);
         _currentRouteBaseTiming = newRouteData.fullTiming;
-        // float newAngle = Vector2.Angle(new Vector2(newRouteData.interactableTilePosition.x, newRouteData.interactableTilePosition.z),
-        // new Vector2(newRouteData.lastTilePosition.x, newRouteData.lastTilePosition.z));
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
         if (normalizedDir.z < 0) newAngle = 180f - newAngle;
         else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
         orbRotater._currentAngle = 90f;
         _startRouteRotation = orbRotater._currentAngle;
-
-        //Debug.Log(_startRouteRotation);
-
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        float orbChoiceOffset = UnityEngine.Random.Range(0, 2);
-        // if (orbChoiceOffset == 1)
-        // {
-        //     orbChoiceOffset = 0.5f;
-        // }
-        // float extraCircles = GetRouteRotations(_currentRouteBaseTiming);
-        // extraCircles *= 360f * Mathf.Sign(angleDiff);
-        Debug.Log(angleDiff);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
-        // //Debug.Log(angleDiff);
-        _currentRouteRotation = _totalDegreesThisRoute + _startRouteRotation;
-        //Debug.Log("New Angle: " + _currentRouteRotation + " >>>>> between interactable " + newRouteData.interactableTilePosition + " and previous " + newRouteData.lastTilePosition);
         orbRotater.SetRadius(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
-        Debug.Log(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
     }
 
     private float GetTotalRouteDegrees(float angleDiff)
     {
         float direction = Mathf.Sign(angleDiff);
-        // First try using angle diff to have every route add up to 360 in a direction (+-)
         if (direction == -1f) // 180f is a half rotation
         {
             angleDiff += 180f;
@@ -318,12 +273,6 @@ public class PlayerMovement : MonoBehaviour
         return (_playerPathPositions[_currentlyTravelledIndex + 1].position
          - _playerPathPositions[_currentlyTravelledIndex].position).normalized;
     }
-    // public void SetCurrentTilePosition(Vector3 newPos)
-    // {
-    //     CurrentTilePosition = newPos;
-    //     // if (_playerPathPositions.Count != 0) return;
-    //     // _playerPathPositions.RemoveFirst();
-    // }
 
     [NonSerialized]
     public List<PathIndexData> _playerPathPositions = new List<PathIndexData>();
@@ -347,15 +296,6 @@ public class PlayerMovement : MonoBehaviour
         _pathPositionsToAdd.Add(newPathData);
     }
 
-    // Removal will be done on this script with every tile increment!!!!!!!!!!!!
-
-    // public List<PathIndexData> _pathPositionsToRemove = new List<PathIndexData>();
-
-    // public void RemoveFromPathQueue(PathIndexData newPathData)
-    // {
-    //     _pathPositionsToRemove.Add(newPathData);
-    // }
-
     [NonSerialized]
     public List<RouteData> _interactableRouteTimings = new List<RouteData>();
 
@@ -375,21 +315,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //private int _pathPositionsToRemove = 0;
-
     public Vector3 TileIncrement()
     {
-        //_pathPositionsToRemove++;
-        //_playerPathPositions.RemoveAt(0);
         _currentlyTravelledIndex++;
         return _playerPathPositions[_currentlyTravelledIndex].position;
     }
-
-    // public Vector3 TileDecrement()
-    // {
-    //     Debug.Log("Increment currentlyTravelled: " + _currentlyTravelledIndex);
-    //     return _playerPathPositions[_currentlyTravelledIndex].position;
-    // }
 
     public int _currentlyTravelledIndex = 0;
 

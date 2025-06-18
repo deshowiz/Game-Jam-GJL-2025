@@ -17,16 +17,18 @@ public class Orb : MonoBehaviour
     private float _emissionSpeed = 0.3f;
     [SerializeField]
     private float _baseEmissiveLevel = 5.9f;
-
     private bool _isDisabled = false;
     public bool IsDisabled {get{ return _isDisabled; }}
-
-    private bool _isGlowing = false;
+    Coroutine _glowRoutine = null;
 
     public async void DisableOrb()
     {
         if (_isDisabled) return;
         _isDisabled = true;
+        if (_glowRoutine != null)
+        {
+            StopCoroutine(_glowRoutine);
+        }
         Color enabledColor = _orbMat.GetColor("_OrbColor");
         _orbMat.SetColor("_OrbColor", Color.black);
         _orbMat.SetFloat("_EmissionStrength", 1f);
@@ -38,7 +40,11 @@ public class Orb : MonoBehaviour
 
     public void GlowOnHit()
     {
-        StartCoroutine(Glow());
+        if (_glowRoutine != null)
+        {
+            StopCoroutine(_glowRoutine);
+        }
+        _glowRoutine = StartCoroutine(Glow());
     }
 
     private IEnumerator Glow()

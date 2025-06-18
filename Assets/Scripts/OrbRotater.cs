@@ -24,9 +24,6 @@ public class OrbRotater : MonoBehaviour
     private float _radius = 1f;
     [SerializeField]
     private float _hitThreshold = 0f;
-    [SerializeField]
-    private float _disableTiming = 0.3f;
-
     private bool _isRunning = false;
 
     public float _currentAngle = 90f;

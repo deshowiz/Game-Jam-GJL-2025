@@ -26,9 +26,6 @@ public class TileGenerator : MonoBehaviour
 
     private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
     private List<Queue<Tile>> _currentlyAvailableWalls = new List<Queue<Tile>>();
-
-    // Create a Queue that waits until a certain number of tiles have been collected before sending them back to available lists
-    //private LinkedList<Tile> _usedTileQueue = new LinkedList<Tile>();
     private List<Tile> _steppingTileQueue = new List<Tile>();
     private LinkedList<Tile> _usedWallTileQueue = new LinkedList<Tile>();
 
@@ -63,10 +60,6 @@ public class TileGenerator : MonoBehaviour
 
     public void FullInitialization()
     {
-        // if (_steppedEventListener.Event == null)
-        // {
-        //     Debug.LogError("Stepped event not assigned to listener");
-        // }
         if (_playerMovement == null)
         {
             _playerMovement = FindFirstObjectByType<PlayerMovement>();
@@ -119,12 +112,10 @@ public class TileGenerator : MonoBehaviour
          _steppingTileQueue[1].transform.position);
         if (firstDistValue > 1f)
         {
-            Debug.Log("Subtracted gap: " + GameManager.Instance._jumpBaseTiming);
             _interactableRouteTimingTotal -= firstDistValue;
         }
         else
         {
-            Debug.Log("Subtracted 1f");
             _interactableRouteTimingTotal -= 1f;
         }
         
@@ -183,26 +174,6 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-    // public void SteppedTile()
-    // {
-    //     Tile lastRemovedTile = _steppingTileQueue.First();
-
-    //     GameManager.Instance.SetCurrentTilePosition(lastRemovedTile.transform.position);
-
-    //     _steppingTileQueue.RemoveFirst();
-    //     //_usedTileQueue.AddLast(lastRemovedTile);
-    //     //lastRemovedTile.gameObject.SetActive(false);
-    //     //_currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
-    //     if (_steppingTileQueue.Count != 0)
-    //     {
-    //         GameManager.Instance._nextTilePosition = _steppingTileQueue.First().transform.position;
-    //     }
-    //     // else
-    //     // {
-    //     //     Debug.LogError("Stepping with no stepping tiles");
-    //     // }
-    // }
-
     private void RemoveTile()
     {
         Tile lastRemovedTile = _steppingTileQueue.First();
@@ -210,7 +181,6 @@ public class TileGenerator : MonoBehaviour
 
         lastRemovedTile.gameObject.SetActive(false);
         _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
-        //_playerMovement.RemoveFromPathQueue(new PlayerMovement.PathIndexData(lastRemovedTile.transform.position, isInteractable));
     }
 
     private void RemoveWall()
