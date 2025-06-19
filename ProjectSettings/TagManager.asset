@@ -44,6 +44,9 @@ TagManager:
   - name: Yes
     uniqueID: 414824663
     locked: 0
+  - name: Effects
+    uniqueID: 1540621765
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1

@@ -24,9 +24,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     [Range(0f, 10f)]
     private float _baseSpeed = 1f;
+    [SerializeField]
     private float _boostSpeed = 0f;
     [SerializeField]
     private float _boostMaximum = 20f;
+    [SerializeField]
+    private Vector3 _playerEffectOffset = Vector3.zero;
     [SerializeField]
     private AnimationCurve _frictionCurve = new AnimationCurve();
     [SerializeField]
@@ -48,6 +51,14 @@ public class PlayerMovement : MonoBehaviour
     private float _startRouteRotation = 0f;
 
     private float _totalDegreesThisRoute = 0f;
+
+    Vector3 _windowSpriteRatio = Vector3.zero;
+
+    private void Awake()
+    {
+        Debug.Log((Camera.main.transform.position - transform.position).normalized);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -130,10 +141,10 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator StunSequence(float seconds)
     {
-        //ready = false;
+        ready = false;
         yield return new WaitForSeconds(seconds);
         Time.timeScale = 1f;
-        //ready = true;
+        ready = true;
     }
 
     public void SlowMo(int numPresses)
@@ -205,12 +216,14 @@ public class PlayerMovement : MonoBehaviour
             InteractableRouteComplete();
         }
         
-        GameObject lol = Instantiate(teleportFx, transform.position, Quaternion.identity);
-        Destroy(lol, 2f);
+        // GameObject lol = Instantiate(teleportFx, transform.position + _playerEffectOffset, Quaternion.identity);
+        // //lol.transform.localScale = new Vector3(1f, 1.7778f, 1);
+        // Destroy(lol, 2f);
         
         transform.position = destination;
         
-        GameObject lol1 = Instantiate(teleportFx, transform.position, Quaternion.identity);
+        GameObject lol1 = Instantiate(teleportFx, transform.position + _playerEffectOffset, Quaternion.identity);
+        //lol1.transform.localScale = new Vector3(1f, 1.7778f, 1);
         Destroy(lol1, 2f);
     }
 

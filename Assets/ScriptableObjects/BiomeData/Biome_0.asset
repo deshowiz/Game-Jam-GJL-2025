@@ -16,8 +16,8 @@ MonoBehaviour:
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   _traps:
-  - {fileID: 8386058859968840892, guid: 7a620f2be1be26d46a19413a7a8db1b1, type: 3}
-  - {fileID: 8386058859968840892, guid: 7a620f2be1be26d46a19413a7a8db1b1, type: 3}
+  - {fileID: -203346714612497066, guid: 0b8d1cb50138f1e44aa122c2fd6fc730, type: 3}
+  - {fileID: -203346714612497066, guid: 0b8d1cb50138f1e44aa122c2fd6fc730, type: 3}
   _boostMinimumTileSpacing: 5
   _boostMaximumTileSpacing: 13
   _trapMinimumTileSpacing: 5
