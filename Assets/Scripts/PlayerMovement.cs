@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Time.timeScale = 1f;
+            Time.timeScale = 1f;
             ready = !ready;
         }
         if (!ready) return;
@@ -67,8 +67,8 @@ public class PlayerMovement : MonoBehaviour
             orbRotater.CheckOrbAccuracy(keyNum, _interactableRouteTimings);
         }
 
-        
-        Slow(_frictionCurve.Evaluate(_boostSpeed) * Time.deltaTime);
+
+        Friction();
         _fullSpeed = _baseSpeed + _boostSpeed;
         float distToNext = DistanceToNextTile();
         _incrementedTiming = ((_fullSpeed * Time.deltaTime / _currentRouteBaseTiming) * _totalDegreesThisRoute);
@@ -110,12 +110,12 @@ public class PlayerMovement : MonoBehaviour
     #region Movement Effects
     public void Slow(float slowAmount)
     {
-        _boostSpeed = Mathf.Max(_boostSpeed - slowAmount, 0f);
+        _boostSpeed = Mathf.Max(_boostSpeed - Mathf.Max(slowAmount, _fullSpeed * 0.18f), 0f);
     }
 
     public void Friction()
     {
-        _boostSpeed = Mathf.Max(_boostSpeed - (_boostSpeed * _frictionCurve.Evaluate(_boostSpeed)), 0f);
+        _boostSpeed = Mathf.Max(_boostSpeed - (_boostSpeed * _frictionCurve.Evaluate(_boostSpeed) * Time.deltaTime), 0f);
     }
 
     public void Boost(float boostAmount)
@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SlowMo(int numPresses)
     {
-        
+        orbRotater.SlowMoRecovery(numPresses);
     }
     #endregion
 
@@ -245,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _incrementedTiming = 0f;
         _fullSpeed = _baseSpeed + _boostSpeed;
-        RouteData newRouteData = _interactableRouteTimings.First();
+        RouteData newRouteData = _interactableRouteTimings[0];
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;

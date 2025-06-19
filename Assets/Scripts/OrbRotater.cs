@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OrbRotater : MonoBehaviour
@@ -33,10 +35,15 @@ public class OrbRotater : MonoBehaviour
 
     public float _currentAngle = 90f;
 
+    Coroutine _slowMoRecovery = null;
+
+    WaitForFixedUpdate _endFrameWaiter = null;
+
     private void Awake()
     {
         _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
         _orbTrail2.GetComponent<TrailRenderer>().material.renderQueue = 4000;
+        _endFrameWaiter = new WaitForFixedUpdate();
     }
 
     public void BeginRunning()
@@ -104,15 +111,21 @@ public class OrbRotater : MonoBehaviour
         _radius = newRadius;
     }
 
-    public void StunRecovery(int numPresses)
+    public void SlowMoRecovery(int numPresses)
     {
-        StartCoroutine(SlowmoMinigame(numPresses));
+        if (_slowMoRecovery != null)
+        {
+            StopCoroutine(_slowMoRecovery);
+            _slowMoRecovery = StartCoroutine(SlowmoMinigame(numPresses));
+            return;
+        }
+        _slowMoRecovery = StartCoroutine(SlowmoMinigame(numPresses));
     }
 
     public IEnumerator SlowmoMinigame(int numPresses)
     {
-        _orbs[0].DisableOrb();
-        _orbs[1].DisableOrb();
+        _orbs[0].FullDisable();
+        _orbs[1].FullDisable();
         _orbs[0].SetOrbRecovery(0f);
         _orbs[1].SetOrbRecovery(0f);
         int currentPresses = 0;
@@ -133,13 +146,20 @@ public class OrbRotater : MonoBehaviour
 
             if (updateRecovery)
             {
-                _orbs[0].SetOrbRecovery((float)currentPresses / numPresses);
-                _orbs[1].SetOrbRecovery((float)currentPresses / numPresses);
+                float recoveryProgress = Mathf.Min((float)currentPresses / numPresses, 1f);
+                if (recoveryProgress == 1f) break;
+                _orbs[0].SetOrbRecovery(recoveryProgress);
+                _orbs[1].SetOrbRecovery(recoveryProgress);
             }
 
             updateRecovery = false;
             yield return null;
         }
+        yield return null;
+
+        _orbs[0].ReEnable();
+        _orbs[1].ReEnable();
+        Time.timeScale = 1f;
     }
 
 }

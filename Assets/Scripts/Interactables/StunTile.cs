@@ -5,9 +5,9 @@ public class StunTile : InteractableTile
     [SerializeField]
     private float _stunTime = 0.5f;
     [SerializeField]
-    private float _adjustedTimeScale = 0.3f;
+    protected float _adjustedTimeScale = 0.3f;
 
-    private bool _isArmed = false;
+    protected bool _isArmed = false;
 
     public override void Interact()
     {
