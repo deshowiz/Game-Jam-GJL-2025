@@ -190,8 +190,6 @@ MonoBehaviour:
   _wallPrefabs:
   - {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _tileGroups:
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
-  - {fileID: 11400000, guid: cdd71f92c84c9a641a315b0c76006214, type: 2}
   - {fileID: 11400000, guid: 4e987fefba7928b4c921b5782a118cec, type: 2}
   - {fileID: 11400000, guid: 53bcd709e1d677644b65a584c76ab7f1, type: 2}
   _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}

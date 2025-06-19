@@ -132,4 +132,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0bd8dabd3543b184a85a53a480a9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orbRotater: {fileID: 0}
   OnPlayerStepEvent: {fileID: 11400000, guid: c3b37e80cfc714c469b6380984ec4a39, type: 2}
+  teleportFx: {fileID: 161147849587626264, guid: 4ebc2fb010ed46c4998fbd184f1522d0, type: 3}
+  _OnPlayerFinishTileEvent: {fileID: 0}
+  _movementKey0: 97
+  _movementKey1: 100
+  _baseSpeed: 1
+  _boostMaximum: 20
+  _frictionCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _rotationMapping:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _orbGrowth:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  movementTweenSpeed: 0.15
+  _currentlyTravelledIndex: 0

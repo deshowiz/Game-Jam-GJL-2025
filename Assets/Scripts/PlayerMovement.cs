@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public OrbRotater orbRotater;
     public GameEvent OnPlayerStepEvent;
-
+    public GameObject teleportFx;
+    
     [SerializeField]
     private GameEvent _OnPlayerFinishTileEvent;
 
@@ -187,28 +188,30 @@ public class PlayerMovement : MonoBehaviour
         }
         Vector3 targetPos = new Vector3(newTargetPosition.x, transform.position.y,
             newTargetPosition.z);
+        
+        StartCoroutine(Teleport(targetPos));
+    }
 
-        System.Action<ITween<Vector3>> updateNextTile = (t) =>
-        {
-            Vector3 nextTile = TileIncrement();
-            _jumping = false;
-            if (GetNextTileInteractable())
-            {
-                InteractableRouteComplete();
-            }
-        };
-
+    IEnumerator Teleport(Vector3 destination)
+    {
         _jumping = true;
-        gameObject.Tween("PlayerMove",
-            transform.position,
-            targetPos,
-            movementTweenSpeed / _fullSpeed,
-            TweenScaleFunctions.CubicEaseIn,
-            (t) => transform.position = t.CurrentValue, updateNextTile
-        );
-
-        // lastStepTime += timeBetweenSteps;
-        // OnPlayerStepEvent.Raise();
+        
+        yield return new WaitForSeconds(movementTweenSpeed / _fullSpeed);
+        
+        Vector3 nextTile = TileIncrement();
+        _jumping = false;
+        if (GetNextTileInteractable())
+        {
+            InteractableRouteComplete();
+        }
+        
+        GameObject lol = Instantiate(teleportFx, transform.position, Quaternion.identity);
+        Destroy(lol, 2f);
+        
+        transform.position = destination;
+        
+        GameObject lol1 = Instantiate(teleportFx, transform.position, Quaternion.identity);
+        Destroy(lol1, 2f);
     }
 
     private float DistanceToNextTile()
