@@ -551,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 7470579860152058172, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 166337c10666dd04b84396bc84f03af9, type: 2}
     - target: {fileID: 9100280036871797377, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: m_Name
       value: NewPlayer
