@@ -102,3 +102,4 @@ MonoBehaviour:
   _listIndex: 0
   used: 0
   _boostAmount: 1
+  _boostedEvent: {fileID: 11400000, guid: 3702c505ebb846348b951f62567dab1c, type: 2}
