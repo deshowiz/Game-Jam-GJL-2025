@@ -55,8 +55,8 @@ public class TileGenerator : MonoBehaviour
 
     private int _tileGroupStepIndex = 0;
     private Vector3 _groupAnchorPosition = Vector3.negativeInfinity;
-    private uint _lastInteractableTileIndex = 0;
-    private uint _fullTileIndexCount = 0;
+    private int _lastInteractableTileIndex = 0;
+    private int _fullTileIndexCount = -1;
 
     private BiomeInteractableData _currentBiome = null;
 
@@ -104,16 +104,16 @@ public class TileGenerator : MonoBehaviour
         {
             PlaceNextTile();
         }
-        float firstDistValue = Vector3.Distance(_steppingTileQueue[0].transform.position,
-         _steppingTileQueue[1].transform.position);
-        if (firstDistValue > 1f)
-        {
-            _interactableRouteTimingTotal -= firstDistValue;
-        }
-        else
-        {
-            _interactableRouteTimingTotal -= 1f;
-        }
+        // float firstDistValue = Vector3.Distance(_steppingTileQueue[0].transform.position,
+        //  _steppingTileQueue[1].transform.position);
+        // if (firstDistValue > 1f)
+        // {
+        //     _interactableRouteTimingTotal -= firstDistValue;
+        // }
+        // else
+        // {
+        //     _interactableRouteTimingTotal -= 1f;
+        // }
         
         //Debug.Log(_lastTileTiming);
         for (int i = 2; i < _maximumQueueSpawnSize / 2; i++)
@@ -205,6 +205,20 @@ public class TileGenerator : MonoBehaviour
 
         if (isInteractable)
         {
+            if (_tileGroupStepIndex >= _currentTileGroup.Count)
+            {
+                float currentPairDistance = Vector3.Distance(_lastPosition, newTilePosition);
+                if (currentPairDistance == 1)
+                {
+                    _lastTileTiming = 1f;
+                    _interactableRouteTimingTotal += 1f;
+                }
+                else
+                {
+                    _lastTileTiming = GameManager.Instance._jumpBaseTiming;
+                    _interactableRouteTimingTotal += _lastTileTiming;
+                }
+            }
             InteractableTile newInteractable = SetNextInteractable(newTilePosition);
             //Debug.Log("Route Timing: " + interactableRouteTimingTotal);
             _playerMovement._interactableRouteTimings.Add(
@@ -239,13 +253,13 @@ public class TileGenerator : MonoBehaviour
         if (_forcedBoost)
         {
             _forcedBoost = false;
-            _lastInteractableTileIndex = _lastInteractableTileIndex + (uint)_currentBiome.GetNextBoostPosition();
+            _lastInteractableTileIndex = _lastInteractableTileIndex + _currentBiome.GetNextBoostPosition();
             currentInteractableScore++;
             return _currentBiome.SetRandomPowerup(placementPos);
         }
         if (currentInteractableScore == maxNegativeInteractableScore)
         {
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextBoostPosition();
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextBoostPosition();
             _repeatPositiveInteractables++;
             currentInteractableScore++;
             return _currentBiome.SetRandomPowerup(placementPos);
@@ -254,7 +268,7 @@ public class TileGenerator : MonoBehaviour
         if (currentInteractableScore == maxPositiveInteractableScore)
         {
             currentInteractableScore--;
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextTrapPosition();
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextTrapPosition();
             _repeatPositiveInteractables = 0;
             return _currentBiome.SetRandomTrap(placementPos);
         }
@@ -262,19 +276,19 @@ public class TileGenerator : MonoBehaviour
         if (_repeatPositiveInteractables == 2)
         {
             _repeatPositiveInteractables = 1;
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextTrapPosition();
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextTrapPosition();
             return _currentBiome.SetRandomTrap(placementPos);
         }
         float randomNum = UnityEngine.Random.Range(0f, 1f);
         if (randomNum <= _boostPercentage)
         {
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextBoostPosition();
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextBoostPosition();
             _repeatPositiveInteractables++;
             return _currentBiome.SetRandomPowerup(placementPos);
         }
         else
         {
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextTrapPosition();
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextTrapPosition();
             _repeatPositiveInteractables = 0;
             return _currentBiome.SetRandomTrap(placementPos);
         }
