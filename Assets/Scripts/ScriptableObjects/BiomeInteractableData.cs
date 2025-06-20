@@ -7,6 +7,9 @@ public class BiomeInteractableData : ScriptableObject
 {
     [Header("References")]
     [SerializeField]
+    private List<TileGroup> _tileGroups = new List<TileGroup>();
+    public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count))]; }}
+    [SerializeField]
     private List<InteractableTile> _powerups = new List<InteractableTile>();
     [SerializeField]
     private List<InteractableTile> _traps = new List<InteractableTile>();

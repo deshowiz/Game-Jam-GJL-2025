@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe75b1ebd7536542a7473575a2099ca, type: 3}
   m_Name: Biome_0
   m_EditorClassIdentifier: 
+  _tileGroups:
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: 4e987fefba7928b4c921b5782a118cec, type: 2}
   _powerups:
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
