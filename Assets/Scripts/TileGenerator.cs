@@ -17,7 +17,7 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private Transform _tilesParentTransform = null;
     [SerializeField]
-    private List<Tile> _tilePrefabs = new List<Tile>();
+    private Tile _baseTilePrefab = null;
     // [SerializeField]
     // private List<Wall> _wallPrefabs = new List<Wall>();
     [SerializeField]
@@ -26,7 +26,7 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private GameEvent _runningEvent = null;
 
-    private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
+    private Queue<Tile> _currentlyAvailableTiles = new Queue<Tile>();
     private Queue<Wall> _currentlyAvailableWalls = new Queue<Wall>();
     private List<Tile> _steppingTileQueue = new List<Tile>();
     private LinkedList<Wall> _usedWallTileQueue = new LinkedList<Wall>();
@@ -82,21 +82,15 @@ public class TileGenerator : MonoBehaviour
         _currentBiome.InitializeBiome();
     }
 
-    private void InitializeTiles()
+    private void InitializeTiles() // Change to add integer parameter for reloading scene as next biome
     {
-        SetCurrentBiome(0);
+        SetCurrentBiome(0); // Swap biome specific texture in beginning of scene for base prefab before cloning
+        // OR material in case color over settings need changing
         _lastInteractableTileIndex = 5;
-        int tilePrefabIndex = 0;
-        foreach (Tile tilePrefab in _tilePrefabs)
+        for (int i = 0; i < _maximumQueueSpawnSize; i++)
         {
-            _currentlyAvailableTiles.Add(new Queue<Tile>());
-            for (int i = 0; i < _maximumQueueSpawnSize; i++)
-            {
-                Tile tileCopy = Instantiate(tilePrefab, _tilesParentTransform);
-                tileCopy._listIndex = tilePrefabIndex;
-                _currentlyAvailableTiles[tilePrefabIndex].Enqueue(tileCopy);
-            }
-            tilePrefabIndex++;
+            Tile tileCopy = Instantiate(_baseTilePrefab, _tilesParentTransform);
+            _currentlyAvailableTiles.Enqueue(tileCopy);
         }
 
         for (int i = 0; i < _maximumQueueSpawnSize; i++)
@@ -182,7 +176,7 @@ public class TileGenerator : MonoBehaviour
         _steppingTileQueue.RemoveAt(0);
 
         lastRemovedTile.gameObject.SetActive(false);
-        _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
+        _currentlyAvailableTiles.Enqueue(lastRemovedTile);
     }
 
     private void RemoveWall()
@@ -195,9 +189,9 @@ public class TileGenerator : MonoBehaviour
 
     private void PlaceNextTile()
     {
-        int chosenOption = _currentTileGroup[_tileGroupStepIndex].tilePrefab._listIndex;
-        Tile newPlaceableTile = _currentlyAvailableTiles[chosenOption].Dequeue();
+        Tile newPlaceableTile = _currentlyAvailableTiles.Dequeue();
         newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
+        newPlaceableTile.SetMesh(_currentTileGroup[_tileGroupStepIndex].tileMeshPrefab);
         Vector3 newTilePosition = newPlaceableTile.transform.position;
 
         newPlaceableTile.gameObject.SetActive(true);

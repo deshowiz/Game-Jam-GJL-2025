@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -8,12 +10,17 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "TileGroup", menuName = "Scriptable Objects/TileGroup")]
 public class TileGroup : ScriptableObject
 {
+    #if UNITY_EDITOR
+    [Header("Tile Data")]
+    [SerializeField]
+    private Tile _baseTilePrefab = null;
+    public Tile BaseTilePrefab {get{ return _baseTilePrefab; }}
+    #endif
+
     [Header("Wall Data")]
     [SerializeField]
     private Wall _baseWallPrefab = null;
     public Wall BaseWallPrefab { get { return _baseWallPrefab;}}
-    [SerializeField]
-    private List<Mesh> _wallPrefabMeshes;
 
     [SerializeField]
     private List<WallPositionList> _wallSectionVariations;
@@ -39,7 +46,7 @@ public class TileGroup : ScriptableObject
         return _wallSectionVariations[directionIndex].wallDataList;
     }
 
-    
+    [Header("Group Data")]
     [SerializeField]
     private List<PositionedGroup> _positionedTilePrefabs = new List<PositionedGroup>();
     public List<PositionedGroup> PositionedTilePrefabs { get { return _positionedTilePrefabs; } }
@@ -47,7 +54,7 @@ public class TileGroup : ScriptableObject
     [Serializable]
     public struct PositionedGroup
     {
-        public Tile tilePrefab;
+        public Mesh tileMeshPrefab;
         public Vector3 position; // local, add offset
     }
 
@@ -87,7 +94,8 @@ public class GroupSpawner : Editor
 
             for (int i = 0; i < groupToSpawn.Count; i++)
             {
-                Tile currentTile = Instantiate(groupToSpawn[i].tilePrefab, groupToSpawn[i].position, Quaternion.identity, newHolderT.transform);
+                Tile currentTile = Instantiate(tileGroup.BaseTilePrefab, groupToSpawn[i].position, Quaternion.identity, newHolderT.transform);
+                currentTile.SetMesh(groupToSpawn[i].tileMeshPrefab);
                 currentTile.gameObject.SetActive(true);
             }
 
