@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc7949227e5c7045a1e2abd3967bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listIndex: 0
+  _listIndex: 1
   used: 0
-  _slowdownAmount: 2
+  _vfxEvent: {fileID: 11400000, guid: 995207450b28ea24f8540e4efbcbdaa6, type: 2}
+  _slowdownAmount: 4

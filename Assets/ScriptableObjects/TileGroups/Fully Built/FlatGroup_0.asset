@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6405e7c3314f547bd44d379a1463a0, type: 3}
   m_Name: FlatGroup_0
   m_EditorClassIdentifier: 
-  _wallPrefab: {fileID: 2973242993314279425, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
+  _wallPrefab: {fileID: 6735684020828316243, guid: c7b1cceea4dac15458c3bfea607f383e, type: 3}
   _wallSectionVariations:
   - positions:
     - {x: 0, y: 1, z: 1}

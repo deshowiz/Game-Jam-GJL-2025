@@ -119,6 +119,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EdgeThickness: 0.05
+    - _Emission: 3.96
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0

@@ -5,6 +5,9 @@ public class InteractableTile : Tile
 {
     public bool used = false;
 
-    public virtual void Interact() { }
+    [SerializeField]
+    protected GameEvent _vfxEvent = null;
+
+    public virtual void Interact() {}
     public virtual void WalkedOver() {}
 }
