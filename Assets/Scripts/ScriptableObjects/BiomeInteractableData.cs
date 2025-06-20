@@ -46,19 +46,21 @@ public class BiomeInteractableData : ScriptableObject
         return UnityEngine.Random.Range(_trapMinimumTileSpacing, _trapMaximumTileSpacing);
     }
 
-    public void UpdateInteractables()
+    public void UpdateInteractables(Vector2 playerXZ)
     {
-        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.transform.position) > 20f
-        && GameManager.Instance.Player.transform.position.x > _activePowerups.First().transform.position.x)
+        Vector3 firstActiveIntPos = _activePowerups.First().transform.position;
+        if (_activePowerups.Count != 0
+        && Vector2.Distance(new Vector2(firstActiveIntPos.x, firstActiveIntPos.z), playerXZ) > 20f
+        && playerXZ.x > firstActiveIntPos.x)
         {
             InteractableTile removablePowerup = _activePowerups.First();
             removablePowerup.gameObject.SetActive(false);
             _activePowerups.RemoveFirst();
             _availablePowerups[removablePowerup._listIndex].Enqueue(removablePowerup);
         }
-
-        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.transform.position) > 20f
-         && GameManager.Instance.Player.transform.position.x > _activeTraps.First().transform.position.x)
+        firstActiveIntPos = _activeTraps.First().transform.position;
+        if (_activeTraps.Count != 0 && Vector2.Distance(new Vector2(firstActiveIntPos.x, firstActiveIntPos.z), playerXZ) > 20f
+         && playerXZ.x > firstActiveIntPos.x)
         {
             InteractableTile removableTrap = _activeTraps.First();
             removableTrap.gameObject.SetActive(false);

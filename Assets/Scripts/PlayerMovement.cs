@@ -232,8 +232,10 @@ public class PlayerMovement : MonoBehaviour
     private float DistanceToNextTile()
     {
         if (!GameManager.Instance) return 0.0f;
-        return Vector3.Distance(GetCurrentTilePos(),
-         GetNextTilePos());
+        Vector3 currentTilePos = GetCurrentTilePos();
+        Vector3 nextTilePos = GetNextTilePos();
+        return Vector2.Distance(new Vector2(currentTilePos.x, currentTilePos.z),
+         new Vector2(nextTilePos.x, nextTilePos.z));
     }
 
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
@@ -248,12 +250,14 @@ public class PlayerMovement : MonoBehaviour
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
-        if (normalizedDir.z < 0) newAngle = 180f - newAngle;
-        else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
+        // if (normalizedDir.z < 0) newAngle = 180f - newAngle;
+        // else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
         _startRouteRotation = orbRotater._currentAngle;
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
-        orbRotater.SetRadius(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
+        Vector3 newTilePos = newRouteData.newTilePosition;
+        Vector3 lastTilePos = newRouteData.lastTilePosition;
+        orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
     }
 
     public void StartFirstRoute()
@@ -264,13 +268,15 @@ public class PlayerMovement : MonoBehaviour
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
-        if (normalizedDir.z < 0) newAngle = 180f - newAngle;
-        else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
+        // if (normalizedDir.z < 0) newAngle = 180f - newAngle;
+        // else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
         orbRotater._currentAngle = 90f;
         _startRouteRotation = orbRotater._currentAngle;
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
-        orbRotater.SetRadius(Vector3.Distance(newRouteData.newTilePosition, newRouteData.lastTilePosition));
+        Vector3 newTilePos = newRouteData.newTilePosition;
+        Vector3 lastTilePos = newRouteData.lastTilePosition;
+        orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
     }
 
     private float GetTotalRouteDegrees(float angleDiff)

@@ -155,18 +155,27 @@ public class TileGenerator : MonoBehaviour
             {
                 PlaceNextTile();
             }
-            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.transform.position, _steppingTileQueue[0].transform.position) > 20f) // Magic number to change when tweaking later with variable
+            Vector2 playerXZ = new Vector2(GameManager.Instance.Player.transform.position.x, GameManager.Instance.Player.transform.position.z);
+            Vector3 steppingTile0Pos = _steppingTileQueue[0].transform.position;
+            if (_steppingTileQueue.Count != 0)
             {
-                RemoveTile();
-                //Debug.Log(GameManager.Instance.Player.position.x + " > " + _usedWallTileQueue.Last().transform.position.x);
-                if (_usedWallTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.transform.position, _usedWallTileQueue.First().transform.position) > 20f
-                && GameManager.Instance.Player.transform.position.x > _usedWallTileQueue.First().transform.position.x) // Magic number to change when tweaking later with variable
+                if (Vector2.Distance(playerXZ, new Vector2(steppingTile0Pos.x, steppingTile0Pos.z)) > 20f
+                && playerXZ.x > steppingTile0Pos.x) // Magic number to change when tweaking later with variable
                 {
-                    RemoveWall();
+                    RemoveTile();
+                    if (_usedWallTileQueue.Count != 0)
+                    {
+                        Vector3 usedWallTilePos = _usedWallTileQueue.First().transform.position;
+                        if (_usedWallTileQueue.Count != 0 && Vector2.Distance(playerXZ, new Vector2(usedWallTilePos.x, usedWallTilePos.z)) > 20f
+                        && playerXZ.x > usedWallTilePos.x) // Magic number to change when tweaking later with variable
+                        {
+                            RemoveWall();
+                        }
+                    }
                 }
             }
-            _currentBiome.UpdateInteractables();
-
+            
+            _currentBiome.UpdateInteractables(playerXZ);
         }
     }
 
@@ -205,29 +214,30 @@ public class TileGenerator : MonoBehaviour
 
         if (isInteractable)
         {
-            if (_tileGroupStepIndex >= _currentTileGroup.Count)
-            {
-                float currentPairDistance = Vector3.Distance(_lastPosition, newTilePosition);
-                if (currentPairDistance == 1)
-                {
-                    _lastTileTiming = 1f;
-                    _interactableRouteTimingTotal += 1f;
-                }
-                else
-                {
-                    _lastTileTiming = GameManager.Instance._jumpBaseTiming;
-                    _interactableRouteTimingTotal += _lastTileTiming;
-                }
-            }
+            // if (_tileGroupStepIndex >= _currentTileGroup.Count)
+            // {
+            //     float currentPairDistance = Vector2.Distance(new Vector2(_lastPosition.x, _lastPosition.z),
+            //      new Vector2(newTilePosition.x, newTilePosition.z));
+            //     if (currentPairDistance == 1)
+            //     {
+            //         _lastTileTiming = 1f;
+            //         _interactableRouteTimingTotal += 1f;
+            //     }
+            //     else
+            //     {
+            //         _lastTileTiming = GameManager.Instance._jumpBaseTiming;
+            //         _interactableRouteTimingTotal += _lastTileTiming;
+            //     }
+            // }
             InteractableTile newInteractable = SetNextInteractable(newTilePosition);
-            //Debug.Log("Route Timing: " + interactableRouteTimingTotal);
             _playerMovement._interactableRouteTimings.Add(
-                new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition, newInteractable));
+            new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition, newInteractable));
             _interactableRouteTimingTotal = 0f;
         }
         else
         {
-            float currentPairDistance = Vector3.Distance(_lastPosition, newTilePosition);
+            float currentPairDistance = Vector2.Distance(new Vector2(_lastPosition.x, _lastPosition.z),
+                 new Vector2(newTilePosition.x, newTilePosition.z));
             if (currentPairDistance == 1)
             {
                 _lastTileTiming = 1f;
