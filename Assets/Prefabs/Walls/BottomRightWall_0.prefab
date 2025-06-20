@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7261735943204558914}
   - component: {fileID: 6745849401816498768}
   - component: {fileID: 7344182192284148989}
-  - component: {fileID: 6735684020828316243}
+  - component: {fileID: 958995827367490305}
   m_Layer: 0
   m_Name: BottomRightWall_0
   m_TagString: Untagged
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6735684020828316243
+--- !u!114 &958995827367490305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7156686740188166667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36174b17ddac8c949af7d9b6a9cbc1ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 92e5ae7564e9b0343bfd35b1be546ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listIndex: 1

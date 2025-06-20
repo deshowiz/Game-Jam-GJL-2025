@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6405e7c3314f547bd44d379a1463a0, type: 3}
   m_Name: FlatGroup_0
   m_EditorClassIdentifier: 
-  _wallPrefab: {fileID: 6735684020828316243, guid: c7b1cceea4dac15458c3bfea607f383e, type: 3}
+  _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
+  _wallPrefabMeshes: []
   _wallSectionVariations:
-  - positions:
-    - {x: 0, y: 1, z: 1}
-    - {x: 1, y: 1, z: 1}
-    - {x: 2, y: 0.8, z: 1}
-    - {x: 0, y: -0.1, z: -1}
-    - {x: 1, y: 0.4, z: -1}
-    - {x: 2, y: 0.2, z: -1}
-    - {x: 3, y: 0.8, z: -1}
+  - wallDataList:
+    - wallMeshPrefab: {fileID: -8806229996447277915, guid: 34a547f4a66722f4da7110dd473ea9b2, type: 3}
+      position: {x: 0, y: 0, z: 1}
+    - wallMeshPrefab: {fileID: -8806229996447277915, guid: 34a547f4a66722f4da7110dd473ea9b2, type: 3}
+      position: {x: 1, y: 0, z: 1}
+    - wallMeshPrefab: {fileID: -8806229996447277915, guid: 34a547f4a66722f4da7110dd473ea9b2, type: 3}
+      position: {x: 2, y: 0, z: 1}
   _positionedTilePrefabs:
   - tilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
     position: {x: 0, y: 0, z: 0}

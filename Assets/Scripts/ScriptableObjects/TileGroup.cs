@@ -10,8 +10,10 @@ public class TileGroup : ScriptableObject
 {
     [Header("Wall Data")]
     [SerializeField]
-    private Tile _wallPrefab;
-    public Tile WallPrefab {get{ return _wallPrefab; }}
+    private Wall _baseWallPrefab = null;
+    public Wall BaseWallPrefab { get { return _baseWallPrefab;}}
+    [SerializeField]
+    private List<Mesh> _wallPrefabMeshes;
 
     [SerializeField]
     private List<WallPositionList> _wallSectionVariations;
@@ -22,12 +24,19 @@ public class TileGroup : ScriptableObject
     [Serializable]
     public struct WallPositionList
     {
-        public List<Vector3> positions; // local, add offset
+        public List<WallData> wallDataList; // local, add offset
     }
 
-    public List<Vector3> WallSectionVariation(int directionIndex)
+    [Serializable]
+    public struct WallData
     {
-        return _wallSectionVariations[directionIndex].positions;
+        public Mesh wallMeshPrefab;
+        public Vector3 position;
+    }
+
+    public List<WallData> WallSectionVariation(int directionIndex)
+    {
+        return _wallSectionVariations[directionIndex].wallDataList;
     }
 
     
@@ -84,13 +93,13 @@ public class GroupSpawner : Editor
 
             UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
-            GameObject newWallPrefab = tileGroup.WallPrefab.gameObject;
+            GameObject newWallPrefab = tileGroup.BaseWallPrefab.gameObject;
             
-            List<Vector3> currentWallSection = tileGroup.WallSectionVariation(UnityEngine.Random.Range(0, tileGroup.WallSectionVariations.Count));
+            List<TileGroup.WallData> currentWallSection = tileGroup.WallSectionVariation(UnityEngine.Random.Range(0, tileGroup.WallSectionVariations.Count));
 
             for (int j = 0; j < currentWallSection.Count; j++)
             {
-                GameObject currentWall = Instantiate(newWallPrefab, currentWallSection[j], Quaternion.identity, newHolderT.transform);
+                GameObject currentWall = Instantiate(newWallPrefab, currentWallSection[j].position, Quaternion.identity, newHolderT.transform);
                 currentWall.SetActive(true);
             }
             

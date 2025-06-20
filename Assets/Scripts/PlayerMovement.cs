@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private float _baseSpeed = 1f;
     [SerializeField]
     private float _boostSpeed = 0f;
+    public float BoostSpeed{ get { return _boostSpeed; } }
+
     [SerializeField]
     private float _boostMaximum = 20f;
     [SerializeField]
