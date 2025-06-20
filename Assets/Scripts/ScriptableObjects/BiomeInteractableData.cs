@@ -39,6 +39,8 @@ public class BiomeInteractableData : ScriptableObject
     [SerializeField]
     private int _trapMaximumTileSpacing = 20;
 
+    private Transform _spawnHolder = null;
+
     public int GetNextTrapPosition()
     {
         return UnityEngine.Random.Range(_trapMinimumTileSpacing, _trapMaximumTileSpacing);
@@ -68,13 +70,14 @@ public class BiomeInteractableData : ScriptableObject
 
     public void InitializeBiome()
     {
+        _spawnHolder = new GameObject("SpawnHolder").transform;
         _availablePowerups = new List<Queue<InteractableTile>>();
         for (int i = 0; i < _powerups.Count; i++)
         {
             _availablePowerups.Add(new Queue<InteractableTile>());
             for (int j = 0; j < GameManager.Instance._interactablePoolSize; j++)
             {
-                InteractableTile newPowerupCopy = Instantiate(_powerups[i]);
+                InteractableTile newPowerupCopy = Instantiate(_powerups[i], _spawnHolder);
                 newPowerupCopy._listIndex = i;
                 _availablePowerups[i].Enqueue(newPowerupCopy);
             }
@@ -90,7 +93,7 @@ public class BiomeInteractableData : ScriptableObject
             _availableTraps.Add(new Queue<InteractableTile>());
             for (int j = 0; j < GameManager.Instance._interactablePoolSize; j++)
             {
-                InteractableTile newTrapCopy = Instantiate(_traps[i]);
+                InteractableTile newTrapCopy = Instantiate(_traps[i], _spawnHolder);
                 newTrapCopy._listIndex = i;
                 _availableTraps[i].Enqueue(newTrapCopy);
             }
