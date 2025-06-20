@@ -85,12 +85,15 @@ public class OrbRotater : MonoBehaviour
         float scaledHitThreshold = _hitThreshold * chosenOrb.localScale.x;
         InteractableTile currentInteractable;
         Vector2 orbXZ = new Vector2(chosenOrb.position.x, chosenOrb.position.z);
-        for (int i = 0; i < allInteractables.Count; i++)
+        for (int i = 0; i < 1; i++)
         {
             currentInteractable = allInteractables[i].interactableTile;
             float accuracyDistance = Vector2.Distance(orbXZ,
              new Vector2(currentInteractable.transform.position.x, currentInteractable.transform.position.z));
-            if (accuracyDistance < scaledHitThreshold)
+            // float yDiff = GameManager.Instance.transform.position.y > currentInteractable.transform.position.y ?
+            //     Mathf.Abs(GameManager.Instance.transform.position.y - currentInteractable.transform.position.y) :
+            //         Mathf.Abs(currentInteractable.transform.position.y - GameManager.Instance.transform.position.y);
+            if (accuracyDistance < scaledHitThreshold/* + yDiff * 0.5f*/)
             {
                 currentInteractable.Interact();
                 _orbs[orbIndex].GlowOnHit();
@@ -109,6 +112,17 @@ public class OrbRotater : MonoBehaviour
     public void SetRadius(float newRadius)
     {
         _radius = newRadius;
+    }
+
+    public void SetOrbHeight(float newY, bool isBlue)
+    {
+        if (isBlue)
+        {
+            _orbs[0].transform.position = new Vector3(_orbs[0].transform.position.x, newY, _orbs[0].transform.position.z);
+        } else
+        {
+            _orbs[1].transform.position = new Vector3(_orbs[1].transform.position.x, newY, _orbs[1].transform.position.z);
+        }
     }
 
     public void SlowMoRecovery(int numPresses)

@@ -201,7 +201,7 @@ public class TileGenerator : MonoBehaviour
         Tile newPlaceableTile = _currentlyAvailableTiles.Dequeue();
         newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
         newPlaceableTile.SetMesh(_currentTileGroup[_tileGroupStepIndex].tileMeshPrefab);
-        Vector3 newTilePosition = newPlaceableTile.transform.position;
+        Vector3 newTilePosition = newPlaceableTile.transform.position  + new Vector3(0f, 10f, 0f); // Magic Y for offset
 
         newPlaceableTile.gameObject.SetActive(true);
         _steppingTileQueue.Add(newPlaceableTile);
@@ -240,16 +240,26 @@ public class TileGenerator : MonoBehaviour
                  new Vector2(newTilePosition.x, newTilePosition.z));
             if (currentPairDistance == 1)
             {
-                _lastTileTiming = 1f;
-                _interactableRouteTimingTotal += 1f;
+                float fullDistance = Vector3.Distance(_lastPosition + new Vector3(0f, 10f, 0f), newTilePosition);
+                if (fullDistance == 1f)
+                {
+                    _lastTileTiming = 1f;
+                    _interactableRouteTimingTotal += 1f;
+                }
+                else
+                {
+                    _lastTileTiming = fullDistance;
+                    _interactableRouteTimingTotal += _lastTileTiming;
+                }
+                
             }
             else
             {
-                _lastTileTiming = GameManager.Instance._jumpBaseTiming;
+                _lastTileTiming = currentPairDistance;
                 _interactableRouteTimingTotal += _lastTileTiming;
             }
         }
-        _lastPosition = newTilePosition;
+        _lastPosition = newTilePosition - new Vector3(0f, 10f, 0f); // Magic Y again
         if (_tileGroupStepIndex >= _currentTileGroup.Count)
         {
             SetNewTileGroup();
@@ -258,7 +268,7 @@ public class TileGenerator : MonoBehaviour
 
     private InteractableTile SetNextInteractable(Vector3 newPos)
     {
-        Vector3 placementPos = newPos + new Vector3(0f, 10f, 0f);
+        Vector3 placementPos = newPos;
         //Debug.Log("Interactable position: " + placementPos);
         if (_forcedBoost)
         {

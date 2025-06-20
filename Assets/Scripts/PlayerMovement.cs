@@ -54,7 +54,15 @@ public class PlayerMovement : MonoBehaviour
 
     private float _totalDegreesThisRoute = 0f;
 
+    private float _totalDegreesForJourney = 0f;
+
     Vector3 _windowSpriteRatio = Vector3.zero;
+
+    private float _currentPairDistance = 0f;
+
+    private float _currentRouteProgressStep = 0f;
+    private float _totalHeightProgress = 0f;
+    private bool _isBlueOrb = true;
 
     private void Awake()
     {
@@ -84,13 +92,19 @@ public class PlayerMovement : MonoBehaviour
         Friction();
         _fullSpeed = _baseSpeed + _boostSpeed;
         float distToNext = DistanceToNextTile();
-        _incrementedTiming = ((_fullSpeed * Time.deltaTime / _currentRouteBaseTiming) * _totalDegreesThisRoute);
+        _currentRouteProgressStep = (_fullSpeed * Time.deltaTime / _currentRouteBaseTiming);
+        _totalHeightProgress += _currentRouteProgressStep;
+        _incrementedTiming = _currentRouteProgressStep * _totalDegreesThisRoute;
         //_currentRouteBaseTiming
         //_currentRouteRotation
 
         // Must be additive
         orbRotater.SetOrbSize(_orbGrowth.Evaluate(_boostSpeed));
         orbRotater.SetNewRotation(_incrementedTiming);
+        orbRotater.SetOrbHeight(
+            Mathf.Lerp(GameManager.Instance.Player.transform.position.y,
+            _interactableRouteTimings[0].interactableTile.transform.position.y,
+            _totalHeightProgress), _isBlueOrb);
 
 
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
@@ -164,8 +178,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 finalDestination = transform.position;
         float distanceThisFrame = _fullSpeed * Time.deltaTime;
         _stepPercentageCompleted += distanceThisFrame;
+        _currentPairDistance = Vector3.Distance(GetNextTilePos(), GetCurrentTilePos());
 
-        if (_stepPercentageCompleted < 1f)
+        if (_stepPercentageCompleted < _currentPairDistance)
         {
             finalDestination += GetNormalizedDirection() * distanceThisFrame;
         }
@@ -173,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
         {
             do
             { // In case the player moves more than one tile's space during a frame
-                _stepPercentageCompleted--;
+                _stepPercentageCompleted -= _currentPairDistance;
                 finalDestination = TileIncrement();
                 //Time.timeScale = 0f;
                 if (GetNextTileInteractable())
@@ -182,11 +197,12 @@ public class PlayerMovement : MonoBehaviour
                 }
                 Vector3 nextTile = GetNextTilePos();
                 finalDestination = Vector3.Lerp(finalDestination, nextTile, _stepPercentageCompleted);
+                _currentPairDistance = Vector3.Distance(nextTile, GetCurrentTilePos());
             }
-            while (_stepPercentageCompleted > 1f);
+            while (_stepPercentageCompleted > _currentPairDistance);
         }
 
-        transform.position = new Vector3(finalDestination.x, 0f, finalDestination.z);
+        transform.position = new Vector3(finalDestination.x, finalDestination.y, finalDestination.z); 
     }
 
     private void Step()
@@ -240,6 +256,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
     {
+        _totalHeightProgress = 0f;
         if (_interactableRouteTimings[0].interactableTile.isActiveAndEnabled)
         {
             _interactableRouteTimings[0].interactableTile.WalkedOver();
@@ -254,7 +271,10 @@ public class PlayerMovement : MonoBehaviour
         // else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
         _startRouteRotation = orbRotater._currentAngle;
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
+        //Debug.Log(IsBlue(angleDiff));
+        _isBlueOrb = IsBlue(angleDiff);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
+        _totalDegreesForJourney += _totalDegreesThisRoute;
         Vector3 newTilePos = newRouteData.newTilePosition;
         Vector3 lastTilePos = newRouteData.lastTilePosition;
         orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
@@ -262,18 +282,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartFirstRoute()
     {
+        _totalHeightProgress = 0f;
         _incrementedTiming = 0f;
         _fullSpeed = _baseSpeed + _boostSpeed;
         RouteData newRouteData = _interactableRouteTimings[0];
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
-        float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;
+        float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;;
         // if (normalizedDir.z < 0) newAngle = 180f - newAngle;
         // else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
+        
         orbRotater._currentAngle = 90f;
+        _totalDegreesForJourney += 90f;
         _startRouteRotation = orbRotater._currentAngle;
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
+        //Debug.Log(IsBlue(angleDiff));
+        _isBlueOrb = IsBlue(angleDiff);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
+        _totalDegreesForJourney += _totalDegreesThisRoute;
         Vector3 newTilePos = newRouteData.newTilePosition;
         Vector3 lastTilePos = newRouteData.lastTilePosition;
         orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
@@ -285,9 +311,14 @@ public class PlayerMovement : MonoBehaviour
         if (direction == -1f || angleDiff == 0f) // 180f is a half rotation
         {
             angleDiff += 180f;
+            return angleDiff;
         }
-
         return angleDiff;
+    }
+
+    private bool IsBlue(float angleDiff)
+    {
+        return Mathf.Sign(angleDiff) != -1f;
     }
 
     private float GetRouteRotations(float fullRouteTiming)
