@@ -12,6 +12,7 @@ using UnityEditor;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
+
     [Header("References")]
     // Replace with player script or whatever
     [SerializeField]
@@ -56,6 +57,9 @@ public class GameManager : MonoBehaviour
         {
             _tileGenerator = GetComponent<TileGenerator>();
         }
+        
+        Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
+        
         NextBiome();
     }
 
