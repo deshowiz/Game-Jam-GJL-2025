@@ -69,10 +69,20 @@ public class GameManager : MonoBehaviour
         LoadNewScene();
     }
 
-    public async Task LoadNewScene()
+    public void RestartScene()
+    {
+        LoadNewScene();
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
+    public void LoadNewScene()
     {
         // call transition, await, and then await scene swap
-        await SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
 
         Initialize();
     }

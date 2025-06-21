@@ -9,6 +9,8 @@ public class MinotaurMovement : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private Transform _minotaurTransform = null;
+    [SerializeField]
+    private GameEvent _contactEvent = null;
     [Header("Settings")]
     [SerializeField]
     private float _baseSpeed = 3f;
@@ -20,6 +22,8 @@ public class MinotaurMovement : MonoBehaviour
     public float movementTweenSpeed = 0.15f;
     [SerializeField]
     private Vector3 _playerEffectOffset = Vector3.zero;
+    [SerializeField]
+    private float _distanceForContact = 1f;
 
     private List<Vector3> _tilesToTravel = new List<Vector3>();
     public void AddTileToTravel(Vector3 newTilePosition)
@@ -39,6 +43,14 @@ public class MinotaurMovement : MonoBehaviour
             ready = !ready;
         }
         if (!ready || _tilesToTravel.Count == 0) return;
+
+        if (IsContactWithPlayer())
+        {
+            Debug.Log("Contact");
+            //Time.timeScale = 0f;
+            _contactEvent.Raise();
+        }
+
         _fullSpeed = _baseSpeed + _boostSpeed;
         float distToNext = DistanceToNextTile();
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
@@ -121,13 +133,18 @@ public class MinotaurMovement : MonoBehaviour
         return _tilesToTravel[0];
     }
 
-        private float DistanceToNextTile()
+    private float DistanceToNextTile()
     {
         if (!GameManager.Instance) return 0.0f;
         Vector3 currentTilePos = _tilesToTravel[0];
         Vector3 nextTilePos = _tilesToTravel[1];
         return Vector2.Distance(new Vector2(currentTilePos.x, currentTilePos.z),
          new Vector2(nextTilePos.x, nextTilePos.z));
+    }
+
+    private bool IsContactWithPlayer()
+    {
+        return Vector3.Distance(GameManager.Instance.Player.transform.position, _minotaurTransform.position) <= _distanceForContact;
     }
 
 
