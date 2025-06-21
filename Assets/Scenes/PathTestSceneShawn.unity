@@ -663,7 +663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 842789167}
   - component: {fileID: 842789168}
-  - component: {fileID: 842789169}
+  - component: {fileID: 842789170}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -699,11 +699,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1216750093}
-  _tileGenerator: {fileID: 842789169}
+  _tileGenerator: {fileID: 1781054912}
   CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
   _interactablePoolSize: 100
   _jumpBaseTiming: 2.63
---- !u!114 &842789169
+--- !u!114 &842789170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -712,23 +712,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 842789166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3b954e588bcf044bda4aa8c7dcfcfe, type: 3}
+  m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovement: {fileID: 1216750092}
-  _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
-  _interactableBiomes:
-  - {fileID: 11400000, guid: 7d49fc27203d4c14b941f6d72f0e391b, type: 2}
-  _tilesParentTransform: {fileID: 1103658268}
-  _baseTilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
-  _tileGroups:
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
-  _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
-  _maximumQueueSpawnSize: 200
-  _boostPercentage: 0.5
-  _lastPosition: {x: 0, y: -10, z: 0}
-  maxPositiveInteractableScore: 2
-  maxNegativeInteractableScore: -3
+  Event: {fileID: 11400000, guid: b4ecef3e2b91c55439b01ea37faa3894, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 842789168}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadNextBiome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &885320153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1123,10 @@ PrefabInstance:
       propertyPath: movementTweenSpeed
       value: 2.63
       objectReference: {fileID: 0}
+    - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
+      propertyPath: _OnPlayerFinishBiome
+      value: 
+      objectReference: {fileID: 11400000, guid: b4ecef3e2b91c55439b01ea37faa3894, type: 2}
     - target: {fileID: 9136947399383785066, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: _playerEffectOffset.x
       value: 0
@@ -2772,6 +2778,65 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1781054911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1781054913}
+  - component: {fileID: 1781054912}
+  m_Layer: 0
+  m_Name: TileGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1781054912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781054911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3b954e588bcf044bda4aa8c7dcfcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerMovement: {fileID: 1216750092}
+  _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
+  _interactableBiomes:
+  - {fileID: 11400000, guid: 7d49fc27203d4c14b941f6d72f0e391b, type: 2}
+  _tilesParentTransform: {fileID: 1103658268}
+  _baseTilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
+  _tileGroups:
+  - {fileID: 11400000, guid: 5b3db62f8023cbf4cab3796c9c7d2b76, type: 2}
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
+  _maximumQueueSpawnSize: 200
+  _boostPercentage: 0.5
+  _lastPosition: {x: 0, y: -10, z: 0}
+  maxPositiveInteractableScore: 2
+  maxNegativeInteractableScore: -3
+--- !u!4 &1781054913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781054911}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2779,6 +2844,7 @@ SceneRoots:
   - {fileID: 961739753}
   - {fileID: 1160234427}
   - {fileID: 842789167}
+  - {fileID: 1781054913}
   - {fileID: 885320154}
   - {fileID: 1035288881}
   - {fileID: 1103658268}

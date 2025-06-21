@@ -54,8 +54,16 @@ public class TileGroup : ScriptableObject
     [Serializable]
     public struct PositionedGroup
     {
+        [SerializeField]
         public Mesh tileMeshPrefab;
+        [SerializeField]
         public Vector3 position; // local, add offset
+
+        public PositionedGroup(Mesh newMesh, Vector3 newPosition)
+        {
+            this.tileMeshPrefab = newMesh;
+            this.position = newPosition;
+        }
     }
 
     
@@ -101,14 +109,15 @@ public class GroupSpawner : Editor
 
             UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
-            GameObject newWallPrefab = tileGroup.BaseWallPrefab.gameObject;
+            Wall newWallPrefab = tileGroup.BaseWallPrefab;
             
             List<TileGroup.WallData> currentWallSection = tileGroup.WallSectionVariation(UnityEngine.Random.Range(0, tileGroup.WallSectionVariations.Count));
 
             for (int j = 0; j < currentWallSection.Count; j++)
             {
-                GameObject currentWall = Instantiate(newWallPrefab, currentWallSection[j].position, Quaternion.identity, newHolderT.transform);
-                currentWall.SetActive(true);
+                Wall currentWall = Instantiate(newWallPrefab, currentWallSection[j].position, Quaternion.identity, newHolderT.transform);
+                currentWall.SetMesh(currentWallSection[j].wallMeshPrefab);
+                currentWall.gameObject.SetActive(true);
             }
             
         }
@@ -122,6 +131,27 @@ public class GroupSpawner : Editor
                 DestroyImmediate(currentHolder);
             }
         }
+
+        // if (GUILayout.Button("Fill Empty Tile Mesh References"))
+        // {
+        //     // Mesh cubeMesh = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath("0000000000000000e000000000000000"), typeof(Mesh)) as Mesh;
+        //     // Debug.Log(cubeMesh);
+        //     List<TileGroup.PositionedGroup> positionedTiles = tileGroup.PositionedTilePrefabs;
+        //     Mesh cubeMesh = Resources.GetBuiltinResource(typeof(Mesh), "Cube.fbx") as Mesh;
+        //     Debug.Log(cubeMesh);
+        //     for (int i = 0; i < tileGroup.PositionedTilePrefabs.Count; i++)
+        //     {
+        //         Vector3 copiedPosition = positionedTiles[i].position;
+        //         positionedTiles[i] = new TileGroup.PositionedGroup(cubeMesh, copiedPosition);
+        //     }
+        //     EditorUtility.SetDirty(this);
+        //     Debug.Log(EditorUtility.IsDirty(this));
+        //     Undo.RecordObject(this, "Setting Cube Meshes");
+        //     AssetDatabase.SaveAssets();
+        //     AssetDatabase.Refresh();
+        // }
+
+
         DrawDefaultInspector();
     }
 }

@@ -7,6 +7,9 @@ public class BiomeInteractableData : ScriptableObject
 {
     [Header("References")]
     [SerializeField]
+    private TileGroup _lastBiomeGroup = null;
+    public TileGroup LastBiomeGroup{get{return _lastBiomeGroup;}}
+    [SerializeField]
     private List<TileGroup> _tileGroups = new List<TileGroup>();
     public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count))]; }}
     [SerializeField]
@@ -27,6 +30,9 @@ public class BiomeInteractableData : ScriptableObject
     private InteractableTile _usedTrap = null;
 
     [Header("Settings")]
+    [SerializeField]
+    private int _groupLevelLength = 20;
+    public int GroupLevelLength {get { return _groupLevelLength; }}
     [SerializeField]
     private int _boostMinimumTileSpacing = 10;
     [SerializeField]

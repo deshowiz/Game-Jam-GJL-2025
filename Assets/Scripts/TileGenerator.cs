@@ -50,6 +50,13 @@ public class TileGenerator : MonoBehaviour
     private int _repeatPositiveInteractables = 0;
 
     private bool _isRunning = false;
+    private bool _isGenerating = false;
+    private bool _generateLevelEnd = false;
+    private bool _startedLevelEnd = false;
+    private bool _finishedBiome = false;
+
+    private int _numGroupsGenerated = 0;
+    private int _biomeGroupLimit = 0;
 
     private List<TileGroup.PositionedGroup> _currentTileGroup = null;
 
@@ -66,8 +73,9 @@ public class TileGenerator : MonoBehaviour
 
     private float _lastTileTiming = 0f;
 
-    public void FullInitialization()
+    public void FullInitialization(int newBiomeIndex)
     {
+        SetCurrentBiome(newBiomeIndex);
         if (_playerMovement == null)
         {
             _playerMovement = FindFirstObjectByType<PlayerMovement>();
@@ -76,7 +84,7 @@ public class TileGenerator : MonoBehaviour
         InitializeTiles();
     }
 
-    private void SetCurrentBiome(int biomeIndex)
+    public void SetCurrentBiome(int biomeIndex)
     {
         _currentBiome = _interactableBiomes[biomeIndex];
         _currentBiome.InitializeBiome();
@@ -86,6 +94,7 @@ public class TileGenerator : MonoBehaviour
     {
         SetCurrentBiome(0); // Swap biome specific texture in beginning of scene for base prefab before cloning
         // OR material in case color over settings need changing
+        _biomeGroupLimit = _currentBiome.GroupLevelLength;
         _lastInteractableTileIndex = 5;
         for (int i = 0; i < _maximumQueueSpawnSize; i++)
         {
@@ -113,6 +122,28 @@ public class TileGenerator : MonoBehaviour
         // else
         // {
         //     _interactableRouteTimingTotal -= 1f;
+        // }
+
+        // float currentPairDistance = Vector2.Distance(new Vector2(_steppingTileQueue[0].transform.position.x, _steppingTileQueue[0].transform.position.z),
+        //          new Vector2(_steppingTileQueue[1].transform.position.x, _steppingTileQueue[1].transform.position.z));
+        // if (currentPairDistance == 1)
+        // {
+        //     float fullDistance = Vector3.Distance(_lastPosition + new Vector3(0f, 10f, 0f), _steppingTileQueue[1].transform.position);
+        //     if (fullDistance == 1f)
+        //     {
+        //         _lastTileTiming = 1f;
+        //         _interactableRouteTimingTotal -= 1f;
+        //     }
+        //     else
+        //     {
+        //         _lastTileTiming = fullDistance;
+        //         _interactableRouteTimingTotal -= _lastTileTiming;
+        //     }
+        // }
+        // else
+        // {
+        //     _lastTileTiming = currentPairDistance;
+        //     _interactableRouteTimingTotal -= _lastTileTiming;
         // }
         
         //Debug.Log(_lastTileTiming);
@@ -151,11 +182,13 @@ public class TileGenerator : MonoBehaviour
     {
         if (_isRunning)
         {
-            if (_steppingTileQueue.Count < _maximumQueueSpawnSize / 2)
+            Vector2 playerXZ = new Vector2(GameManager.Instance.Player.transform.position.x, GameManager.Instance.Player.transform.position.z);
+            if (!_finishedBiome && _steppingTileQueue.Count < _maximumQueueSpawnSize / 2)
             {
                 PlaceNextTile();
+                _currentBiome.UpdateInteractables(playerXZ);
             }
-            Vector2 playerXZ = new Vector2(GameManager.Instance.Player.transform.position.x, GameManager.Instance.Player.transform.position.z);
+            
             Vector3 steppingTile0Pos = _steppingTileQueue[0].transform.position;
             if (_steppingTileQueue.Count != 0)
             {
@@ -174,8 +207,6 @@ public class TileGenerator : MonoBehaviour
                     }
                 }
             }
-            
-            _currentBiome.UpdateInteractables(playerXZ);
         }
     }
 
@@ -214,6 +245,7 @@ public class TileGenerator : MonoBehaviour
 
         if (isInteractable)
         {
+
             // if (_tileGroupStepIndex >= _currentTileGroup.Count)
             // {
             //     float currentPairDistance = Vector2.Distance(new Vector2(_lastPosition.x, _lastPosition.z),
@@ -251,7 +283,7 @@ public class TileGenerator : MonoBehaviour
                     _lastTileTiming = fullDistance;
                     _interactableRouteTimingTotal += _lastTileTiming;
                 }
-                
+
             }
             else
             {
@@ -316,7 +348,28 @@ public class TileGenerator : MonoBehaviour
 
     private void SetNewTileGroup()
     {
-        TileGroup newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+        _numGroupsGenerated++;
+        if (_numGroupsGenerated >= _biomeGroupLimit)
+        {
+            _generateLevelEnd = true;
+        }
+        TileGroup newTileGroup;
+        if (_generateLevelEnd)
+        {
+            if (_startedLevelEnd)
+            {
+                _finishedBiome = true;
+                _playerMovement.RemoveLastInteractable();
+                return;
+            }
+            ;
+            newTileGroup = _currentBiome.LastBiomeGroup;
+            _startedLevelEnd = true;
+        }
+        else
+        {
+            newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+        }
         _currentTileGroup = newTileGroup.PositionedTilePrefabs;
         List<TileGroup.WallData> wallPositions = newTileGroup.WallSectionVariation(UnityEngine.Random.Range(0, newTileGroup.WallSectionCount));
         _groupAnchorPosition = _lastPosition + Vector3.right;
