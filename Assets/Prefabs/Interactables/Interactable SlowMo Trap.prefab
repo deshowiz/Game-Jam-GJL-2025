@@ -99,8 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc056bc113382a47a1c9759c616d4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listIndex: 0
+  _meshFilter: {fileID: 0}
   used: 0
+  _listIndex: 0
+  _vfxEvent: {fileID: 11400000, guid: 2193cd728b4cd384e9c5776f22791d4c, type: 2}
   _stunTime: 0.5
   _adjustedTimeScale: 0.3
+  _shockwaveEvent: {fileID: 11400000, guid: 2193cd728b4cd384e9c5776f22791d4c, type: 2}
   _numPressesforUnlock: 6
