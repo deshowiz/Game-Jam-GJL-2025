@@ -39,6 +39,8 @@ public class OrbRotater : MonoBehaviour
 
     WaitForFixedUpdate _endFrameWaiter = null;
 
+    private bool _endSpin = false;
+
     private void Awake()
     {
         _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
@@ -80,12 +82,12 @@ public class OrbRotater : MonoBehaviour
     // Bad expensive Game Jam code activate!
     public bool CheckOrbAccuracy(int orbIndex, List<PlayerMovement.RouteData> allInteractables)
     {
-        if (_orbs[orbIndex].IsDisabled) return false;
+        if (_orbs[orbIndex].IsDisabled || allInteractables.Count == 0) return false;
         Transform chosenOrb = _orbs[orbIndex].transform;
         float scaledHitThreshold = _hitThreshold * chosenOrb.localScale.x;
         InteractableTile currentInteractable;
         Vector2 orbXZ = new Vector2(chosenOrb.position.x, chosenOrb.position.z);
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < allInteractables.Count; i++)
         {
             currentInteractable = allInteractables[i].interactableTile;
             float accuracyDistance = Vector2.Distance(orbXZ,
@@ -105,7 +107,8 @@ public class OrbRotater : MonoBehaviour
         }
 
         // Timed Disabling of orb?
-        _orbs[orbIndex].DisableOrb();
+        _orbs[0].DisableOrb();
+        _orbs[1].DisableOrb();
         return false;
     }
 
@@ -119,7 +122,8 @@ public class OrbRotater : MonoBehaviour
         if (isBlue)
         {
             _orbs[0].transform.position = new Vector3(_orbs[0].transform.position.x, newY, _orbs[0].transform.position.z);
-        } else
+        }
+        else
         {
             _orbs[1].transform.position = new Vector3(_orbs[1].transform.position.x, newY, _orbs[1].transform.position.z);
         }
@@ -176,4 +180,19 @@ public class OrbRotater : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void EndBiomeSpin()
+    {
+        if (_endSpin) return;
+        _endSpin = true;
+        StartCoroutine(EndSpinningRoutine());
+    }
+
+    private IEnumerator EndSpinningRoutine()
+    {
+        while (true)
+        {
+            SetNewRotation(50f * Time.deltaTime);
+            yield return null;
+        }
+    }
 }

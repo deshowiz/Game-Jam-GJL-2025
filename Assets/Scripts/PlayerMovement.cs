@@ -12,9 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public OrbRotater orbRotater;
     public GameEvent OnPlayerStepEvent;
     public GameObject teleportFx;
-    
+
     [SerializeField]
-    private GameEvent _OnPlayerFinishTileEvent;
+    private GameEvent _OnPlayerFinishBiome;
 
     [Header("Settings")]
     [SerializeField]
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float _baseSpeed = 1f;
     [SerializeField]
     private float _boostSpeed = 0f;
-    public float BoostSpeed{ get { return _boostSpeed; } }
+    public float BoostSpeed { get { return _boostSpeed; } }
 
     [SerializeField]
     private float _boostMaximum = 20f;
@@ -53,8 +53,6 @@ public class PlayerMovement : MonoBehaviour
     private float _startRouteRotation = 0f;
 
     private float _totalDegreesThisRoute = 0f;
-
-    private float _totalDegreesForJourney = 0f;
 
     Vector3 _windowSpriteRatio = Vector3.zero;
 
@@ -101,11 +99,13 @@ public class PlayerMovement : MonoBehaviour
         // Must be additive
         orbRotater.SetOrbSize(_orbGrowth.Evaluate(_boostSpeed));
         orbRotater.SetNewRotation(_incrementedTiming);
-        orbRotater.SetOrbHeight(
+        if (_interactableRouteTimings.Count != 0)
+        {
+            orbRotater.SetOrbHeight(
             Mathf.Lerp(GameManager.Instance.Player.transform.position.y,
             _interactableRouteTimings[0].interactableTile.transform.position.y,
             _totalHeightProgress), _isBlueOrb);
-
+        }
 
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
         {
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
             _pathPositionsToAdd.Clear();
         }
 
-        
+
     }
     #region Movement Effects
     public void Slow(float slowAmount)
@@ -196,13 +196,18 @@ public class PlayerMovement : MonoBehaviour
                     InteractableRouteComplete();
                 }
                 Vector3 nextTile = GetNextTilePos();
+                if (nextTile.x == Mathf.NegativeInfinity)
+                {
+                    ready = false;
+                    return;
+                }
                 finalDestination = Vector3.Lerp(finalDestination, nextTile, _stepPercentageCompleted);
                 _currentPairDistance = Vector3.Distance(nextTile, GetCurrentTilePos());
             }
             while (_stepPercentageCompleted > _currentPairDistance);
         }
 
-        transform.position = new Vector3(finalDestination.x, finalDestination.y, finalDestination.z); 
+        transform.position = new Vector3(finalDestination.x, finalDestination.y, finalDestination.z);
     }
 
     private void Step()
@@ -217,29 +222,29 @@ public class PlayerMovement : MonoBehaviour
         }
         Vector3 targetPos = new Vector3(newTargetPosition.x, transform.position.y,
             newTargetPosition.z);
-        
+
         StartCoroutine(Teleport(targetPos));
     }
 
     IEnumerator Teleport(Vector3 destination)
     {
         _jumping = true;
-        
+
         yield return new WaitForSeconds(movementTweenSpeed / _fullSpeed);
-        
+
         Vector3 nextTile = TileIncrement();
         _jumping = false;
         if (GetNextTileInteractable())
         {
             InteractableRouteComplete();
         }
-        
+
         // GameObject lol = Instantiate(teleportFx, transform.position + _playerEffectOffset, Quaternion.identity);
         // //lol.transform.localScale = new Vector3(1f, 1.7778f, 1);
         // Destroy(lol, 2f);
-        
+
         transform.position = destination;
-        
+
         GameObject lol1 = Instantiate(teleportFx, transform.position + _playerEffectOffset, Quaternion.identity);
         //lol1.transform.localScale = new Vector3(1f, 1.7778f, 1);
         Destroy(lol1, 2f);
@@ -263,6 +268,11 @@ public class PlayerMovement : MonoBehaviour
         }
         _incrementedTiming = 0f;
         _interactableRouteTimings.RemoveAt(0);
+        if (_interactableRouteTimings.Count == 0)
+        {
+            orbRotater.EndBiomeSpin();
+             return;
+        }
         RouteData newRouteData = _interactableRouteTimings.First();
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
@@ -274,7 +284,6 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(IsBlue(angleDiff));
         _isBlueOrb = IsBlue(angleDiff);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
-        _totalDegreesForJourney += _totalDegreesThisRoute;
         Vector3 newTilePos = newRouteData.newTilePosition;
         Vector3 lastTilePos = newRouteData.lastTilePosition;
         orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
@@ -288,18 +297,16 @@ public class PlayerMovement : MonoBehaviour
         RouteData newRouteData = _interactableRouteTimings[0];
         _currentRouteBaseTiming = newRouteData.fullTiming;
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
-        float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg;;
+        float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg; ;
         // if (normalizedDir.z < 0) newAngle = 180f - newAngle;
         // else if (normalizedDir.x < 0) newAngle = 360f + newAngle;
-        
+
         orbRotater._currentAngle = 90f;
-        _totalDegreesForJourney += 90f;
         _startRouteRotation = orbRotater._currentAngle;
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
         //Debug.Log(IsBlue(angleDiff));
         _isBlueOrb = IsBlue(angleDiff);
-        _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
-        _totalDegreesForJourney += _totalDegreesThisRoute;
+        _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff) * 1.15f;
         Vector3 newTilePos = newRouteData.newTilePosition;
         Vector3 lastTilePos = newRouteData.lastTilePosition;
         orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
@@ -397,6 +404,11 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetNextTileInteractable()
     {
+        if (_interactableRouteTimings.Count == 0)
+        {
+            // ready = false;
+            return false;
+        }
         return _playerPathPositions[_currentlyTravelledIndex].hasInteractable;
     }
 
@@ -404,8 +416,22 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 GetNextTilePos()
     {
+        if (_currentlyTravelledIndex == _playerPathPositions.Count - 1)
+        {
+            // End Biome Event
+            ready = false;
+            _OnPlayerFinishBiome.Raise();
+            return Vector3.negativeInfinity;
+        }
         return _playerPathPositions[_currentlyTravelledIndex + 1].position;
     }
+
+    public void RemoveLastInteractable()
+    {
+        InteractableTile interactable = _interactableRouteTimings.Last().interactableTile;
+        interactable.GetComponent<MeshRenderer>().enabled = false;
+        interactable.enabled = false;
+    }
     #endregion
-    
+
 }

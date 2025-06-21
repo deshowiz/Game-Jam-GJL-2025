@@ -2,6 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -26,12 +30,25 @@ public class GameManager : MonoBehaviour
     public int _interactablePoolSize = 20;
     public float _jumpBaseTiming = 0f;
 
+    private int _currentBiome = -1;
+
     public void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(this);
+    }
+
+    public void Start()
+    {
+        // Add to navigation later
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         if (_player == null)
         {
-            Debug.LogError("Player ref empty");
+            //Debug.LogError("Player ref empty");
             _player = GetComponent<Player>();
         }
 
@@ -39,12 +56,36 @@ public class GameManager : MonoBehaviour
         {
             _tileGenerator = GetComponent<TileGenerator>();
         }
+        NextBiome();
     }
 
-    public void Start()
+    public void LoadNextBiome()
     {
-        // Add to navigation later
-        _tileGenerator.FullInitialization();
+        Debug.Log("Switching Scenes?");
+        LoadNewScene();
+    }
+
+    public async Task LoadNewScene()
+    {
+        // call transition, await, and then await scene swap
+        Debug.Log("Switching Scenes?");
+        await SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+
+        Initialize();
+    }
+
+    public void NextBiome()
+    {
+        _currentBiome++;
+        if (_currentBiome == 3)
+        {
+            // You win screen
+        }
+        else
+        {
+            _tileGenerator.FullInitialization(0);
+            //_tileGenerator.FullInitialization(_currentBiome);
+        }
     }
 }
 
