@@ -126,8 +126,8 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ShaekStrength: 0
-    - _ShakeScale: 282
-    - _ShakeStrength: 0
+    - _ShakeScale: 15
+    - _ShakeStrength: 0.1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _Spacing: 1
