@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OrbRotater : MonoBehaviour
@@ -12,6 +14,8 @@ public class OrbRotater : MonoBehaviour
     private TrailRenderer _orbTrail = null;
     [SerializeField]
     private TrailRenderer _orbTrail2 = null;
+    [SerializeField]
+    private GameEvent _brokeSlowMoEvent = null;
 
     public Vector3 _playerPosition = Vector3.zero;
 
@@ -33,10 +37,17 @@ public class OrbRotater : MonoBehaviour
 
     public float _currentAngle = 90f;
 
+    Coroutine _slowMoRecovery = null;
+
+    WaitForFixedUpdate _endFrameWaiter = null;
+
+    private bool _endSpin = false;
+
     private void Awake()
     {
         _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
         _orbTrail2.GetComponent<TrailRenderer>().material.renderQueue = 4000;
+        _endFrameWaiter = new WaitForFixedUpdate();
     }
 
     public void BeginRunning()
@@ -73,7 +84,7 @@ public class OrbRotater : MonoBehaviour
     // Bad expensive Game Jam code activate!
     public bool CheckOrbAccuracy(int orbIndex, List<PlayerMovement.RouteData> allInteractables)
     {
-        if (_orbs[orbIndex].IsDisabled) return false;
+        if (_orbs[orbIndex].IsDisabled || allInteractables.Count == 0) return false;
         Transform chosenOrb = _orbs[orbIndex].transform;
         float scaledHitThreshold = _hitThreshold * chosenOrb.localScale.x;
         InteractableTile currentInteractable;
@@ -83,7 +94,10 @@ public class OrbRotater : MonoBehaviour
             currentInteractable = allInteractables[i].interactableTile;
             float accuracyDistance = Vector2.Distance(orbXZ,
              new Vector2(currentInteractable.transform.position.x, currentInteractable.transform.position.z));
-            if (accuracyDistance < scaledHitThreshold)
+            // float yDiff = GameManager.Instance.transform.position.y > currentInteractable.transform.position.y ?
+            //     Mathf.Abs(GameManager.Instance.transform.position.y - currentInteractable.transform.position.y) :
+            //         Mathf.Abs(currentInteractable.transform.position.y - GameManager.Instance.transform.position.y);
+            if (accuracyDistance < scaledHitThreshold/* + yDiff * 0.5f*/)
             {
                 currentInteractable.Interact();
                 _orbs[orbIndex].GlowOnHit();
@@ -95,7 +109,8 @@ public class OrbRotater : MonoBehaviour
         }
 
         // Timed Disabling of orb?
-        _orbs[orbIndex].DisableOrb();
+        _orbs[0].DisableOrb();
+        _orbs[1].DisableOrb();
         return false;
     }
 
@@ -104,15 +119,33 @@ public class OrbRotater : MonoBehaviour
         _radius = newRadius;
     }
 
-    public void StunRecovery(int numPresses)
+    public void SetOrbHeight(float newY, bool isBlue)
     {
-        StartCoroutine(SlowmoMinigame(numPresses));
+        if (isBlue)
+        {
+            _orbs[0].transform.position = new Vector3(_orbs[0].transform.position.x, newY, _orbs[0].transform.position.z);
+        }
+        else
+        {
+            _orbs[1].transform.position = new Vector3(_orbs[1].transform.position.x, newY, _orbs[1].transform.position.z);
+        }
+    }
+
+    public void SlowMoRecovery(int numPresses)
+    {
+        if (_slowMoRecovery != null)
+        {
+            StopCoroutine(_slowMoRecovery);
+            _slowMoRecovery = StartCoroutine(SlowmoMinigame(numPresses));
+            return;
+        }
+        _slowMoRecovery = StartCoroutine(SlowmoMinigame(numPresses));
     }
 
     public IEnumerator SlowmoMinigame(int numPresses)
     {
-        _orbs[0].DisableOrb();
-        _orbs[1].DisableOrb();
+        _orbs[0].FullDisable();
+        _orbs[1].FullDisable();
         _orbs[0].SetOrbRecovery(0f);
         _orbs[1].SetOrbRecovery(0f);
         int currentPresses = 0;
@@ -133,13 +166,35 @@ public class OrbRotater : MonoBehaviour
 
             if (updateRecovery)
             {
-                _orbs[0].SetOrbRecovery((float)currentPresses / numPresses);
-                _orbs[1].SetOrbRecovery((float)currentPresses / numPresses);
+                float recoveryProgress = Mathf.Min((float)currentPresses / numPresses, 1f);
+                if (recoveryProgress == 1f) break;
+                _orbs[0].SetOrbRecovery(recoveryProgress);
+                _orbs[1].SetOrbRecovery(recoveryProgress);
             }
 
             updateRecovery = false;
             yield return null;
         }
+        yield return null;
+        _brokeSlowMoEvent.Raise();
+        _orbs[0].ReEnable();
+        _orbs[1].ReEnable();
+        Time.timeScale = 1f;
     }
 
+    public void EndBiomeSpin()
+    {
+        if (_endSpin) return;
+        _endSpin = true;
+        StartCoroutine(EndSpinningRoutine());
+    }
+
+    private IEnumerator EndSpinningRoutine()
+    {
+        while (true)
+        {
+            SetNewRotation(50f * Time.deltaTime);
+            yield return null;
+        }
+    }
 }

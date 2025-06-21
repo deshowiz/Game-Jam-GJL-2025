@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
+  m_LocalScale: {x: 0.07, y: 1, z: 0.07}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3fb4e7aa15628384cb3e8eaad366b1ed, type: 2}
+  - {fileID: 2100000, guid: f101d6ea707070942be4deeee2212d59, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc7949227e5c7045a1e2abd3967bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listIndex: 0
+  _listIndex: 1
   used: 0
-  _slowdownAmount: 2
+  _vfxEvent: {fileID: 11400000, guid: 995207450b28ea24f8540e4efbcbdaa6, type: 2}
+  _slowdownAmount: 4

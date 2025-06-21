@@ -2,5 +2,10 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public int _listIndex = 0;
+    [SerializeField]
+    private MeshFilter _meshFilter = null;
+    public void SetMesh(Mesh newMesh)
+    {
+        _meshFilter.mesh = newMesh;
+    }
 }

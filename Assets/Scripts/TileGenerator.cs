@@ -11,23 +11,25 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private PlayerMovement _playerMovement = null;
     [SerializeField]
+    private Wall _baseWallPrefab = null;
+    [SerializeField]
     private List<BiomeInteractableData> _interactableBiomes = null;
     [SerializeField]
     private Transform _tilesParentTransform = null;
     [SerializeField]
-    private List<Tile> _tilePrefabs = new List<Tile>();
-    [SerializeField]
-    private List<Tile> _wallPrefabs = new List<Tile>();
+    private Tile _baseTilePrefab = null;
+    // [SerializeField]
+    // private List<Wall> _wallPrefabs = new List<Wall>();
     [SerializeField]
     private List<TileGroup> _tileGroups = new List<TileGroup>();
 
     [SerializeField]
     private GameEvent _runningEvent = null;
 
-    private List<Queue<Tile>> _currentlyAvailableTiles = new List<Queue<Tile>>();
-    private List<Queue<Tile>> _currentlyAvailableWalls = new List<Queue<Tile>>();
+    private Queue<Tile> _currentlyAvailableTiles = new Queue<Tile>();
+    private Queue<Wall> _currentlyAvailableWalls = new Queue<Wall>();
     private List<Tile> _steppingTileQueue = new List<Tile>();
-    private LinkedList<Tile> _usedWallTileQueue = new LinkedList<Tile>();
+    private LinkedList<Wall> _usedWallTileQueue = new LinkedList<Wall>();
 
     [Header("Settings")]
     [SerializeField]
@@ -40,15 +42,28 @@ public class TileGenerator : MonoBehaviour
     [Tooltip("Set Initial Height of tiles with this variable")]
     [SerializeField]
     private Vector3 _lastPosition = Vector3.zero;
+    [SerializeField]
+    private int maxPositiveInteractableScore = 2;
+    [SerializeField]
+    private int maxNegativeInteractableScore = -3;
+    private int currentInteractableScore = 0;
+    private int _repeatPositiveInteractables = 0;
 
     private bool _isRunning = false;
+    private bool _isGenerating = false;
+    private bool _generateLevelEnd = false;
+    private bool _startedLevelEnd = false;
+    private bool _finishedBiome = false;
+
+    private int _numGroupsGenerated = 0;
+    private int _biomeGroupLimit = 0;
 
     private List<TileGroup.PositionedGroup> _currentTileGroup = null;
 
     private int _tileGroupStepIndex = 0;
     private Vector3 _groupAnchorPosition = Vector3.negativeInfinity;
-    private uint _lastInteractableTileIndex = 0;
-    private uint _fullTileIndexCount = 0;
+    private int _lastInteractableTileIndex = 0;
+    private int _fullTileIndexCount = -1;
 
     private BiomeInteractableData _currentBiome = null;
 
@@ -58,8 +73,9 @@ public class TileGenerator : MonoBehaviour
 
     private float _lastTileTiming = 0f;
 
-    public void FullInitialization()
+    public void FullInitialization(int newBiomeIndex)
     {
+        SetCurrentBiome(newBiomeIndex);
         if (_playerMovement == null)
         {
             _playerMovement = FindFirstObjectByType<PlayerMovement>();
@@ -68,56 +84,67 @@ public class TileGenerator : MonoBehaviour
         InitializeTiles();
     }
 
-    private void SetCurrentBiome(int biomeIndex)
+    public void SetCurrentBiome(int biomeIndex)
     {
         _currentBiome = _interactableBiomes[biomeIndex];
         _currentBiome.InitializeBiome();
     }
 
-    private void InitializeTiles()
+    private void InitializeTiles() // Change to add integer parameter for reloading scene as next biome
     {
-        SetCurrentBiome(0);
+        SetCurrentBiome(0); // Swap biome specific texture in beginning of scene for base prefab before cloning
+        // OR material in case color over settings need changing
+        _biomeGroupLimit = _currentBiome.GroupLevelLength;
         _lastInteractableTileIndex = 5;
-        int tilePrefabIndex = 0;
-        foreach (Tile tilePrefab in _tilePrefabs)
+        for (int i = 0; i < _maximumQueueSpawnSize; i++)
         {
-            _currentlyAvailableTiles.Add(new Queue<Tile>());
-            for (int i = 0; i < _maximumQueueSpawnSize; i++)
-            {
-                Tile tileCopy = Instantiate(tilePrefab, _tilesParentTransform);
-                tileCopy._listIndex = tilePrefabIndex;
-                _currentlyAvailableTiles[tilePrefabIndex].Enqueue(tileCopy);
-            }
-            tilePrefabIndex++;
+            Tile tileCopy = Instantiate(_baseTilePrefab, _tilesParentTransform);
+            _currentlyAvailableTiles.Enqueue(tileCopy);
         }
 
-        tilePrefabIndex = 0;
-        foreach (Tile wallPrefab in _wallPrefabs)
+        for (int i = 0; i < _maximumQueueSpawnSize; i++)
         {
-            _currentlyAvailableWalls.Add(new Queue<Tile>());
-            for (int i = 0; i < _maximumQueueSpawnSize; i++)
-            {
-                Tile wallCopy = Instantiate(wallPrefab, _tilesParentTransform);
-                wallCopy._listIndex = tilePrefabIndex;
-                _currentlyAvailableWalls[tilePrefabIndex].Enqueue(wallCopy);
-            }
-            tilePrefabIndex++;
+            Wall wallCopy = Instantiate(_baseWallPrefab, _tilesParentTransform);
+            _currentlyAvailableWalls.Enqueue(wallCopy);
         }
+
         SetNewTileGroup();
         for (int i = 0; i < 2; i++)
         {
             PlaceNextTile();
         }
-        float firstDistValue = Vector3.Distance(_steppingTileQueue[0].transform.position,
-         _steppingTileQueue[1].transform.position);
-        if (firstDistValue > 1f)
-        {
-            _interactableRouteTimingTotal -= firstDistValue;
-        }
-        else
-        {
-            _interactableRouteTimingTotal -= 1f;
-        }
+        // float firstDistValue = Vector3.Distance(_steppingTileQueue[0].transform.position,
+        //  _steppingTileQueue[1].transform.position);
+        // if (firstDistValue > 1f)
+        // {
+        //     _interactableRouteTimingTotal -= firstDistValue;
+        // }
+        // else
+        // {
+        //     _interactableRouteTimingTotal -= 1f;
+        // }
+
+        // float currentPairDistance = Vector2.Distance(new Vector2(_steppingTileQueue[0].transform.position.x, _steppingTileQueue[0].transform.position.z),
+        //          new Vector2(_steppingTileQueue[1].transform.position.x, _steppingTileQueue[1].transform.position.z));
+        // if (currentPairDistance == 1)
+        // {
+        //     float fullDistance = Vector3.Distance(_lastPosition + new Vector3(0f, 10f, 0f), _steppingTileQueue[1].transform.position);
+        //     if (fullDistance == 1f)
+        //     {
+        //         _lastTileTiming = 1f;
+        //         _interactableRouteTimingTotal -= 1f;
+        //     }
+        //     else
+        //     {
+        //         _lastTileTiming = fullDistance;
+        //         _interactableRouteTimingTotal -= _lastTileTiming;
+        //     }
+        // }
+        // else
+        // {
+        //     _lastTileTiming = currentPairDistance;
+        //     _interactableRouteTimingTotal -= _lastTileTiming;
+        // }
         
         //Debug.Log(_lastTileTiming);
         for (int i = 2; i < _maximumQueueSpawnSize / 2; i++)
@@ -155,22 +182,31 @@ public class TileGenerator : MonoBehaviour
     {
         if (_isRunning)
         {
-            if (_steppingTileQueue.Count < _maximumQueueSpawnSize / 2)
+            Vector2 playerXZ = new Vector2(GameManager.Instance.Player.transform.position.x, GameManager.Instance.Player.transform.position.z);
+            if (!_finishedBiome && _steppingTileQueue.Count < _maximumQueueSpawnSize / 2)
             {
                 PlaceNextTile();
+                _currentBiome.UpdateInteractables(playerXZ);
             }
-            if (_steppingTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.transform.position, _steppingTileQueue[0].transform.position) > 20f) // Magic number to change when tweaking later with variable
+            
+            Vector3 steppingTile0Pos = _steppingTileQueue[0].transform.position;
+            if (_steppingTileQueue.Count != 0)
             {
-                RemoveTile();
-                //Debug.Log(GameManager.Instance.Player.position.x + " > " + _usedWallTileQueue.Last().transform.position.x);
-                if (_usedWallTileQueue.Count != 0 && Vector3.Distance(GameManager.Instance.Player.transform.position, _usedWallTileQueue.First().transform.position) > 20f
-                && GameManager.Instance.Player.transform.position.x > _usedWallTileQueue.First().transform.position.x) // Magic number to change when tweaking later with variable
+                if (Vector2.Distance(playerXZ, new Vector2(steppingTile0Pos.x, steppingTile0Pos.z)) > 20f
+                && playerXZ.x > steppingTile0Pos.x) // Magic number to change when tweaking later with variable
                 {
-                    RemoveWall();
+                    RemoveTile();
+                    if (_usedWallTileQueue.Count != 0)
+                    {
+                        Vector3 usedWallTilePos = _usedWallTileQueue.First().transform.position;
+                        if (_usedWallTileQueue.Count != 0 && Vector2.Distance(playerXZ, new Vector2(usedWallTilePos.x, usedWallTilePos.z)) > 20f
+                        && playerXZ.x > usedWallTilePos.x) // Magic number to change when tweaking later with variable
+                        {
+                            RemoveWall();
+                        }
+                    }
                 }
             }
-            _currentBiome.UpdateInteractables();
-
         }
     }
 
@@ -180,23 +216,23 @@ public class TileGenerator : MonoBehaviour
         _steppingTileQueue.RemoveAt(0);
 
         lastRemovedTile.gameObject.SetActive(false);
-        _currentlyAvailableTiles[lastRemovedTile._listIndex].Enqueue(lastRemovedTile);
+        _currentlyAvailableTiles.Enqueue(lastRemovedTile);
     }
 
     private void RemoveWall()
     {
-        Tile lastRemovedWall = _usedWallTileQueue.First();
+        Wall lastRemovedWall = _usedWallTileQueue.First();
         _usedWallTileQueue.RemoveFirst();
         lastRemovedWall.gameObject.SetActive(false);
-        _currentlyAvailableWalls[lastRemovedWall._listIndex].Enqueue(lastRemovedWall);
+        _currentlyAvailableWalls.Enqueue(lastRemovedWall);
     }
 
     private void PlaceNextTile()
     {
-        int chosenOption = _currentTileGroup[_tileGroupStepIndex].tilePrefab._listIndex;
-        Tile newPlaceableTile = _currentlyAvailableTiles[chosenOption].Dequeue();
+        Tile newPlaceableTile = _currentlyAvailableTiles.Dequeue();
         newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
-        Vector3 newTilePosition = newPlaceableTile.transform.position;
+        newPlaceableTile.SetMesh(_currentTileGroup[_tileGroupStepIndex].tileMeshPrefab);
+        Vector3 newTilePosition = newPlaceableTile.transform.position  + new Vector3(0f, 10f, 0f); // Magic Y for offset
 
         newPlaceableTile.gameObject.SetActive(true);
         _steppingTileQueue.Add(newPlaceableTile);
@@ -209,27 +245,53 @@ public class TileGenerator : MonoBehaviour
 
         if (isInteractable)
         {
+
+            // if (_tileGroupStepIndex >= _currentTileGroup.Count)
+            // {
+            //     float currentPairDistance = Vector2.Distance(new Vector2(_lastPosition.x, _lastPosition.z),
+            //      new Vector2(newTilePosition.x, newTilePosition.z));
+            //     if (currentPairDistance == 1)
+            //     {
+            //         _lastTileTiming = 1f;
+            //         _interactableRouteTimingTotal += 1f;
+            //     }
+            //     else
+            //     {
+            //         _lastTileTiming = GameManager.Instance._jumpBaseTiming;
+            //         _interactableRouteTimingTotal += _lastTileTiming;
+            //     }
+            // }
             InteractableTile newInteractable = SetNextInteractable(newTilePosition);
-            //Debug.Log("Route Timing: " + interactableRouteTimingTotal);
             _playerMovement._interactableRouteTimings.Add(
-                new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition, newInteractable));
+            new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition, newInteractable));
             _interactableRouteTimingTotal = 0f;
         }
         else
         {
-            float currentPairDistance = Vector3.Distance(_lastPosition, newTilePosition);
+            float currentPairDistance = Vector2.Distance(new Vector2(_lastPosition.x, _lastPosition.z),
+                 new Vector2(newTilePosition.x, newTilePosition.z));
             if (currentPairDistance == 1)
             {
-                _lastTileTiming = 1f;
-                _interactableRouteTimingTotal += 1f;
+                float fullDistance = Vector3.Distance(_lastPosition + new Vector3(0f, 10f, 0f), newTilePosition);
+                if (fullDistance == 1f)
+                {
+                    _lastTileTiming = 1f;
+                    _interactableRouteTimingTotal += 1f;
+                }
+                else
+                {
+                    _lastTileTiming = fullDistance;
+                    _interactableRouteTimingTotal += _lastTileTiming;
+                }
+
             }
             else
             {
-                _lastTileTiming = GameManager.Instance._jumpBaseTiming;
+                _lastTileTiming = currentPairDistance;
                 _interactableRouteTimingTotal += _lastTileTiming;
             }
         }
-        _lastPosition = newTilePosition;
+        _lastPosition = newTilePosition - new Vector3(0f, 10f, 0f); // Magic Y again
         if (_tileGroupStepIndex >= _currentTileGroup.Count)
         {
             SetNewTileGroup();
@@ -238,39 +300,84 @@ public class TileGenerator : MonoBehaviour
 
     private InteractableTile SetNextInteractable(Vector3 newPos)
     {
-        Vector3 placementPos = newPos + new Vector3(0f, 10f, 0f);
+        Vector3 placementPos = newPos;
         //Debug.Log("Interactable position: " + placementPos);
         if (_forcedBoost)
         {
             _forcedBoost = false;
-            _lastInteractableTileIndex = _lastInteractableTileIndex + (uint)_currentBiome.GetNextBoostPosition();
-            return _currentBiome.SetRandomPowerup(placementPos); // Magic number set until we merge and I can make it a setting without disrupting scene
+            _lastInteractableTileIndex = _lastInteractableTileIndex + _currentBiome.GetNextBoostPosition();
+            currentInteractableScore++;
+            return _currentBiome.SetRandomPowerup(placementPos);
         }
-        //Debug.Log("Setting next interactable at index " + _fullTileIndexCount);
+        if (currentInteractableScore == maxNegativeInteractableScore)
+        {
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextBoostPosition();
+            _repeatPositiveInteractables++;
+            currentInteractableScore++;
+            return _currentBiome.SetRandomPowerup(placementPos);
+        }
+
+        if (currentInteractableScore == maxPositiveInteractableScore)
+        {
+            currentInteractableScore--;
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextTrapPosition();
+            _repeatPositiveInteractables = 0;
+            return _currentBiome.SetRandomTrap(placementPos);
+        }
+
+        if (_repeatPositiveInteractables == 2)
+        {
+            _repeatPositiveInteractables = 1;
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextTrapPosition();
+            return _currentBiome.SetRandomTrap(placementPos);
+        }
         float randomNum = UnityEngine.Random.Range(0f, 1f);
         if (randomNum <= _boostPercentage)
         {
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextBoostPosition();
-            return _currentBiome.SetRandomPowerup(placementPos); // Magic number set until we merge and I can make it a setting without disrupting scene
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextBoostPosition();
+            _repeatPositiveInteractables++;
+            return _currentBiome.SetRandomPowerup(placementPos);
         }
         else
         {
-            _lastInteractableTileIndex = _fullTileIndexCount + (uint)_currentBiome.GetNextTrapPosition();
-            return _currentBiome.SetRandomTrap(placementPos); // ^
+            _lastInteractableTileIndex = _fullTileIndexCount + _currentBiome.GetNextTrapPosition();
+            _repeatPositiveInteractables = 0;
+            return _currentBiome.SetRandomTrap(placementPos);
         }
     }
 
     private void SetNewTileGroup()
     {
-        TileGroup newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+        _numGroupsGenerated++;
+        if (_numGroupsGenerated >= _biomeGroupLimit)
+        {
+            _generateLevelEnd = true;
+        }
+        TileGroup newTileGroup;
+        if (_generateLevelEnd)
+        {
+            if (_startedLevelEnd)
+            {
+                _finishedBiome = true;
+                _playerMovement.RemoveLastInteractable();
+                return;
+            }
+            ;
+            newTileGroup = _currentBiome.LastBiomeGroup;
+            _startedLevelEnd = true;
+        }
+        else
+        {
+            newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+        }
         _currentTileGroup = newTileGroup.PositionedTilePrefabs;
-        List<Vector3> wallPositions = newTileGroup.WallSectionVariation(UnityEngine.Random.Range(0, newTileGroup.WallSectionCount));
-        int newWallIndex = newTileGroup.WallPrefab._listIndex;
+        List<TileGroup.WallData> wallPositions = newTileGroup.WallSectionVariation(UnityEngine.Random.Range(0, newTileGroup.WallSectionCount));
         _groupAnchorPosition = _lastPosition + Vector3.right;
         for (int i = 0; i < wallPositions.Count; i++)
         {
-            Tile newPlaceableWall = _currentlyAvailableWalls[newWallIndex].Dequeue();
-            newPlaceableWall.transform.position = _groupAnchorPosition + wallPositions[i];
+            Wall newPlaceableWall = _currentlyAvailableWalls.Dequeue();
+            newPlaceableWall.transform.position = _groupAnchorPosition + wallPositions[i].position;
+            newPlaceableWall.SetMesh(wallPositions[i].wallMeshPrefab);
             _usedWallTileQueue.AddLast(newPlaceableWall);
             newPlaceableWall.gameObject.SetActive(true);
         }

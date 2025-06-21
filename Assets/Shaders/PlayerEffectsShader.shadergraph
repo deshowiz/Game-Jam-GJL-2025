@@ -35,6 +35,9 @@
         },
         {
             "m_Id": "73a2ffdae2834590a86f652f998006d9"
+        },
+        {
+            "m_Id": "b2b38ada58c046b6a59430d41d767787"
         }
     ],
     "m_GroupDatas": [],
@@ -78,6 +81,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "73a2ffdae2834590a86f652f998006d9"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "b2b38ada58c046b6a59430d41d767787"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ecff666a90504d40a86d46a086ad8b97"
                 },
                 "m_SlotId": 0
             }
@@ -147,10 +164,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -905.1451416015625,
-            "y": -28.765216827392579,
-            "width": 0.0,
-            "height": 0.0
+            "x": -1189.0,
+            "y": 139.99996948242188,
+            "width": 133.0,
+            "height": 34.00001525878906
         }
     },
     "m_Slots": [
@@ -193,6 +210,31 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "219797de33aa42989e5ed78383e46e42",
+    "m_Id": 1,
+    "m_DisplayName": "Out_Vector4",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "OutVector4",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
 }
 
 {
@@ -258,6 +300,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "2eb4176abe9f4696b7bff1c990d386b9",
+    "m_Id": 2,
+    "m_DisplayName": "Out_Vector3",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "OutVector3",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "307b3502ac354d17b446641c92a92831",
     "m_Id": 0,
@@ -283,10 +348,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -674.7529907226563,
-            "y": 3.2470626831054689,
-            "width": 208.0,
-            "height": 433.0
+            "x": -958.9999389648438,
+            "y": 171.99998474121095,
+            "width": 183.0,
+            "height": 249.00001525878907
         }
     },
     "m_Slots": [
@@ -572,6 +637,47 @@
     },
     "m_Labels": [],
     "m_Channel": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
+    "m_ObjectId": "b2b38ada58c046b6a59430d41d767787",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Billboard",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -537.0,
+            "y": -293.0,
+            "width": 207.99993896484376,
+            "height": 303.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "219797de33aa42989e5ed78383e46e42"
+        },
+        {
+            "m_Id": "2eb4176abe9f4696b7bff1c990d386b9"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"b8eb846d4a0cf5248b31889976d3b271\",\n        \"type\": 3\n    }\n}",
+    "m_PropertyGuids": [],
+    "m_PropertyIds": [],
+    "m_Dropdowns": [],
+    "m_DropdownSelectedEntries": []
 }
 
 {

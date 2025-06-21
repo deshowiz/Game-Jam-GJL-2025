@@ -7,6 +7,12 @@ public class BiomeInteractableData : ScriptableObject
 {
     [Header("References")]
     [SerializeField]
+    private TileGroup _lastBiomeGroup = null;
+    public TileGroup LastBiomeGroup{get{return _lastBiomeGroup;}}
+    [SerializeField]
+    private List<TileGroup> _tileGroups = new List<TileGroup>();
+    public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count))]; }}
+    [SerializeField]
     private List<InteractableTile> _powerups = new List<InteractableTile>();
     [SerializeField]
     private List<InteractableTile> _traps = new List<InteractableTile>();
@@ -25,6 +31,9 @@ public class BiomeInteractableData : ScriptableObject
 
     [Header("Settings")]
     [SerializeField]
+    private int _groupLevelLength = 20;
+    public int GroupLevelLength {get { return _groupLevelLength; }}
+    [SerializeField]
     private int _boostMinimumTileSpacing = 10;
     [SerializeField]
     private int _boostMaximumTileSpacing = 20;
@@ -39,24 +48,28 @@ public class BiomeInteractableData : ScriptableObject
     [SerializeField]
     private int _trapMaximumTileSpacing = 20;
 
+    private Transform _spawnHolder = null;
+
     public int GetNextTrapPosition()
     {
         return UnityEngine.Random.Range(_trapMinimumTileSpacing, _trapMaximumTileSpacing);
     }
 
-    public void UpdateInteractables()
+    public void UpdateInteractables(Vector2 playerXZ)
     {
-        if (_activePowerups.Count != 0 && Vector3.Distance(_activePowerups.First().transform.position, GameManager.Instance.Player.transform.position) > 20f
-        && GameManager.Instance.Player.transform.position.x > _activePowerups.First().transform.position.x)
+        Vector3 firstActiveIntPos = _activePowerups.First().transform.position;
+        if (_activePowerups.Count != 0
+        && Vector2.Distance(new Vector2(firstActiveIntPos.x, firstActiveIntPos.z), playerXZ) > 20f
+        && playerXZ.x > firstActiveIntPos.x)
         {
             InteractableTile removablePowerup = _activePowerups.First();
             removablePowerup.gameObject.SetActive(false);
             _activePowerups.RemoveFirst();
             _availablePowerups[removablePowerup._listIndex].Enqueue(removablePowerup);
         }
-
-        if (_activeTraps.Count != 0 && Vector3.Distance(_activeTraps.First().transform.position, GameManager.Instance.Player.transform.position) > 20f
-         && GameManager.Instance.Player.transform.position.x > _activeTraps.First().transform.position.x)
+        firstActiveIntPos = _activeTraps.First().transform.position;
+        if (_activeTraps.Count != 0 && Vector2.Distance(new Vector2(firstActiveIntPos.x, firstActiveIntPos.z), playerXZ) > 20f
+         && playerXZ.x > firstActiveIntPos.x)
         {
             InteractableTile removableTrap = _activeTraps.First();
             removableTrap.gameObject.SetActive(false);
@@ -68,13 +81,14 @@ public class BiomeInteractableData : ScriptableObject
 
     public void InitializeBiome()
     {
+        _spawnHolder = new GameObject("SpawnHolder").transform;
         _availablePowerups = new List<Queue<InteractableTile>>();
         for (int i = 0; i < _powerups.Count; i++)
         {
             _availablePowerups.Add(new Queue<InteractableTile>());
             for (int j = 0; j < GameManager.Instance._interactablePoolSize; j++)
             {
-                InteractableTile newPowerupCopy = Instantiate(_powerups[i]);
+                InteractableTile newPowerupCopy = Instantiate(_powerups[i], _spawnHolder);
                 newPowerupCopy._listIndex = i;
                 _availablePowerups[i].Enqueue(newPowerupCopy);
             }
@@ -90,7 +104,7 @@ public class BiomeInteractableData : ScriptableObject
             _availableTraps.Add(new Queue<InteractableTile>());
             for (int j = 0; j < GameManager.Instance._interactablePoolSize; j++)
             {
-                InteractableTile newTrapCopy = Instantiate(_traps[i]);
+                InteractableTile newTrapCopy = Instantiate(_traps[i], _spawnHolder);
                 newTrapCopy._listIndex = i;
                 _availableTraps[i].Enqueue(newTrapCopy);
             }

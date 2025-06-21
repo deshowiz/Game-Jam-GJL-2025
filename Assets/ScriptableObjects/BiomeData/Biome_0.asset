@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe75b1ebd7536542a7473575a2099ca, type: 3}
   m_Name: Biome_0
   m_EditorClassIdentifier: 
+  _lastBiomeGroup: {fileID: 11400000, guid: 4aca1c9418846a74789ab1ace80edee8, type: 2}
+  _tileGroups:
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
   _powerups:
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   _traps:
+  - {fileID: 8386058859968840892, guid: 7a620f2be1be26d46a19413a7a8db1b1, type: 3}
   - {fileID: -6659759921745719103, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
-  - {fileID: -6659759921745719103, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
+  - {fileID: -203346714612497066, guid: 0b8d1cb50138f1e44aa122c2fd6fc730, type: 3}
+  _groupLevelLength: 20
   _boostMinimumTileSpacing: 5
   _boostMaximumTileSpacing: 13
   _trapMinimumTileSpacing: 5

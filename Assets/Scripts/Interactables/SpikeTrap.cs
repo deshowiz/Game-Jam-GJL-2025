@@ -18,6 +18,7 @@ public class SpikeTrap : InteractableTile
     {
         if (_isArmed)
         {
+            _vfxEvent.Raise();
             GameManager.Instance.Player.SlowMovement(_slowdownAmount);
             // Add spike trap anim here
         }
