@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 549154214512608655}
   - component: {fileID: 5885014229014005874}
   m_Layer: 0
-  m_Name: WallSpaceMarker
+  m_Name: WallSPaceMarkerBiome0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
