@@ -11,6 +11,8 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private PlayerMovement _playerMovement = null;
     [SerializeField]
+    private MinotaurMovement _minotaurMovement = null;
+    [SerializeField]
     private Wall _baseWallPrefab = null;
     [SerializeField]
     private List<BiomeInteractableData> _interactableBiomes = null;
@@ -80,6 +82,10 @@ public class TileGenerator : MonoBehaviour
         {
             _playerMovement = FindFirstObjectByType<PlayerMovement>();
         }
+        if (_minotaurMovement == null)
+        {
+            _minotaurMovement = FindFirstObjectByType<MinotaurMovement>();
+        }
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
         InitializeTiles();
     }
@@ -107,6 +113,8 @@ public class TileGenerator : MonoBehaviour
             Wall wallCopy = Instantiate(_baseWallPrefab, _tilesParentTransform);
             _currentlyAvailableWalls.Enqueue(wallCopy);
         }
+
+        PlaceRowTiles();
 
         SetNewTileGroup();
         for (int i = 0; i < 2; i++)
@@ -145,7 +153,7 @@ public class TileGenerator : MonoBehaviour
         //     _lastTileTiming = currentPairDistance;
         //     _interactableRouteTimingTotal -= _lastTileTiming;
         // }
-        
+
         //Debug.Log(_lastTileTiming);
         for (int i = 2; i < _maximumQueueSpawnSize / 2; i++)
         {
@@ -156,6 +164,11 @@ public class TileGenerator : MonoBehaviour
         _isRunning = true;
         //Debug.Log("Raising running event");
         _runningEvent.Raise();
+    }
+
+    private void SpawnMinotarRow()
+    {
+        
     }
 
     public void Reset()
@@ -227,12 +240,27 @@ public class TileGenerator : MonoBehaviour
         _currentlyAvailableWalls.Enqueue(lastRemovedWall);
     }
 
+    private void PlaceRowTiles()
+    {
+        TileGroup starterGroup = _currentBiome.StartBiomeGroup;
+        List<TileGroup.PositionedGroup> tileData = starterGroup.PositionedTilePrefabs;
+        for (int i = 0; i < tileData.Count; i++)
+        {
+            Tile newPlaceableTile = _currentlyAvailableTiles.Dequeue();
+            newPlaceableTile.transform.position = tileData[i].position - new Vector3(0f, 10f, 0f);
+            newPlaceableTile.SetMesh(tileData[i].tileMeshPrefab);
+            newPlaceableTile.gameObject.SetActive(true);
+            _minotaurMovement.AddTileToTravel(newPlaceableTile.transform.position + new Vector3(0f, 10f, 0f)); // Magic Y for offset;
+        }
+        _minotaurMovement.transform.position = tileData[0].position;
+    }
+
     private void PlaceNextTile()
     {
         Tile newPlaceableTile = _currentlyAvailableTiles.Dequeue();
         newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
         newPlaceableTile.SetMesh(_currentTileGroup[_tileGroupStepIndex].tileMeshPrefab);
-        Vector3 newTilePosition = newPlaceableTile.transform.position  + new Vector3(0f, 10f, 0f); // Magic Y for offset
+        Vector3 newTilePosition = newPlaceableTile.transform.position + new Vector3(0f, 10f, 0f); // Magic Y for offset
 
         newPlaceableTile.gameObject.SetActive(true);
         _steppingTileQueue.Add(newPlaceableTile);
@@ -241,6 +269,7 @@ public class TileGenerator : MonoBehaviour
         _fullTileIndexCount++;
         bool isInteractable = _fullTileIndexCount >= _lastInteractableTileIndex;
         _playerMovement.AddtoPathQueue(new PlayerMovement.PathIndexData(newTilePosition, isInteractable));
+        _minotaurMovement.AddTileToTravel(newTilePosition);
         Vector3 storedLastPos = _lastPosition;
 
         if (isInteractable)

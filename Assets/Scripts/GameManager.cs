@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
     public async Task LoadNewScene()
     {
         // call transition, await, and then await scene swap
-        Debug.Log("Switching Scenes?");
         await SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
 
         Initialize();

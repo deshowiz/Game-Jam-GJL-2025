@@ -62,11 +62,6 @@ public class PlayerMovement : MonoBehaviour
     private float _totalHeightProgress = 0f;
     private bool _isBlueOrb = true;
 
-    private void Awake()
-    {
-        Debug.Log((Camera.main.transform.position - transform.position).normalized);
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -212,8 +207,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Step()
     {
-        //todo: if stepDistance > 1, check which tile it is
-        //Debug.Log(GetNextTilePos());
         Vector3 newTargetPosition = GetNextTilePos();
         if (newTargetPosition.x == Mathf.NegativeInfinity)
         {

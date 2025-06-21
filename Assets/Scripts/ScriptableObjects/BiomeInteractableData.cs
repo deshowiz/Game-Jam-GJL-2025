@@ -7,6 +7,9 @@ public class BiomeInteractableData : ScriptableObject
 {
     [Header("References")]
     [SerializeField]
+    private TileGroup _startBiomeGroup = null;
+    public TileGroup StartBiomeGroup{get{return _startBiomeGroup;}}
+    [SerializeField]
     private TileGroup _lastBiomeGroup = null;
     public TileGroup LastBiomeGroup{get{return _lastBiomeGroup;}}
     [SerializeField]
