@@ -15,9 +15,6 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     // Replace with player script or whatever
-
-    public GameObject GameMenuObject;
-    
     [SerializeField]
     private Player _player = null;
     public Player Player { get { return _player; } }
@@ -61,7 +58,7 @@ public class GameManager : MonoBehaviour
             _tileGenerator = GetComponent<TileGenerator>();
         }
         
-        Instantiate(GameMenuObject, Vector3.zero, Quaternion.identity);
+        Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
         
         NextBiome();
     }

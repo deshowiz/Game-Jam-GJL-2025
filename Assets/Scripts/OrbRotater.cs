@@ -14,6 +14,8 @@ public class OrbRotater : MonoBehaviour
     private TrailRenderer _orbTrail = null;
     [SerializeField]
     private TrailRenderer _orbTrail2 = null;
+    [SerializeField]
+    private GameEvent _brokeSlowMoEvent = null;
 
     public Vector3 _playerPosition = Vector3.zero;
 
@@ -174,7 +176,7 @@ public class OrbRotater : MonoBehaviour
             yield return null;
         }
         yield return null;
-
+        _brokeSlowMoEvent.Raise();
         _orbs[0].ReEnable();
         _orbs[1].ReEnable();
         Time.timeScale = 1f;

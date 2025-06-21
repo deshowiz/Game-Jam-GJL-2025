@@ -2081,4 +2081,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 6941071872893510610}
   menuKey: 27
-  difficultyDropdown: {fileID: 0}
+  difficultyDropdown: {fileID: 504964049775875159}

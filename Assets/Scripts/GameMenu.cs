@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ public class GameMenu : MonoBehaviour
     public KeyCode menuKey = KeyCode.Escape;
     private bool isShowingMenu = false;
     
-    public Dropdown difficultyDropdown;
+    public TMP_Dropdown difficultyDropdown;
 
     void Start()
     {
