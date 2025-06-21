@@ -9,6 +9,8 @@ public class MinotaurMovement : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private Transform _minotaurTransform = null;
+    [SerializeField]
+    private GameEvent _contactEvent = null;
     [Header("Settings")]
     [SerializeField]
     private float _baseSpeed = 3f;
@@ -20,6 +22,18 @@ public class MinotaurMovement : MonoBehaviour
     public float movementTweenSpeed = 0.15f;
     [SerializeField]
     private Vector3 _playerEffectOffset = Vector3.zero;
+    [SerializeField]
+    private float _distanceForContact = 1f;
+    [SerializeField]
+    private AnimationCurve _rubberBandSpeed = new AnimationCurve();
+    [SerializeField]
+    private AnimationCurve _levelSpeedProgression = new AnimationCurve();
+    [SerializeField]
+    private float _playerDistanceCurveWidth = 50f;
+    [SerializeField]
+    private float _totalTravelCurveWidth = 500f;
+
+    private float speedDistanceAdjuster = 1f;
 
     private List<Vector3> _tilesToTravel = new List<Vector3>();
     public void AddTileToTravel(Vector3 newTilePosition)
@@ -32,6 +46,8 @@ public class MinotaurMovement : MonoBehaviour
 
     private bool _jumping = false;
 
+    private float _distanceTravelled = 0f;
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -39,7 +55,15 @@ public class MinotaurMovement : MonoBehaviour
             ready = !ready;
         }
         if (!ready || _tilesToTravel.Count == 0) return;
-        _fullSpeed = _baseSpeed + _boostSpeed;
+
+        if (IsContactWithPlayer())
+        {
+            Debug.Log("Contact");
+            //Time.timeScale = 0f;
+            _contactEvent.Raise();
+        }
+        float curveAdjuster =
+        _fullSpeed = (_baseSpeed * _levelSpeedProgression.Evaluate(_distanceTravelled / _totalTravelCurveWidth)) + (_boostSpeed * speedDistanceAdjuster);
         float distToNext = DistanceToNextTile();
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
         {
@@ -56,6 +80,7 @@ public class MinotaurMovement : MonoBehaviour
         Vector3 finalDestination = transform.position;
         float distanceThisFrame = _fullSpeed * Time.deltaTime;
         _stepPercentageCompleted += distanceThisFrame;
+        _distanceTravelled += distanceThisFrame;
         _currentPairDistance = Vector3.Distance(_tilesToTravel[1], _tilesToTravel[0]);
 
         if (_stepPercentageCompleted < _currentPairDistance)
@@ -107,12 +132,13 @@ public class MinotaurMovement : MonoBehaviour
 
         Vector3 nextTile = TileIncrement();
         _jumping = false;
-
+        _distanceTravelled += Vector3.Distance(transform.position, destination);
         transform.position = destination;
 
         GameObject lol1 = Instantiate(teleportFx, transform.position + _playerEffectOffset, Quaternion.identity);
         //lol1.transform.localScale = new Vector3(1f, 1.7778f, 1);
         Destroy(lol1, 2f);
+        
     }
 
     private Vector3 TileIncrement()
@@ -121,13 +147,22 @@ public class MinotaurMovement : MonoBehaviour
         return _tilesToTravel[0];
     }
 
-        private float DistanceToNextTile()
+    private float DistanceToNextTile()
     {
         if (!GameManager.Instance) return 0.0f;
         Vector3 currentTilePos = _tilesToTravel[0];
         Vector3 nextTilePos = _tilesToTravel[1];
         return Vector2.Distance(new Vector2(currentTilePos.x, currentTilePos.z),
          new Vector2(nextTilePos.x, nextTilePos.z));
+    }
+
+    private bool IsContactWithPlayer()
+    {
+        float playerDistanceAway =  Vector3.Distance(GameManager.Instance.Player.transform.position, _minotaurTransform.position);
+        if (playerDistanceAway <= _distanceForContact) return true;
+        _rubberBandSpeed.Evaluate(playerDistanceAway / _playerDistanceCurveWidth);
+
+        return false;
     }
 
 

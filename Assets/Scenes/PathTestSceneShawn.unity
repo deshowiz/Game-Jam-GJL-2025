@@ -389,10 +389,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportFx: {fileID: 161147849587626264, guid: 4ebc2fb010ed46c4998fbd184f1522d0, type: 3}
   _minotaurTransform: {fileID: 395518995}
+  _contactEvent: {fileID: 11400000, guid: 3210036a7b514394e9991d885d41f5ce, type: 2}
   _baseSpeed: 3
   _boostSpeed: 0
   movementTweenSpeed: 2.63
   _playerEffectOffset: {x: 0, y: 0, z: 0}
+  _distanceForContact: 1
+  _rubberBandSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.5
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _levelSpeedProgression:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _playerDistanceCurveWidth: 50
+  _totalTravelCurveWidth: 500
 --- !u!23 &395518993
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -462,22 +514,6 @@ Transform:
   - {fileID: 368996538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &842789166
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 842789168}
-  m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &842789167
 Transform:
   m_ObjectHideFlags: 0
@@ -485,21 +521,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86798025}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &842789168
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842789166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1045,6 +1066,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398349142}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1779465942 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3605028395880254680, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+  m_PrefabInstance: {fileID: 8086336241073247427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1779465944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8133652819119185325, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+  m_PrefabInstance: {fileID: 8086336241073247427}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779465942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2688c2eec617b54f8c5521aa35fa49e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1779465946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779465942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 3210036a7b514394e9991d885d41f5ce, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1779465944}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ReloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1781054911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,13 +1343,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3605028395880254680, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1779465946}
   m_SourcePrefab: {fileID: 100100000, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 842789168}
   - {fileID: 961739753}
   - {fileID: 1160234427}
   - {fileID: 8086336241073247427}
