@@ -131,6 +131,7 @@ public class TileGenerator : MonoBehaviour
         // {
         //     _interactableRouteTimingTotal -= 1f;
         // }
+        //_interactableRouteTimingTotal -= 1f;
 
         // float currentPairDistance = Vector2.Distance(new Vector2(_steppingTileQueue[0].transform.position.x, _steppingTileQueue[0].transform.position.z),
         //          new Vector2(_steppingTileQueue[1].transform.position.x, _steppingTileQueue[1].transform.position.z));
@@ -153,6 +154,7 @@ public class TileGenerator : MonoBehaviour
         //     _lastTileTiming = currentPairDistance;
         //     _interactableRouteTimingTotal -= _lastTileTiming;
         // }
+        _interactableRouteTimingTotal -= 1f;
 
         //Debug.Log(_lastTileTiming);
         for (int i = 2; i < _maximumQueueSpawnSize / 2; i++)
@@ -258,6 +260,8 @@ public class TileGenerator : MonoBehaviour
     private void PlaceNextTile()
     {
         Tile newPlaceableTile = _currentlyAvailableTiles.Dequeue();
+        // Debug.Log(_currentTileGroup.Count);
+        // Debug.Log(_tileGroupStepIndex);
         newPlaceableTile.transform.position = _groupAnchorPosition + _currentTileGroup[_tileGroupStepIndex].position;
         newPlaceableTile.SetMesh(_currentTileGroup[_tileGroupStepIndex].tileMeshPrefab);
         Vector3 newTilePosition = newPlaceableTile.transform.position + new Vector3(0f, 10f, 0f); // Magic Y for offset
@@ -316,7 +320,7 @@ public class TileGenerator : MonoBehaviour
             }
             else
             {
-                _lastTileTiming = currentPairDistance;
+                _lastTileTiming = GameManager.Instance._jumpBaseTiming;
                 _interactableRouteTimingTotal += _lastTileTiming;
             }
         }
