@@ -10392,7 +10392,7 @@ GameObject:
   - component: {fileID: 1816740265009661089}
   m_Layer: 0
   m_Name: NewPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10447,6 +10447,7 @@ MonoBehaviour:
   OnPlayerStepEvent: {fileID: 11400000, guid: c3b37e80cfc714c469b6380984ec4a39, type: 2}
   teleportFx: {fileID: 161147849587626264, guid: 4ebc2fb010ed46c4998fbd184f1522d0, type: 3}
   _OnPlayerFinishBiome: {fileID: 11400000, guid: b4ecef3e2b91c55439b01ea37faa3894, type: 2}
+  _playerLoaded: {fileID: 0}
   _movementKey0: 97
   _movementKey1: 100
   _baseSpeed: 3

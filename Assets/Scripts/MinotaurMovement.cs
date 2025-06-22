@@ -76,7 +76,8 @@ public class MinotaurMovement : MonoBehaviour
             Step();
         }
         
-        GameManager.Instance.UIMinotaurBar.UpdateBar(DistanceToPlayer());
+        if (GameManager.Instance.UIMinotaurBar)
+            GameManager.Instance.UIMinotaurBar.UpdateBar(DistanceToPlayer());
         //Debug.Log("Distance to Player: " + DistanceToPlayer());
         //Debug.Log("Distance to Player: " + LinearDistanceToPlayer());
         //Debug.Log(GetNormalizedDirection());

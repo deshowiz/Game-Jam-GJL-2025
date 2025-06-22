@@ -16,10 +16,12 @@ public class GameManager : MonoBehaviour
     [Header("References")] 
     public GameEvent FadeOutEvent;
     public UIMinotaurBar UIMinotaurBar;
+
+    public GameObject playerPrefab;
     // Replace with player script or whatever
     [SerializeField]
     private Player _player = null;
-    public Player Player { get { return _player; } }
+    public Player Player { get { return GameObject.FindWithTag("Player").GetComponent<Player>(); } }
 
     [SerializeField]
     private TileGenerator _tileGenerator = null;
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
@@ -56,12 +58,25 @@ public class GameManager : MonoBehaviour
         Initialize();
     }
 
-    public void Initialize()
+    public void Update()
     {
         if (_player == null)
         {
             //Debug.LogError("Player ref empty");
-            _player = GetComponent<Player>();
+            //_player = GetComponent<Player>();
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        }
+    }
+
+    public void Initialize()
+    {
+        //Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
+        
+        if (_player == null)
+        {
+            //Debug.LogError("Player ref empty");
+            //_player = GetComponent<Player>();
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
 
         if (_tileGenerator == null)
@@ -104,8 +119,9 @@ public class GameManager : MonoBehaviour
     {
         FadeOutEvent?.Raise();
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
-        Initialize();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(0, LoadSceneMode.Single);
+        //Initialize();
     }
 
     public void LoadNewScene()
