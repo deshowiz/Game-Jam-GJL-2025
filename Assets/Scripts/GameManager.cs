@@ -109,13 +109,13 @@ public class GameManager : MonoBehaviour
         switch (_currentBiome)
         {
             case 0:
-                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
                 break;
             case 1:
-                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
                 break;
             case 2:
-                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_DeepHum");
                 break;
         }
         
