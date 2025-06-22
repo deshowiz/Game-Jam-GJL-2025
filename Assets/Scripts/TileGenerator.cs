@@ -48,6 +48,8 @@ public class TileGenerator : MonoBehaviour
     private int maxPositiveInteractableScore = 2;
     [SerializeField]
     private int maxNegativeInteractableScore = -3;
+    [SerializeField]
+    private int currentBiome = 0;
     private int currentInteractableScore = 0;
     private int _repeatPositiveInteractables = 0;
 
@@ -78,7 +80,7 @@ public class TileGenerator : MonoBehaviour
     public void FullInitialization(int newBiomeIndex)
     {
         Debug.Log(newBiomeIndex);
-        SetCurrentBiome(newBiomeIndex);
+        SetCurrentBiome(currentBiome);
         _baseTilePrefab = _currentBiome.BasePrefab;
         if (_playerMovement == null)
         {
@@ -100,7 +102,7 @@ public class TileGenerator : MonoBehaviour
 
     private void InitializeTiles() // Change to add integer parameter for reloading scene as next biome
     {
-        SetCurrentBiome(0); // Swap biome specific texture in beginning of scene for base prefab before cloning
+        SetCurrentBiome(currentBiome); // Swap biome specific texture in beginning of scene for base prefab before cloning
         // OR material in case color over settings need changing
         _biomeGroupLimit = _currentBiome.GroupLevelLength;
         _lastInteractableTileIndex = 5;
