@@ -62,14 +62,19 @@ public class PlayerMovement : MonoBehaviour
     private float _totalHeightProgress = 0f;
     private bool _isBlueOrb = true;
 
+    // private float _totalDegreesMovedThisRoute = 0f;
+
+    // private float _currentTimingThisRoute = 0f;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Time.timeScale = 1f;
+            //Time.timeScale = 1f;
             ready = !ready;
         }
         if (!ready) return;
+        
         if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
         {
             int keyNum = 0;
@@ -84,12 +89,14 @@ public class PlayerMovement : MonoBehaviour
 
         Friction();
         _fullSpeed = _baseSpeed + _boostSpeed;
+        // _currentTimingThisRoute += Time.deltaTime * _fullSpeed;
         float distToNext = DistanceToNextTile();
         _currentRouteProgressStep = (_fullSpeed * Time.deltaTime / _currentRouteBaseTiming);
         _totalHeightProgress += _currentRouteProgressStep;
         _incrementedTiming = _currentRouteProgressStep * _totalDegreesThisRoute;
         //_currentRouteBaseTiming
         //_currentRouteRotation
+        // _totalDegreesMovedThisRoute += _incrementedTiming;
 
         // Must be additive
         orbRotater.SetOrbSize(_orbGrowth.Evaluate(_boostSpeed));
@@ -99,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             orbRotater.SetOrbHeight(
             Mathf.Lerp(GameManager.Instance.Player.transform.position.y,
             _interactableRouteTimings[0].interactableTile.transform.position.y,
-            _totalHeightProgress), _isBlueOrb);
+            _totalHeightProgress * 2f), _isBlueOrb);
         }
 
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
@@ -213,9 +220,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("Position not set yet?");
             return;
         }
-        Vector3 targetPos = new Vector3(newTargetPosition.x, transform.position.y,
+        Vector3 targetPos = new Vector3(newTargetPosition.x, newTargetPosition.y,
             newTargetPosition.z);
-
+        //ready = false;
+            //Time.timeScale = 0;    
         StartCoroutine(Teleport(targetPos));
     }
 
@@ -254,6 +262,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
     {
+
+        // Debug.Log(_totalHeightProgress);
+        // Debug.Log(Mathf.Abs(_totalDegreesMovedThisRoute) / Mathf.Abs(_totalDegreesThisRoute));
+        // _currentTimingThisRoute = 0f;
+        // _totalDegreesMovedThisRoute = 0f;
         _totalHeightProgress = 0f;
         if (_interactableRouteTimings[0].interactableTile.isActiveAndEnabled)
         {
@@ -289,6 +302,7 @@ public class PlayerMovement : MonoBehaviour
         _fullSpeed = _baseSpeed + _boostSpeed;
         RouteData newRouteData = _interactableRouteTimings[0];
         _currentRouteBaseTiming = newRouteData.fullTiming;
+        Debug.Log(_currentRouteBaseTiming);
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg; ;
         // if (normalizedDir.z < 0) newAngle = 180f - newAngle;
@@ -299,7 +313,7 @@ public class PlayerMovement : MonoBehaviour
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
         //Debug.Log(IsBlue(angleDiff));
         _isBlueOrb = IsBlue(angleDiff);
-        _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff) * 1.15f;
+        _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
         Vector3 newTilePos = newRouteData.newTilePosition;
         Vector3 lastTilePos = newRouteData.lastTilePosition;
         orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
@@ -416,6 +430,11 @@ public class PlayerMovement : MonoBehaviour
             _OnPlayerFinishBiome.Raise();
             return Vector3.negativeInfinity;
         }
+        // if (_playerPathPositions[_currentlyTravelledIndex + 1].hasInteractable)
+        // {
+        //     Debug.Log("Current Timing This Route on orb contact: " + _currentTimingThisRoute);
+        //     Debug.Log("Timing calc: " + _currentTimingThisRoute / _currentRouteBaseTiming);
+        // }
         return _playerPathPositions[_currentlyTravelledIndex + 1].position;
     }
 

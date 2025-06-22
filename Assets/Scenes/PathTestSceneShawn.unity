@@ -803,7 +803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1216750089}
   offset: {x: 3, y: 8, z: -4}
-  smoothSpeed: 2
+  smoothSpeed: 1000
 --- !u!1001 &1035288881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -891,6 +891,10 @@ PrefabInstance:
     - target: {fileID: 9100280036871797377, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
       propertyPath: m_Name
       value: NewPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 9100280036871797377, guid: 30e0c5c1360f5224e9113755681abc2b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6070,8 +6074,7 @@ MonoBehaviour:
   _tilesParentTransform: {fileID: 1103658268}
   _baseTilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
   _tileGroups:
-  - {fileID: 11400000, guid: 5b3db62f8023cbf4cab3796c9c7d2b76, type: 2}
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: 1e25843d0bae69447a66d9a3890a2ce8, type: 2}
   _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
   _maximumQueueSpawnSize: 200
   _boostPercentage: 0.5
