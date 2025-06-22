@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8696395133614589498}
   - component: {fileID: 4861058095302570829}
   m_Layer: 0
-  m_Name: Character_Smoke_Run
+  m_Name: Character_Smoke_Run 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
