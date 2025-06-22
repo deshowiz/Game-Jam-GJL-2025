@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     // Replace with player script or whatever
     [SerializeField]
     private Player _player = null;
-    public Player Player { get { return GameObject.FindWithTag("Player").GetComponent<Player>(); } }
+    public Player Player { get { return GameObject.FindWithTag("Player").GetComponent<Player>(); } set { } }
 
     [SerializeField]
     private TileGenerator _tileGenerator = null;
@@ -96,6 +96,12 @@ public class GameManager : MonoBehaviour
 
         NextBiome();
         _isLoading = false;
+    }
+
+    public void PleaseMinotaurBar()
+    {
+        GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
+        UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
     }
 
     public void LoadNextBiome()
