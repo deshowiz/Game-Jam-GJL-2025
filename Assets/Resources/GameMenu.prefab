@@ -349,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: -21.999954}
   m_SizeDelta: {x: 319.5797, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7894341715125721198
@@ -755,8 +755,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -146.99997}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: -254.99997}
+  m_SizeDelta: {x: 220, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6148633776751019685
 CanvasRenderer:
@@ -786,8 +786,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 3060945995929138516, guid: 62c2ea1e27aad154db28c43a1cf1451b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -996,8 +996,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -95}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: -203}
+  m_SizeDelta: {x: 220, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3299952275339340522
 CanvasRenderer:
@@ -1027,8 +1027,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 3060945995929138516, guid: 62c2ea1e27aad154db28c43a1cf1451b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1129,7 +1129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 178.44}
+  m_AnchoredPosition: {x: 0, y: 136.44005}
   m_SizeDelta: {x: 387.7706, y: 29.1109}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3426845685533515899
@@ -1419,8 +1419,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1716,7 +1716,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 218}
+  m_AnchoredPosition: {x: 0, y: 176}
   m_SizeDelta: {x: 319.5797, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8160718349665288339
@@ -2498,7 +2498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 82.440025}
+  m_AnchoredPosition: {x: 0, y: 40.44007}
   m_SizeDelta: {x: 387.7706, y: 29.1109}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2508017436248402661
@@ -3127,8 +3127,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3223,7 +3223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 122}
+  m_AnchoredPosition: {x: 0, y: 80.000046}
   m_SizeDelta: {x: 319.5797, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5435030390826167183
@@ -3436,7 +3436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -19.559998}
+  m_AnchoredPosition: {x: 0, y: -61.55995}
   m_SizeDelta: {x: 387.7706, y: 29.1109}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8613480530707695691
@@ -3625,8 +3625,6 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 2508017436248402661}
   sfxVolumeSlider: {fileID: 8613480530707695691}
   audioMixer: {fileID: 24100000, guid: 09c2db7008a602b4988c854632dc5aff, type: 2}
-  musicMixer: {fileID: 2570101131600173739, guid: 09c2db7008a602b4988c854632dc5aff, type: 2}
-  sfxMixer: {fileID: 2480213119081722175, guid: 09c2db7008a602b4988c854632dc5aff, type: 2}
 --- !u!1 &9076302342556272377
 GameObject:
   m_ObjectHideFlags: 0

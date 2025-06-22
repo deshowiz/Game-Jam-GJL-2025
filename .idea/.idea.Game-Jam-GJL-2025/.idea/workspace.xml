@@ -6,14 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="baa85bb5-78a5-4961-a12a-facd78d3d617" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Minotaur.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Minotaur.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/AudioManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/BiomeData/Biome_0.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/BiomeData/Biome_0.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TileGroups/Biome0/0_Group_13.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TileGroups/Biome0/0_Group_13.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/TileGroups/Biome0/0_Group_13.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/TileGroups/Biome0/0_Group_13.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Animation/MinotaurAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Animation/MinotaurAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/SpikeTrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/SpikeTrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/StunTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/StunTile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/BoostTIle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/BoostTIle.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Back.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Back.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OrbRotater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/OrbRotater.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1750542939296</updated>
       <workItem from="1750542940604" duration="283000" />
-      <workItem from="1750543236489" duration="24283000" />
+      <workItem from="1750543236489" duration="31082000" />
     </task>
     <servers />
   </component>
