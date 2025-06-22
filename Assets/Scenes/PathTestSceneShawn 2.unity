@@ -1077,6 +1077,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _baseSpeed
+      value: 2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].value
       value: 2.8
       objectReference: {fileID: 0}
