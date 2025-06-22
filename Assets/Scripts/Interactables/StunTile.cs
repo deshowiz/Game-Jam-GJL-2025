@@ -19,6 +19,8 @@ public class StunTile : InteractableTile
     {
         if (_isArmed)
         {
+            AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_Stun");
+            AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_Stun_BirdsChirping");
             Time.timeScale = _adjustedTimeScale;
             GameManager.Instance.Player.Stun(_stunTime);
         }

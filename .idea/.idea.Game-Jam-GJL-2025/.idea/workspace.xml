@@ -6,15 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="baa85bb5-78a5-4961-a12a-facd78d3d617" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/MinotaurMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MinotaurMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/PlayerMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/PlayerMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/ShockwaveMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/ShockwaveMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Minotaur.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Minotaur.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/AudioManager.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/GameEventListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/GameEventListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Animation/MinotaurAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Animation/MinotaurAnimation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/SpikeTrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/SpikeTrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/StunTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/StunTile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Back.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Back.png.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +24,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Animation/PlayerAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIContinueButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIMinotaurBar.cs" root0="FORCE_HIGHLIGHTING" />
@@ -111,7 +111,7 @@
       <option name="presentableId" value="Default" />
       <updated>1750542939296</updated>
       <workItem from="1750542940604" duration="283000" />
-      <workItem from="1750543236489" duration="4766000" />
+      <workItem from="1750543236489" duration="24283000" />
     </task>
     <servers />
   </component>

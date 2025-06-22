@@ -249,6 +249,8 @@ public class PlayerMovement : MonoBehaviour
         GameObject lol1 = Instantiate(teleportFx, transform.position + _playerEffectOffset, Quaternion.identity);
         //lol1.transform.localScale = new Vector3(1f, 1.7778f, 1);
         Destroy(lol1, 2f);
+        
+        AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_TeleportV3");
     }
 
     private float DistanceToNextTile()
@@ -351,8 +353,14 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 GetNormalizedDirection()
     {
+        if (_playerPathPositions == null || _playerPathPositions.Count == 0)
+            return Vector3.zero;
+   
+        if (_currentlyTravelledIndex < 0 || _currentlyTravelledIndex >= _playerPathPositions.Count - 1)
+            return Vector3.zero;
+   
         return (_playerPathPositions[_currentlyTravelledIndex + 1].position
-         - _playerPathPositions[_currentlyTravelledIndex].position).normalized;
+                - _playerPathPositions[_currentlyTravelledIndex].position).normalized;
     }
 
     [NonSerialized]

@@ -62,6 +62,14 @@ public class GameManager : MonoBehaviour
         GameObject gameMenu = Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
         GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
         UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
+
+        if (Application.isEditor && SceneManager.GetActiveScene().name == "PathTestSceneShawn")
+        {
+            //Spawn AudioManager if Editor and ShawnScene because AudioManager should spawn in MainMenu.
+            GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
+            AudioManager audio = audioManager.GetComponent<AudioManager>();
+            audio.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+        }
         
         NextBiome();
     }
