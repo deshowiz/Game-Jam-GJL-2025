@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
 
     [Header("References")]
+    public UIMinotaurBar UIMinotaurBar;
     // Replace with player script or whatever
     [SerializeField]
     private Player _player = null;
@@ -58,7 +59,9 @@ public class GameManager : MonoBehaviour
             _tileGenerator = GetComponent<TileGenerator>();
         }
         
-        Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
+        GameObject gameMenu = Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
+        GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
+        UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
         
         NextBiome();
     }

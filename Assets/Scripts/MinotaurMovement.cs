@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MinotaurMovement : MonoBehaviour
@@ -73,6 +75,56 @@ public class MinotaurMovement : MonoBehaviour
         {
             Step();
         }
+        
+        GameManager.Instance.UIMinotaurBar.UpdateBar(DistanceToPlayer());
+        //Debug.Log("Distance to Player: " + DistanceToPlayer());
+    }
+
+    public float DistanceToPlayer()
+    {
+        return GetPathDistance(transform.position, GameManager.Instance.Player.transform.position);
+    }
+    
+    public float GetPathDistance(Vector3 minotaurPosition, Vector3 playerPosition)
+    {
+        if (_tilesToTravel.Count == 0)
+            return 0f;
+            
+        int minotaurClosestIndex = GetClosestPathIndex(minotaurPosition);
+        int playerClosestIndex = GetClosestPathIndex(playerPosition);
+
+        int startIndex = Mathf.Min(minotaurClosestIndex, playerClosestIndex);
+        int endIndex = Mathf.Max(minotaurClosestIndex, playerClosestIndex);
+        
+        float totalDistance = 0f;
+        
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            totalDistance += Vector3.Distance(_tilesToTravel[i], _tilesToTravel[i + 1]);
+        }
+        
+        return totalDistance;
+    }
+
+    private int GetClosestPathIndex(Vector3 position)
+    {
+        if (_tilesToTravel.Count == 0)
+            return -1;
+            
+        int closestIndex = 0;
+        float shortestDistance = Vector3.Distance(_tilesToTravel[0], position);
+        
+        for (int i = 1; i < _tilesToTravel.Count; i++)
+        {
+            float distance = Vector3.Distance(_tilesToTravel[i], position);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                closestIndex = i;
+            }
+        }
+        
+        return closestIndex;
     }
 
     private void Slide()
@@ -158,7 +210,8 @@ public class MinotaurMovement : MonoBehaviour
 
     private bool IsContactWithPlayer()
     {
-        float playerDistanceAway =  Vector3.Distance(GameManager.Instance.Player.transform.position, _minotaurTransform.position);
+        //float playerDistanceAway =  Vector3.Distance(GameManager.Instance.Player.transform.position, _minotaurTransform.position);
+        float playerDistanceAway =  DistanceToPlayer();
         if (playerDistanceAway <= _distanceForContact) return true;
         _rubberBandSpeed.Evaluate(playerDistanceAway / _playerDistanceCurveWidth);
 
