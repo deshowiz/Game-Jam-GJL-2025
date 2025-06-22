@@ -898,12 +898,11 @@ MonoBehaviour:
   _minotaurMovement: {fileID: 0}
   _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _interactableBiomes:
-  - {fileID: 11400000, guid: 7d49fc27203d4c14b941f6d72f0e391b, type: 2}
+  - {fileID: 11400000, guid: 2c3aca58e8c129a46a04ddba4f74e65f, type: 2}
   _tilesParentTransform: {fileID: 1103658268}
   _baseTilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
   _tileGroups:
   - {fileID: 11400000, guid: 72df103733de78e4a8623354838c9f45, type: 2}
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
   _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
   _maximumQueueSpawnSize: 200
   _boostPercentage: 0.5
