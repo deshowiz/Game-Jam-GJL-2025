@@ -64,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
     private float _totalHeightProgress = 0f;
     private bool _isBlueOrb = true;
 
+    private bool gamestart = false;
+
     // private float _totalDegreesMovedThisRoute = 0f;
 
     // private float _currentTimingThisRoute = 0f;
@@ -73,9 +75,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !gamestart)
         {
             //Time.timeScale = 1f;
+            gamestart = true;
             ready = !ready;
         }
         if (!ready) return;
