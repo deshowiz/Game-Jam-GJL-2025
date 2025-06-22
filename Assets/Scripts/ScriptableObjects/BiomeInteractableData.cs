@@ -7,11 +7,14 @@ public class BiomeInteractableData : ScriptableObject
 {
     [Header("References")]
     [SerializeField]
+    private TileGroup _startBiomeGroup = null;
+    public TileGroup StartBiomeGroup{get{return _startBiomeGroup;}}
+    [SerializeField]
     private TileGroup _lastBiomeGroup = null;
     public TileGroup LastBiomeGroup{get{return _lastBiomeGroup;}}
     [SerializeField]
     private List<TileGroup> _tileGroups = new List<TileGroup>();
-    public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count))]; }}
+    public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count + 1))]; }}
     [SerializeField]
     private List<InteractableTile> _powerups = new List<InteractableTile>();
     [SerializeField]

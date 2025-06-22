@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
-    
-    [Header("Audio Sources")]
+
+    [Header("Audio Sources")] 
+    public AudioMixer audioMixer;
+    public AudioMixerGroup musicMixerGroup;
+    public AudioMixerGroup sfxMixerGroup;
     [SerializeField] private int maxSFXSources = 10;
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource[] sfxSources;
@@ -41,6 +45,8 @@ public class AudioManager : MonoBehaviour
             musicSource = musicObject.AddComponent<AudioSource>();
             musicSource.loop = true;
             musicSource.playOnAwake = false;
+            
+            musicSource.outputAudioMixerGroup = musicMixerGroup;
         }
 
         sfxSources = new AudioSource[maxSFXSources];
@@ -50,6 +56,8 @@ public class AudioManager : MonoBehaviour
             sfxObject.transform.SetParent(transform);
             sfxSources[i] = sfxObject.AddComponent<AudioSource>();
             sfxSources[i].playOnAwake = false;
+
+            sfxSources[i].outputAudioMixerGroup = sfxMixerGroup;
         }
         
         PopulateAudioDictionary();
@@ -81,6 +89,18 @@ public class AudioManager : MonoBehaviour
             musicSource.clip = clip;
             musicSource.loop = loop;
             musicSource.Play();
+        }
+    }
+    
+    public void PlayMusic(string clipName, bool loop = true)
+    {
+        if (audioClipDict.TryGetValue(clipName, out AudioClip clip))
+        {
+            PlayMusic(clip, loop);
+        }
+        else
+        {
+            Debug.LogWarning($"Music clip '{clipName}' not found!");
         }
     }
     

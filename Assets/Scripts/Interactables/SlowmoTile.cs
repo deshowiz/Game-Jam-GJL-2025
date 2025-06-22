@@ -13,6 +13,7 @@ public class SlowmoTile : StunTile
             Time.timeScale = _adjustedTimeScale;
             _shockwaveEvent.Raise();
             GameManager.Instance.Player.SlowMo(_numPressesforUnlock);
+            AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_SloMoTrap");
         }
     }
 }

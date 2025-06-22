@@ -12,7 +12,9 @@ using UnityEditor;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
+
     [Header("References")]
+    public UIMinotaurBar UIMinotaurBar;
     // Replace with player script or whatever
     [SerializeField]
     private Player _player = null;
@@ -56,6 +58,17 @@ public class GameManager : MonoBehaviour
         {
             _tileGenerator = GetComponent<TileGenerator>();
         }
+        
+        GameObject gameMenu = Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
+        GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
+        UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
+
+        if (Application.isEditor && SceneManager.GetActiveScene().name == "PathTestSceneShawn")
+        {
+            //Spawn AudioManager if Editor and ShawnScene because AudioManager should spawn in MainMenu.
+            GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
+        }
+        
         NextBiome();
     }
 
@@ -65,11 +78,20 @@ public class GameManager : MonoBehaviour
         LoadNewScene();
     }
 
-    public async Task LoadNewScene()
+    public void RestartScene()
+    {
+        LoadNewScene();
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
+    public void LoadNewScene()
     {
         // call transition, await, and then await scene swap
-        Debug.Log("Switching Scenes?");
-        await SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
 
         Initialize();
     }
@@ -77,6 +99,20 @@ public class GameManager : MonoBehaviour
     public void NextBiome()
     {
         _currentBiome++;
+
+        switch (_currentBiome)
+        {
+            case 0:
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                break;
+            case 1:
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                break;
+            case 2:
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
+                break;
+        }
+        
         if (_currentBiome == 3)
         {
             // You win screen

@@ -23,10 +23,8 @@ public class TileGroup : ScriptableObject
     public Wall BaseWallPrefab { get { return _baseWallPrefab;}}
 
     [SerializeField]
-    private List<WallPositionList> _wallSectionVariations;
-    public List<WallPositionList> WallSectionVariations{get{ return _wallSectionVariations;}}
-
-    public int WallSectionCount {get{ return _wallSectionVariations.Count; }}
+    private WallPositionList _wallSection;
+    public WallPositionList WallSection{get{ return _wallSection;}}
 
     [Serializable]
     public struct WallPositionList
@@ -41,10 +39,10 @@ public class TileGroup : ScriptableObject
         public Vector3 position;
     }
 
-    public List<WallData> WallSectionVariation(int directionIndex)
-    {
-        return _wallSectionVariations[directionIndex].wallDataList;
-    }
+    // public List<WallData> WallSectionVariation(int directionIndex)
+    // {
+    //     return _wallSectionVariations[directionIndex].wallDataList;
+    // }
 
     [Header("Group Data")]
     [SerializeField]
@@ -78,53 +76,16 @@ public class GroupSpawner : Editor
     {
 
         TileGroup tileGroup = (TileGroup)target;
-        const string currentGroupHolder = "CurrentGroupHolder";
+        string currentGroupHolder = "CurrentGroupHolder";
 
         if (GUILayout.Button("Rebuild Group"))
         {
-            GameObject currentHolder = GameObject.Find(currentGroupHolder);
-
-            if (currentHolder != null)
-            {
-                DestroyImmediate(currentHolder);
-            }
-
-            GameObject newHolderT = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
-            newHolderT.name = currentGroupHolder;
-
-            GameObject lastExtra = GameObject.Find("New Game Object");
-            if (lastExtra != null)
-            {
-                DestroyImmediate(lastExtra);
-            }
-
-            List<TileGroup.PositionedGroup> groupToSpawn = tileGroup.PositionedTilePrefabs;
-
-            for (int i = 0; i < groupToSpawn.Count; i++)
-            {
-                Tile currentTile = Instantiate(tileGroup.BaseTilePrefab, groupToSpawn[i].position, Quaternion.identity, newHolderT.transform);
-                currentTile.SetMesh(groupToSpawn[i].tileMeshPrefab);
-                currentTile.gameObject.SetActive(true);
-            }
-
-            UnityEngine.Random.InitState(DateTime.Now.Millisecond);
-
-            Wall newWallPrefab = tileGroup.BaseWallPrefab;
-            
-            List<TileGroup.WallData> currentWallSection = tileGroup.WallSectionVariation(UnityEngine.Random.Range(0, tileGroup.WallSectionVariations.Count));
-
-            for (int j = 0; j < currentWallSection.Count; j++)
-            {
-                Wall currentWall = Instantiate(newWallPrefab, currentWallSection[j].position, Quaternion.identity, newHolderT.transform);
-                currentWall.SetMesh(currentWallSection[j].wallMeshPrefab);
-                currentWall.gameObject.SetActive(true);
-            }
-            
+            Rebuild(tileGroup, currentGroupHolder);
         }
 
         if (GUILayout.Button("Remove Group"))
         {
-            GameObject currentHolder = GameObject.Find(currentGroupHolder);
+            GameObject currentHolder = GameObject.Find("CurrentGroupHolder");
 
             if (currentHolder != null)
             {
@@ -153,6 +114,65 @@ public class GroupSpawner : Editor
 
 
         DrawDefaultInspector();
+
+
+        if (GUILayout.Button("Rebuild Group"))
+        {
+            Rebuild(tileGroup, currentGroupHolder);
+        }
+
+        if (GUILayout.Button("Remove Group")) // Had to repeat this code cause of an editor bug
+        {
+            GameObject currentHolder = GameObject.Find("CurrentGroupHolder");
+
+            if (currentHolder != null)
+            {
+                DestroyImmediate(currentHolder);
+            }
+        }
     }
+
+    private void Rebuild(TileGroup tileGroup, string currentGroupHolder)
+    {
+        GameObject currentHolder = GameObject.Find(currentGroupHolder);
+
+        if (currentHolder != null)
+        {
+            DestroyImmediate(currentHolder);
+        }
+
+        GameObject newHolderT = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
+        newHolderT.name = currentGroupHolder;
+
+        GameObject lastExtra = GameObject.Find("New Game Object");
+        if (lastExtra != null)
+        {
+            DestroyImmediate(lastExtra);
+        }
+
+        List<TileGroup.PositionedGroup> groupToSpawn = tileGroup.PositionedTilePrefabs;
+
+        for (int i = 0; i < groupToSpawn.Count; i++)
+        {
+            Tile currentTile = Instantiate(tileGroup.BaseTilePrefab, groupToSpawn[i].position, Quaternion.identity, newHolderT.transform);
+            currentTile.SetMesh(groupToSpawn[i].tileMeshPrefab);
+            currentTile.gameObject.SetActive(true);
+        }
+
+        UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+
+        Wall newWallPrefab = tileGroup.BaseWallPrefab;
+
+        List<TileGroup.WallData> currentWallSection = tileGroup.WallSection.wallDataList;
+
+        for (int j = 0; j < currentWallSection.Count; j++)
+        {
+            Wall currentWall = Instantiate(newWallPrefab, currentWallSection[j].position, Quaternion.identity, newHolderT.transform);
+            currentWall.SetMesh(currentWallSection[j].wallMeshPrefab);
+            currentWall.gameObject.SetActive(true);
+        }
+    }
+    
+
 }
 #endif
