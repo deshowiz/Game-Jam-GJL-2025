@@ -16,24 +16,48 @@ MonoBehaviour:
   _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _wallSection:
     wallDataList:
-    - wallMeshPrefab: {fileID: -8806229996447277915, guid: c05d539aaa333a74cb6a651f32fe142c, type: 3}
-      position: {x: 4, y: 0, z: 0}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 1, y: 0.5, z: 0}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 1, y: 0.5, z: 1}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 1, y: 0.5, z: 2}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 2, y: 0.5, z: 3}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 2, y: 0.5, z: 4}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 2, y: 0.5, z: 5}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 0, y: 0.5, z: 4}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 0, y: 0.5, z: 5}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 0, y: 0.5, z: 6}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 0, y: 0.5, z: 7}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 1, y: 0.5, z: 7}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 2, y: 0.5, z: 7}
   _positionedTilePrefabs:
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 0, y: 0, z: 0}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 1, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 1}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 1, y: 0, z: 1}
+    position: {x: 0, y: 0, z: 2}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 2, y: 0, z: 1}
+    position: {x: 0, y: 0, z: 3}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 4, y: 0, z: 2}
+    position: {x: 1, y: 0, z: 3}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 6, y: 0, z: 1}
+    position: {x: 1, y: 0, z: 4}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 7, y: 0, z: 1}
+    position: {x: 1, y: 0, z: 5}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 7, y: 0, z: 0}
+    position: {x: 1, y: 0, z: 6}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 8, y: 0, z: 0}
+    position: {x: 2, y: 0, z: 6}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 3, y: 0, z: 6}

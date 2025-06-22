@@ -17,13 +17,37 @@ MonoBehaviour:
   _wallSection:
     wallDataList:
     - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
-      position: {x: 1, y: 0.5, z: -2}
+      position: {x: 1, y: 0.5, z: -1}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 2, y: 0.5, z: -1}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 2, y: 0.7, z: -3}
+    - wallMeshPrefab: {fileID: -836830937466386749, guid: adbd12f6262608644a07a087dc28e11a, type: 3}
+      position: {x: 3, y: 0.7, z: -3}
   _positionedTilePrefabs:
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 0, y: 0, z: 0}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 1, y: 0, z: 0}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 1, y: 0, z: -1}
+    position: {x: 2, y: 0, z: 0}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 3, y: 0, z: 0}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 3, y: 0, z: -1}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 3, y: 0, z: -2}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 2, y: 0, z: -2}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 1, y: 0, z: -2}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 1, y: 0, z: -3}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 1, y: 0, z: -4}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 2, y: 0, z: -4}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 3, y: 0, z: -4}
+  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    position: {x: 4, y: 0, z: -4}
