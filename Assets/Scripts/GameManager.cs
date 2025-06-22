@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    [Header("References")]
+    [Header("References")] 
+    public GameEvent FadeOutEvent;
     public UIMinotaurBar UIMinotaurBar;
     // Replace with player script or whatever
     [SerializeField]
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        GameObject fadeCanvas = Instantiate(Resources.Load<GameObject>("FadeCanvas"), Vector3.zero, Quaternion.identity);
+        
         // Add to navigation later
         Initialize();
     }
@@ -88,12 +91,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
+    IEnumerator LoadNewSceneDelayed()
+    {
+        FadeOutEvent?.Raise();
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Initialize();
+    }
+
     public void LoadNewScene()
     {
-        // call transition, await, and then await scene swap
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
-
-        Initialize();
+        StartCoroutine(LoadNewSceneDelayed());
     }
 
     public void NextBiome()

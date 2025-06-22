@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9103751000022968713}
   - component: {fileID: 8133652819119185325}
   - component: {fileID: 7444170611062606203}
+  - component: {fileID: 3445278598052040480}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -45,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2688c2eec617b54f8c5521aa35fa49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameMenuObject: {fileID: 8832450408009765277, guid: f36c9554bafac544589b19dee90ed398, type: 3}
+  FadeOutEvent: {fileID: 11400000, guid: 7b9bde5dfd732e346ad7af482365a360, type: 2}
+  UIMinotaurBar: {fileID: 0}
   _player: {fileID: 0}
   _tileGenerator: {fileID: 0}
   CurrentTilePosition: {x: -Infinity, y: -Infinity, z: -Infinity}
@@ -70,6 +72,34 @@ MonoBehaviour:
       - m_Target: {fileID: 8133652819119185325}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: LoadNextBiome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3445278598052040480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3605028395880254680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 3210036a7b514394e9991d885d41f5ce, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8133652819119185325}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
