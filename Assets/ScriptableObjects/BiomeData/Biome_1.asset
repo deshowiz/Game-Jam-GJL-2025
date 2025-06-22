@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe75b1ebd7536542a7473575a2099ca, type: 3}
+  m_Name: Biome_1
+  m_EditorClassIdentifier: 
+  _basePrefab: {fileID: 6158393266161613704, guid: a899b129f00f8d241b04515e29f9c2b0, type: 3}
+  _startBiomeGroup: {fileID: 11400000, guid: 53cede1caf37fdb479b6082ea9e79e16, type: 2}
+  _lastBiomeGroup: {fileID: 11400000, guid: 46a17fb36760e3d48973f2cbeba00f0a, type: 2}
+  _tileGroups:
+  - {fileID: 11400000, guid: 5fb939dc7f281a242af0ff394e7d70ec, type: 2}
+  - {fileID: 11400000, guid: fe4ec30ae3d2b6e43b021c35dc4a3c74, type: 2}
+  - {fileID: 11400000, guid: 6f3734de271b6e949bc5f8a442b4a68f, type: 2}
+  - {fileID: 11400000, guid: 6c9a1f837aced0645b844cbba01859c9, type: 2}
+  - {fileID: 11400000, guid: 724bd11fd0292b0498f8d6aa1bdc4cd5, type: 2}
+  - {fileID: 11400000, guid: 90fcce5b4421cb94daa4d18d61b132bb, type: 2}
+  - {fileID: 11400000, guid: 477bcb11df896514482dc1d4b119b1b0, type: 2}
+  - {fileID: 11400000, guid: 01a9dfdb00881684d95b4d22512ba6bd, type: 2}
+  - {fileID: 11400000, guid: 51a80dcc3503a2c44a6820174af89e07, type: 2}
+  - {fileID: 11400000, guid: c5696942c498ecd478fef8dd5ee38cc7, type: 2}
+  - {fileID: 11400000, guid: 29f5bfdc0067ff34f945183979bfbe77, type: 2}
+  - {fileID: 11400000, guid: d1311742989a4b544bc37777d12ad716, type: 2}
+  - {fileID: 11400000, guid: 3b6c9b5db16d9134f89c89a5b1a5a009, type: 2}
+  - {fileID: 11400000, guid: b4900474f0afcb5489fd22a2e20f69b8, type: 2}
+  - {fileID: 11400000, guid: fc5223aaebee75d49a2d9dde3af916b0, type: 2}
+  _powerups:
+  - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
+  - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
+  _traps:
+  - {fileID: 8386058859968840892, guid: 7a620f2be1be26d46a19413a7a8db1b1, type: 3}
+  - {fileID: -6659759921745719103, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
+  - {fileID: -203346714612497066, guid: 0b8d1cb50138f1e44aa122c2fd6fc730, type: 3}
+  _groupLevelLength: 40
+  _boostMinimumTileSpacing: 5
+  _boostMaximumTileSpacing: 13
+  _trapMinimumTileSpacing: 5
+  _trapMaximumTileSpacing: 13
