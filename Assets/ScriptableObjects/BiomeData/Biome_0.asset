@@ -15,9 +15,8 @@ MonoBehaviour:
   _startBiomeGroup: {fileID: 11400000, guid: d432dd712f992e0429c11084f609d76e, type: 2}
   _lastBiomeGroup: {fileID: 11400000, guid: 4aca1c9418846a74789ab1ace80edee8, type: 2}
   _tileGroups:
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
-  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
+  - {fileID: 11400000, guid: a99e601215aad10488a0505ebca61c48, type: 2}
+  - {fileID: 11400000, guid: d8d238b53269e8e499a5a7bfa993d8b4, type: 2}
   _powerups:
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
   - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}

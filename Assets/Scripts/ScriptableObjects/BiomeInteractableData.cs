@@ -14,7 +14,7 @@ public class BiomeInteractableData : ScriptableObject
     public TileGroup LastBiomeGroup{get{return _lastBiomeGroup;}}
     [SerializeField]
     private List<TileGroup> _tileGroups = new List<TileGroup>();
-    public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count))]; }}
+    public TileGroup RandomTileGroup {get{ return _tileGroups[Random.Range(0, UnityEngine.Random.Range(0, _tileGroups.Count + 1))]; }}
     [SerializeField]
     private List<InteractableTile> _powerups = new List<InteractableTile>();
     [SerializeField]

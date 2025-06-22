@@ -401,10 +401,11 @@ public class TileGenerator : MonoBehaviour
         }
         else
         {
-            newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+            //newTileGroup = _tileGroups[UnityEngine.Random.Range(0, _tileGroups.Count)];
+            newTileGroup = _currentBiome.RandomTileGroup;
         }
         _currentTileGroup = newTileGroup.PositionedTilePrefabs;
-        List<TileGroup.WallData> wallPositions = newTileGroup.WallSectionVariation(UnityEngine.Random.Range(0, newTileGroup.WallSectionCount));
+        List<TileGroup.WallData> wallPositions = newTileGroup.WallSection.wallDataList;
         _groupAnchorPosition = _lastPosition + Vector3.right;
         for (int i = 0; i < wallPositions.Count; i++)
         {

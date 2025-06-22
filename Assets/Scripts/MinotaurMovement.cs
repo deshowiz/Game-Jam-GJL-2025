@@ -65,7 +65,7 @@ public class MinotaurMovement : MonoBehaviour
             _contactEvent.Raise();
         }
         float curveAdjuster =
-        _fullSpeed = (_baseSpeed * _levelSpeedProgression.Evaluate(_distanceTravelled / _totalTravelCurveWidth)) + (_boostSpeed * speedDistanceAdjuster);
+        _fullSpeed = (_baseSpeed * _levelSpeedProgression.Evaluate(_distanceTravelled / _totalTravelCurveWidth)) + (speedDistanceAdjuster);
         float distToNext = DistanceToNextTile();
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
         {
@@ -213,7 +213,7 @@ public class MinotaurMovement : MonoBehaviour
         //float playerDistanceAway =  Vector3.Distance(GameManager.Instance.Player.transform.position, _minotaurTransform.position);
         float playerDistanceAway =  DistanceToPlayer();
         if (playerDistanceAway <= _distanceForContact) return true;
-        _rubberBandSpeed.Evaluate(playerDistanceAway / _playerDistanceCurveWidth);
+        speedDistanceAdjuster = _rubberBandSpeed.Evaluate(playerDistanceAway / _playerDistanceCurveWidth);
 
         return false;
     }

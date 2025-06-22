@@ -405,18 +405,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0.5
-      outSlope: 0.5
+      value: 0
+      inSlope: 4
+      outSlope: 4
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1.5
-      inSlope: 0.5
-      outSlope: 0.5
+      value: 4
+      inSlope: 4
+      outSlope: 4
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -430,17 +430,35 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0.3614688
+      outSlope: 0.3614688
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.2852524
+      value: 1.1031098
+      inSlope: 0.934192
+      outSlope: 0.934192
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.73048663
+      value: 1.7740401
+      inSlope: 0.4974437
+      outSlope: 0.4974437
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.36043417
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 2
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0.8383996
+      outSlope: 0.8383996
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -6074,7 +6092,7 @@ MonoBehaviour:
   _tilesParentTransform: {fileID: 1103658268}
   _baseTilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
   _tileGroups:
-  - {fileID: 11400000, guid: 1e25843d0bae69447a66d9a3890a2ce8, type: 2}
+  - {fileID: 11400000, guid: 6e1cd3c89a5c2c14690bc10387491501, type: 2}
   _runningEvent: {fileID: 11400000, guid: e43eb6796cde4934692acb83b6a8fdbf, type: 2}
   _maximumQueueSpawnSize: 200
   _boostPercentage: 0.5

@@ -10,20 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d6405e7c3314f547bd44d379a1463a0, type: 3}
-  m_Name: 0_Gap_0
+  m_Name: 0_Group_16
   m_EditorClassIdentifier: 
   _baseTilePrefab: {fileID: 6158393266161613704, guid: a974c744aa32c68419c74d16dca73539, type: 3}
   _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
-  _wallSectionVariations:
-  - wallDataList: []
+  _wallSection:
+    wallDataList:
+    - wallMeshPrefab: {fileID: -2899645455363137387, guid: 2fcf825f33d44124b894c9cc99464d40, type: 3}
+      position: {x: 1, y: 2, z: 0}
   _positionedTilePrefabs:
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 0, y: 0, z: 0}
-  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 3, y: 0, z: 0}
-  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 4, y: 0, z: 0}
-  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 6, y: 0, z: 1}
-  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 8, y: 0, z: -1}

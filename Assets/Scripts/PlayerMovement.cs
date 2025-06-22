@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             orbRotater.SetOrbHeight(
             Mathf.Lerp(GameManager.Instance.Player.transform.position.y,
             _interactableRouteTimings[0].interactableTile.transform.position.y,
-            _totalHeightProgress * 2f), _isBlueOrb);
+            _totalHeightProgress), _isBlueOrb);
         }
 
         if (distToNext == 1f) // Distance of greater than 1 indicates a gap since all tiles need to have a diameter of 1 or lower
