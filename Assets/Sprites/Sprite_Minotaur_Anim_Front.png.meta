@@ -1,28 +1,25 @@
 fileFormatVersion: 2
-guid: 1008e98d0236d0d4696ab6b188426038
+guid: aaac0223e6982714bb2e76558dd7672a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8910161850308681727
-    second: sprite_Minotaur_Anim_Back_0
+      213: -226113483742015676
+    second: Sprite_Minotaur_Anim_Front_0
   - first:
-      213: -3126400286696455164
-    second: sprite_Minotaur_Anim_Back_1
+      213: -7162031777240350586
+    second: Sprite_Minotaur_Anim_Front_1
   - first:
-      213: 2036237675301490842
-    second: sprite_Minotaur_Anim_Back_2
+      213: -5805311929779819474
+    second: Sprite_Minotaur_Anim_Front_2
   - first:
-      213: 8177248682490392607
-    second: sprite_Minotaur_Anim_Back_3
+      213: 1361770215342136177
+    second: Sprite_Minotaur_Anim_Front_3
   - first:
-      213: 8972795533187538318
-    second: sprite_Minotaur_Anim_Back_4
+      213: 9154695715428545511
+    second: Sprite_Minotaur_Anim_Front_4
   - first:
-      213: -2612932970301600835
-    second: sprite_Minotaur_Anim_Back_5
-  - first:
-      213: -6149232194016975127
-    second: sprite_Minotaur_Anim_Back_6
+      213: -4057001871718172072
+    second: Sprite_Minotaur_Anim_Front_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -114,24 +111,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprite_Minotaur_Anim_Back_0
+      name: Sprite_Minotaur_Anim_Front_0
       rect:
         serializedVersion: 2
         x: 0
@@ -146,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fffd2eaaef047ab70800000000000000
-      internalID: 8910161850308681727
+      spriteID: 44f81aa0cfeacdcf0800000000000000
+      internalID: -226113483742015676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_Minotaur_Anim_Back_1
+      name: Sprite_Minotaur_Anim_Front_1
       rect:
         serializedVersion: 2
         x: 1024
@@ -168,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 40447cde08bcc94d0800000000000000
-      internalID: -3126400286696455164
+      spriteID: 680878f6b0a5b9c90800000000000000
+      internalID: -7162031777240350586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_Minotaur_Anim_Back_2
+      name: Sprite_Minotaur_Anim_Front_2
       rect:
         serializedVersion: 2
         x: 2048
@@ -190,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a90dc92906b224c10800000000000000
-      internalID: 2036237675301490842
+      spriteID: e2ce227ce836f6fa0800000000000000
+      internalID: -5805311929779819474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_Minotaur_Anim_Back_3
+      name: Sprite_Minotaur_Anim_Front_3
       rect:
         serializedVersion: 2
         x: 3072
@@ -212,14 +196,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f10fedf0a5c6b7170800000000000000
-      internalID: 8177248682490392607
+      spriteID: 17bdc2fbbcaf5e210800000000000000
+      internalID: 1361770215342136177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_Minotaur_Anim_Back_4
+      name: Sprite_Minotaur_Anim_Front_4
       rect:
         serializedVersion: 2
         x: 4096
@@ -234,14 +218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8ddadd5ff5c58c70800000000000000
-      internalID: 8972795533187538318
+      spriteID: 7e3b8e0ef330c0f70800000000000000
+      internalID: 9154695715428545511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_Minotaur_Anim_Back_5
+      name: Sprite_Minotaur_Anim_Front_5
       rect:
         serializedVersion: 2
         x: 5120
@@ -256,8 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dbb4443be4ffcbbd0800000000000000
-      internalID: -2612932970301600835
+      spriteID: 85ab427ea42a2b7c0800000000000000
+      internalID: -4057001871718172072
       vertices: []
       indices: 
       edges: []
@@ -266,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: aeffabc94bba23b4ea76c3c454a25bca
+    spriteID: 44817bfad5bb3cb448e7d289334910ef
     internalID: 0
     vertices: []
     indices: 
@@ -278,12 +262,12 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1024.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      sprite_Minotaur_Anim_Back_0: 8910161850308681727
-      sprite_Minotaur_Anim_Back_1: -3126400286696455164
-      sprite_Minotaur_Anim_Back_2: 2036237675301490842
-      sprite_Minotaur_Anim_Back_3: 8177248682490392607
-      sprite_Minotaur_Anim_Back_4: 8972795533187538318
-      sprite_Minotaur_Anim_Back_5: -2612932970301600835
+      Sprite_Minotaur_Anim_Front_0: -226113483742015676
+      Sprite_Minotaur_Anim_Front_1: -7162031777240350586
+      Sprite_Minotaur_Anim_Front_2: -5805311929779819474
+      Sprite_Minotaur_Anim_Front_3: 1361770215342136177
+      Sprite_Minotaur_Anim_Front_4: 9154695715428545511
+      Sprite_Minotaur_Anim_Front_5: -4057001871718172072
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

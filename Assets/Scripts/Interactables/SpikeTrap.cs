@@ -20,6 +20,7 @@ public class SpikeTrap : InteractableTile
         {
             _vfxEvent.Raise();
             GameManager.Instance.Player.SlowMovement(_slowdownAmount);
+            AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_SlowDown_01");
             // Add spike trap anim here
         }
     }

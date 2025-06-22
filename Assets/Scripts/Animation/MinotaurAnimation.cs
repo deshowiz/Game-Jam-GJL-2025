@@ -7,10 +7,17 @@ public class MinotaurAnimation : MonoBehaviour
     public float minHuff = 3f;
     public float maxHuff = 5f;
     private float nextHuff = 0f;
+    
+    private static readonly int Direction = Animator.StringToHash("Direction");
+    public Animator animator;
+    public MinotaurMovement movement;
 
     private void Start()
     {
         HuffTimer();
+        
+        animator = GetComponent<Animator>();
+        movement = GetComponentInParent<MinotaurMovement>();
     }
 
     public void Footstep()
@@ -44,5 +51,22 @@ public class MinotaurAnimation : MonoBehaviour
         {
             Huff();
         }
+        
+        Vector3 dir = movement.GetNormalizedDirection();
+        CharacterDirection direction = CharacterDirection.Right;
+        
+        if (dir.z > 0.8f && dir.x <= 0)
+        {
+            direction = CharacterDirection.Up;
+        }
+        else if (dir.z < -0.8f && dir.x <= 0)
+        {
+            direction = CharacterDirection.Down;
+        }
+        else if (dir.x > 0)
+        {
+            direction = CharacterDirection.Right;
+        }
+        animator.SetInteger(Direction, (int)direction);
     }
 }

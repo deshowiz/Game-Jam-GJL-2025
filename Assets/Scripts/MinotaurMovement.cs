@@ -126,6 +126,15 @@ public class MinotaurMovement : MonoBehaviour
         
         return closestIndex;
     }
+    
+    public Vector3 GetNormalizedDirection()
+    {
+        int minotaurClosestIndex = GetClosestPathIndex(transform.position);
+        Vector3 dir1 = _tilesToTravel[minotaurClosestIndex];
+        Vector3 dir2 = _tilesToTravel[minotaurClosestIndex + 1];
+        
+        return (dir1 - dir2).normalized;
+    }
 
     private void Slide()
     {
@@ -217,6 +226,4 @@ public class MinotaurMovement : MonoBehaviour
 
         return false;
     }
-
-
 }
