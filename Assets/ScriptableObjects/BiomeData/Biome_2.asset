@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe75b1ebd7536542a7473575a2099ca, type: 3}
+  m_Name: Biome_2
+  m_EditorClassIdentifier: 
+  _basePrefab: {fileID: 6158393266161613704, guid: 33cca67ed104f2c4ba6eeecc917c80b9, type: 3}
+  _startBiomeGroup: {fileID: 11400000, guid: 2d1965ec6cdede540bf57c25fc51bd32, type: 2}
+  _lastBiomeGroup: {fileID: 11400000, guid: c38d4d2885f3dcb47a5c37c866058f54, type: 2}
+  _tileGroups:
+  - {fileID: 11400000, guid: 410aca4fbd3aa1548950c3daaf69cdff, type: 2}
+  - {fileID: 11400000, guid: 17da63226c480c2499222d63a764d6c0, type: 2}
+  - {fileID: 11400000, guid: cc57a757a36b8d54085a976b61e88101, type: 2}
+  - {fileID: 11400000, guid: 7c90795981d764641b0adbd569d0ba53, type: 2}
+  - {fileID: 11400000, guid: 990fc9d70c099184891663d7a677ecf6, type: 2}
+  - {fileID: 11400000, guid: eb768fd37e6fa8c478217612bf915b97, type: 2}
+  - {fileID: 11400000, guid: 8f2fc6b2f0bb6aa4a959ad814cef7402, type: 2}
+  - {fileID: 11400000, guid: 7b1aba74f394f4a469911916497cb546, type: 2}
+  - {fileID: 11400000, guid: 906ca4982658a564ebe6715a0f9985c2, type: 2}
+  - {fileID: 11400000, guid: 81d8f59fcae569e4d873d59add0772ff, type: 2}
+  - {fileID: 11400000, guid: 9f69bc1b3cf9f2d47ba0401b82f9c737, type: 2}
+  - {fileID: 11400000, guid: 1f2f562e442aec048bf87327c3cddc4f, type: 2}
+  - {fileID: 11400000, guid: 97e3bb45bb763c74fbcb7809a220fd2e, type: 2}
+  _powerups:
+  - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
+  - {fileID: 7255295503875843899, guid: bae451cd14dd89749b8c10a723c3e9a7, type: 3}
+  _traps:
+  - {fileID: 8386058859968840892, guid: 7a620f2be1be26d46a19413a7a8db1b1, type: 3}
+  - {fileID: -6659759921745719103, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
+  - {fileID: -203346714612497066, guid: 0b8d1cb50138f1e44aa122c2fd6fc730, type: 3}
+  _groupLevelLength: 40
+  _boostMinimumTileSpacing: 5
+  _boostMaximumTileSpacing: 13
+  _trapMinimumTileSpacing: 5
+  _trapMaximumTileSpacing: 13
