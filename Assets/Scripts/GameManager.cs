@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    [Header("References")]
+    [Header("References")] 
+    public GameEvent FadeOutEvent;
     public UIMinotaurBar UIMinotaurBar;
     // Replace with player script or whatever
     [SerializeField]
@@ -88,12 +89,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
+    IEnumerator LoadNewSceneDelayed()
+    {
+        FadeOutEvent?.Raise();
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Initialize();
+    }
+
     public void LoadNewScene()
     {
-        // call transition, await, and then await scene swap
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
-
-        Initialize();
+        StartCoroutine(LoadNewSceneDelayed());
     }
 
     public void NextBiome()
@@ -103,13 +109,13 @@ public class GameManager : MonoBehaviour
         switch (_currentBiome)
         {
             case 0:
-                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
                 break;
             case 1:
-                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
                 break;
             case 2:
-                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_DeepHum");
                 break;
         }
         
