@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     // private float _currentTimingThisRoute = 0f;
     private void Start()
     {
-        _playerLoaded.Raise();
+       // _playerLoaded.Raise();
     }
     private void Update()
     {

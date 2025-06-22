@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        if (Instance = null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(this);
