@@ -106,4 +106,4 @@ MonoBehaviour:
   _stunTime: 0.5
   _adjustedTimeScale: 0.3
   _shockwaveEvent: {fileID: 11400000, guid: 2193cd728b4cd384e9c5776f22791d4c, type: 2}
-  _numPressesforUnlock: 6
+  _numPressesforUnlock: 10

@@ -1032,14 +1032,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2061253666392436467, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: maxHuff
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2061253666392436467, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: minHuff
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6723730297270216574, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: m_Name
       value: Minotaur
@@ -1085,36 +1077,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _baseSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].time
-      value: 0.2908975
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].value
-      value: 1.2234256
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].value
       value: 2.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[0].inSlope
-      value: 0.15078527
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].inSlope
@@ -1125,96 +1089,32 @@ PrefabInstance:
       value: 2.2233377
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[0].outSlope
-      value: 0.15078527
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].outSlope
       value: 1.4956969
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].inWeight
-      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].outSlope
       value: 2.2233377
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[0].outWeight
-      value: 0.48771402
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].time
-      value: 0.75923085
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].value
-      value: 1.4282784
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].inSlope
-      value: 0.19047631
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].inSlope
-      value: 1.4693291
+      value: 1.0539935
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].inSlope
-      value: 2.3745632
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].outSlope
-      value: 0.19047631
+      value: 1.5438918
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].outSlope
-      value: 1.4693291
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].inWeight
-      value: 0.33333334
+      value: 1.0539935
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].outSlope
-      value: 2.3745632
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].outWeight
-      value: 0.29635254
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
-      propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].tangentMode
-      value: 34
+      value: 1.5438918
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

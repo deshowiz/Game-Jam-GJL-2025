@@ -92,7 +92,7 @@ public class MinotaurMovement : MonoBehaviour
 
     public float DistanceToPlayer()
     {
-        if (GameManager.Instance.Player == null) GameManager.Instance.Player = GameObject.Find("Player").GetComponent<Player>();
+        if (GameManager.Instance.Player == null) return 5f;
         return GetPathDistance(transform.position, GameManager.Instance.Player.transform.position);
     }
 

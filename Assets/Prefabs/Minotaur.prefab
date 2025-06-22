@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4ed5ffc1ae8e14ab9b22f882ecc788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHuff: 3
-  maxHuff: 5
+  minHuff: 2
+  maxHuff: 4
   animator: {fileID: 0}
   movement: {fileID: 0}
 --- !u!1 &6723730297270216574
@@ -241,17 +241,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0.5
-      outSlope: 0.5
-      tangentMode: 34
+      inSlope: 0.15078527
+      outSlope: 0.15078527
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.48771402
+    - serializedVersion: 3
+      time: 0.45339596
+      value: 2.3034275
+      inSlope: 1.8916395
+      outSlope: 1.8916395
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1.5
-      inSlope: 0.5
-      outSlope: 0.5
+      value: 2.8
+      inSlope: 0.9084684
+      outSlope: 0.9084684
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -265,17 +274,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0.19047631
+      outSlope: 0.19047631
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.29635254
+    - serializedVersion: 3
+      time: 0.75923085
+      value: 1.4282784
+      inSlope: 1.0539935
+      outSlope: 1.0539935
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 2
-      inSlope: 1
-      outSlope: 1
+      value: 1.8
+      inSlope: 1.5438918
+      outSlope: 1.5438918
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
