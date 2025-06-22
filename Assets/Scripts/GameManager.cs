@@ -35,15 +35,24 @@ public class GameManager : MonoBehaviour
 
     private int _currentBiome = -1;
 
+    private bool _isLoading = false;
+    private bool _isInitialized = false;
+
     public void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(this);
+        if (Instance = null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Start()
     {
-        // Add to navigation later
         Initialize();
     }
 
@@ -59,7 +68,7 @@ public class GameManager : MonoBehaviour
         {
             _tileGenerator = GetComponent<TileGenerator>();
         }
-        
+
         GameObject gameMenu = Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
         GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
         UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
@@ -69,12 +78,14 @@ public class GameManager : MonoBehaviour
             //Spawn AudioManager if Editor and ShawnScene because AudioManager should spawn in MainMenu.
             GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
         }
-        
+
         NextBiome();
+        _isLoading = false;
     }
 
     public void LoadNextBiome()
     {
+        if (_isLoading) return;
         Debug.Log("Switching Scenes?");
         LoadNewScene();
     }
@@ -99,6 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNewScene()
     {
+        _isLoading = true;
         StartCoroutine(LoadNewSceneDelayed());
     }
 
@@ -125,7 +137,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _tileGenerator.FullInitialization(0);
+            _tileGenerator.FullInitialization(_currentBiome);
             //_tileGenerator.FullInitialization(_currentBiome);
         }
     }

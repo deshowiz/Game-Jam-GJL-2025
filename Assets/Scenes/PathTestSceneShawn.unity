@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2688c2eec617b54f8c5521aa35fa49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1779465946
+--- !u!114 &1779465950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -849,22 +849,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e092e6360d4679e42bacece410e4c7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 3210036a7b514394e9991d885d41f5ce, type: 2}
+  Event: {fileID: 11400000, guid: 29f22055695f5644e83c190ecde4d197, type: 2}
   Response:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1779465944}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ReloadScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1781054911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,6 +1084,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _baseSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1236,6 +1228,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1779465944}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReloadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3605028395880254680, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -1294,7 +1314,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3605028395880254680, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1779465946}
+      addedObject: {fileID: 1779465950}
   m_SourcePrefab: {fileID: 100100000, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

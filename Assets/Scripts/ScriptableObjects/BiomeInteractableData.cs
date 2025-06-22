@@ -63,6 +63,7 @@ public class BiomeInteractableData : ScriptableObject
 
     public void UpdateInteractables(Vector2 playerXZ)
     {
+        if (_activePowerups.Count == 0) return;
         Vector3 firstActiveIntPos = _activePowerups.First().transform.position;
         if (_activePowerups.Count != 0
         && Vector2.Distance(new Vector2(firstActiveIntPos.x, firstActiveIntPos.z), playerXZ) > 20f
@@ -73,6 +74,7 @@ public class BiomeInteractableData : ScriptableObject
             _activePowerups.RemoveFirst();
             _availablePowerups[removablePowerup._listIndex].Enqueue(removablePowerup);
         }
+        if (_activeTraps.Count == 0) return;
         firstActiveIntPos = _activeTraps.First().transform.position;
         if (_activeTraps.Count != 0 && Vector2.Distance(new Vector2(firstActiveIntPos.x, firstActiveIntPos.z), playerXZ) > 20f
          && playerXZ.x > firstActiveIntPos.x)

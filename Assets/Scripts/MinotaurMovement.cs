@@ -89,6 +89,8 @@ public class MinotaurMovement : MonoBehaviour
 
     public float LinearDistanceToPlayer()
     {
+        if (GameManager.Instance.Player == null) return 5f;
+
         return Vector3.Distance(transform.position, GameManager.Instance.Player.transform.position);
     }
     

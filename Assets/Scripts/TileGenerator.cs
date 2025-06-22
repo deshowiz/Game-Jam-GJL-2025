@@ -77,6 +77,7 @@ public class TileGenerator : MonoBehaviour
 
     public void FullInitialization(int newBiomeIndex)
     {
+        Debug.Log(newBiomeIndex);
         SetCurrentBiome(newBiomeIndex);
         _baseTilePrefab = _currentBiome.BasePrefab;
         if (_playerMovement == null)

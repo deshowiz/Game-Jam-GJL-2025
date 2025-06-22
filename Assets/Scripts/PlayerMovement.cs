@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private GameEvent _OnPlayerFinishBiome;
+    [SerializeField]
+    private GameEvent _playerLoaded = null;
 
     [Header("Settings")]
     [SerializeField]
@@ -65,7 +67,10 @@ public class PlayerMovement : MonoBehaviour
     // private float _totalDegreesMovedThisRoute = 0f;
 
     // private float _currentTimingThisRoute = 0f;
-
+    private void Start()
+    {
+        _playerLoaded.Raise();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -74,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             ready = !ready;
         }
         if (!ready) return;
-        
+
         if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
         {
             int keyNum = 0;
@@ -435,6 +440,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // End Biome Event
             ready = false;
+            Debug.Log("Raisin Canes");
             _OnPlayerFinishBiome.Raise();
             return Vector3.negativeInfinity;
         }
@@ -448,6 +454,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void RemoveLastInteractable()
     {
+        if (_interactableRouteTimings.Count == 0) return;
         InteractableTile interactable = _interactableRouteTimings.Last().interactableTile;
         interactable.GetComponent<MeshRenderer>().enabled = false;
         interactable.enabled = false;

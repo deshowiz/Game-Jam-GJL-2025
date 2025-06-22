@@ -38,7 +38,7 @@ MonoBehaviour:
   - {fileID: 8386058859968840892, guid: 7a620f2be1be26d46a19413a7a8db1b1, type: 3}
   - {fileID: -6659759921745719103, guid: b4a5a672f0a0dbd4d9eb3f5fd9bb4cfe, type: 3}
   - {fileID: -203346714612497066, guid: 0b8d1cb50138f1e44aa122c2fd6fc730, type: 3}
-  _groupLevelLength: 40
+  _groupLevelLength: 3
   _boostMinimumTileSpacing: 5
   _boostMaximumTileSpacing: 13
   _trapMinimumTileSpacing: 5
