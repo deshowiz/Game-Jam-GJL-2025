@@ -1102,23 +1102,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].value
-      value: 1.8
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].inSlope
-      value: 1.0539935
+      value: 0.638658
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].inSlope
-      value: 1.5438918
+      value: 0.71322083
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].outSlope
-      value: 1.0539935
+      value: 0.638658
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].outSlope
-      value: 1.5438918
+      value: 0.71322083
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
