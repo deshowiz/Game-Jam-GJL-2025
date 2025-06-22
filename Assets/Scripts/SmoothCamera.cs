@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SmoothCamera : MonoBehaviour
@@ -9,7 +10,12 @@ public class SmoothCamera : MonoBehaviour
     
     [Header("Smooth Settings")]
     public float smoothSpeed = 2f;
-    
+
+    private void Start()
+    {
+        Instantiate(Resources.Load<GameObject>("FadeCanvas"), Vector3.zero, Quaternion.identity);
+    }
+
     void LateUpdate()
     {
         if (target != null)

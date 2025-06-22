@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        GameObject fadeCanvas = Instantiate(Resources.Load<GameObject>("FadeCanvas"), Vector3.zero, Quaternion.identity);
-        
         // Add to navigation later
         Initialize();
     }

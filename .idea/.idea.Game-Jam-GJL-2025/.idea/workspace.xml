@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="baa85bb5-78a5-4961-a12a-facd78d3d617" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
