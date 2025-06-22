@@ -50,10 +50,13 @@ public class MinotaurMovement : MonoBehaviour
 
     private float _distanceTravelled = 0f;
 
+    private bool gamestart;
+
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !gamestart)
         {
+            gamestart = true;
             ready = !ready;
         }
         if (!ready || _tilesToTravel.Count == 0) return;

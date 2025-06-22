@@ -85,8 +85,12 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject gameMenu = Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
-        GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
-        UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
+
+        if (UIMinotaurBar == null)
+        {
+            GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
+            UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
+        }
 
         if (Application.isEditor && SceneManager.GetActiveScene().name == "PathTestSceneShawn")
         {
