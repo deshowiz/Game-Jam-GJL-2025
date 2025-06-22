@@ -67,8 +67,6 @@ public class GameManager : MonoBehaviour
         {
             //Spawn AudioManager if Editor and ShawnScene because AudioManager should spawn in MainMenu.
             GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
-            AudioManager audio = audioManager.GetComponent<AudioManager>();
-            audio.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
         }
         
         NextBiome();
@@ -101,6 +99,20 @@ public class GameManager : MonoBehaviour
     public void NextBiome()
     {
         _currentBiome++;
+
+        switch (_currentBiome)
+        {
+            case 0:
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                break;
+            case 1:
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_Cave");
+                break;
+            case 2:
+                AudioManager.Instance.PlayMusic("WAV_GJLSpringJam2025_AMB_SpookyLevel");
+                break;
+        }
+        
         if (_currentBiome == 3)
         {
             // You win screen

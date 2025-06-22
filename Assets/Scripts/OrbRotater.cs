@@ -109,6 +109,7 @@ public class OrbRotater : MonoBehaviour
         }
 
         // Timed Disabling of orb?
+        AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_OrbFailToHit_04");
         _orbs[0].DisableOrb();
         _orbs[1].DisableOrb();
         return false;
@@ -156,12 +157,14 @@ public class OrbRotater : MonoBehaviour
             {
                 currentPresses++;
                 updateRecovery = true;
+                AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_SloMo_KeyPress_04");
             }
 
             if (Input.GetKeyDown(_orb1RecoveryKey))
             {
                 currentPresses++;
                 updateRecovery = true;
+                AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_SloMo_KeyPress_04");
             }
 
             if (updateRecovery)

@@ -11,6 +11,8 @@ public class MinotaurAnimation : MonoBehaviour
     private static readonly int Direction = Animator.StringToHash("Direction");
     public Animator animator;
     public MinotaurMovement movement;
+    
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -18,10 +20,15 @@ public class MinotaurAnimation : MonoBehaviour
         
         animator = GetComponent<Animator>();
         movement = GetComponentInParent<MinotaurMovement>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Footstep()
     {
+        if (movement.LinearDistanceToPlayer() > 13)
+        {
+            return;
+        }
         int rand = Random.Range(1, 10);
         string number = rand.ToString("D2");
         string clipName = $"WAV_GJLSpringJam2025_FS_Minotaur_Stone_{number}";
@@ -31,6 +38,10 @@ public class MinotaurAnimation : MonoBehaviour
     
     public void Huff()
     {
+        if (movement.LinearDistanceToPlayer() > 13)
+        {
+            return;
+        }
         int rand = Random.Range(1, 12);
         string number = rand.ToString("D2");
         string clipName = $"WAV_GJLSpringJam2025_VOCAL_Minotaur_Huff_{number}";
@@ -54,6 +65,7 @@ public class MinotaurAnimation : MonoBehaviour
         
         Vector3 dir = movement.GetNormalizedDirection();
         CharacterDirection direction = CharacterDirection.Right;
+        spriteRenderer.flipX = false;
         
         if (dir.z > 0.8f && dir.x <= 0)
         {
@@ -63,9 +75,13 @@ public class MinotaurAnimation : MonoBehaviour
         {
             direction = CharacterDirection.Down;
         }
-        else if (dir.x > 0)
+        else if (dir.x < 0)
         {
             direction = CharacterDirection.Right;
+        }
+        else if (dir.x > 0)
+        {
+            spriteRenderer.flipX = true;
         }
         animator.SetInteger(Direction, (int)direction);
     }

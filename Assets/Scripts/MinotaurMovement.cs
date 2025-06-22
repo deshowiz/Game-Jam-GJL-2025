@@ -78,11 +78,18 @@ public class MinotaurMovement : MonoBehaviour
         
         GameManager.Instance.UIMinotaurBar.UpdateBar(DistanceToPlayer());
         //Debug.Log("Distance to Player: " + DistanceToPlayer());
+        //Debug.Log("Distance to Player: " + LinearDistanceToPlayer());
+        //Debug.Log(GetNormalizedDirection());
     }
 
     public float DistanceToPlayer()
     {
         return GetPathDistance(transform.position, GameManager.Instance.Player.transform.position);
+    }
+
+    public float LinearDistanceToPlayer()
+    {
+        return Vector3.Distance(transform.position, GameManager.Instance.Player.transform.position);
     }
     
     public float GetPathDistance(Vector3 minotaurPosition, Vector3 playerPosition)
@@ -129,10 +136,21 @@ public class MinotaurMovement : MonoBehaviour
     
     public Vector3 GetNormalizedDirection()
     {
+        if (_tilesToTravel == null || _tilesToTravel.Count == 0)
+        {
+            return Vector3.zero; 
+        }
+    
         int minotaurClosestIndex = GetClosestPathIndex(transform.position);
+        
+        if (minotaurClosestIndex < 0 || minotaurClosestIndex >= _tilesToTravel.Count - 1)
+        {
+            return Vector3.zero; 
+        }
+    
         Vector3 dir1 = _tilesToTravel[minotaurClosestIndex];
         Vector3 dir2 = _tilesToTravel[minotaurClosestIndex + 1];
-        
+    
         return (dir1 - dir2).normalized;
     }
 

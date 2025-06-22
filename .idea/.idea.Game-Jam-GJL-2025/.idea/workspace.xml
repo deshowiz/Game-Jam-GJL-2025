@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="baa85bb5-78a5-4961-a12a-facd78d3d617" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Minotaur.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Minotaur.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/AudioManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/VFX_Basic.shadergraph.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/VFX_Basic.shadergraph.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Interactables/Interactable Stun Trap.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Interactables/Interactable Stun Trap.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Animation/MinotaurAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Animation/MinotaurAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/SpikeTrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/SpikeTrap.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/StunTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/StunTile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Back.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Back.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VFX/VFX Textures/T_VFX_Hard_Round.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VFX/VFX Textures/T_VFX_Hard_Round.psd.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,19 +35,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.1.6f1\Editor\Unity.exe" />
@@ -111,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1750542939296</updated>
       <workItem from="1750542940604" duration="283000" />
-      <workItem from="1750543236489" duration="24283000" />
+      <workItem from="1750543236489" duration="31082000" />
     </task>
     <servers />
   </component>
