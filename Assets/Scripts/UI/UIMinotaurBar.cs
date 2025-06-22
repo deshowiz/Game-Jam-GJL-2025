@@ -9,12 +9,15 @@ public class UIMinotaurBar : MonoBehaviour
     
     private float targetValue;
     private bool isLerping = false;
+
+    [SerializeField]
+    private AnimationCurve _distanceCurve = new AnimationCurve();
     
     public void UpdateBar(float distance)
     {
-        float percent = (maxDistance - distance) / maxDistance * 100;
+        float percent = (1f - _distanceCurve.Evaluate(distance / maxDistance)) * 100;
         percent = Mathf.Clamp(percent, 0, 100);
-        
+
         targetValue = percent;
         isLerping = true;
     }
