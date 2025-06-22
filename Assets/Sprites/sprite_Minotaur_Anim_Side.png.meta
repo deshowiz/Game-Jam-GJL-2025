@@ -131,10 +131,10 @@ TextureImporter:
       name: sprite_Minotaur_Anim_Side_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 189
-        width: 934
-        height: 664
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: sprite_Minotaur_Anim_Side_1
       rect:
         serializedVersion: 2
-        x: 1045
-        y: 187
-        width: 981
-        height: 692
+        x: 1024
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +175,10 @@ TextureImporter:
       name: sprite_Minotaur_Anim_Side_2
       rect:
         serializedVersion: 2
-        x: 2119
-        y: 218
-        width: 928
-        height: 674
+        x: 2048
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: sprite_Minotaur_Anim_Side_3
       rect:
         serializedVersion: 2
-        x: 3120
-        y: 185
-        width: 938
-        height: 678
+        x: 3072
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -220,9 +220,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4096
-        y: 186
-        width: 973
-        height: 677
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +241,10 @@ TextureImporter:
       name: sprite_Minotaur_Anim_Side_5
       rect:
         serializedVersion: 2
-        x: 5190
-        y: 230
-        width: 941
-        height: 648
+        x: 5120
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 50fdae30d7d0ea24c8f695a81f82f92f
     internalID: 0
     vertices: []
     indices: 
@@ -271,7 +271,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1024.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       sprite_Minotaur_Anim_Side_0: 1365108063359579041
       sprite_Minotaur_Anim_Side_1: 628898356820342859

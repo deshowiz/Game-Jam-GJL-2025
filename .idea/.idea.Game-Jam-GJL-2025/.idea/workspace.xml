@@ -6,15 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="baa85bb5-78a5-4961-a12a-facd78d3d617" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game-Jam-GJL-2025/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/MinotaurMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MinotaurMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/PlayerMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/PlayerMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/ShockwaveMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/ShockwaveMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/MinotaurSide.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/MinotaurSide.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Sprite.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Sprite.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/OrbTrailMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/OrbTrailMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/OrbTrailMaterial2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/OrbTrailMaterial2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/NewPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/NewPlayer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/GameMenu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/GameMenu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PathTestSceneShawn.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Events/GameEventListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Events/GameEventListener.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Tutorial.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Tutorial.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinotaurMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interactables/SlowmoTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interactables/SlowmoTile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Sprite_Player_Anim_Back_Float.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Sprite_Player_Anim_Back_Float.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Sprite_Player_Anim_Front_Float.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Sprite_Player_Anim_Front_Float.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Stun_Rune.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Stun_Rune.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Side.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/sprite_Minotaur_Anim_Side.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +36,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Animation/PlayerAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIContinueButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIMinotaurBar.cs" root0="FORCE_HIGHLIGHTING" />
@@ -111,7 +123,7 @@
       <option name="presentableId" value="Default" />
       <updated>1750542939296</updated>
       <workItem from="1750542940604" duration="283000" />
-      <workItem from="1750543236489" duration="4766000" />
+      <workItem from="1750543236489" duration="18598000" />
     </task>
     <servers />
   </component>
