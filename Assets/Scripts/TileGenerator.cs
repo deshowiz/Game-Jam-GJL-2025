@@ -105,6 +105,7 @@ public class TileGenerator : MonoBehaviour
         SetCurrentBiome(currentBiome); // Swap biome specific texture in beginning of scene for base prefab before cloning
         // OR material in case color over settings need changing
         _biomeGroupLimit = _currentBiome.GroupLevelLength;
+        _baseWallPrefab = _currentBiome.BaseWallPrefab;
         _lastInteractableTileIndex = 5;
         for (int i = 0; i < _maximumQueueSpawnSize; i++)
         {

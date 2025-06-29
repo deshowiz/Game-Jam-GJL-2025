@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Biome_1
   m_EditorClassIdentifier: 
   _basePrefab: {fileID: 6158393266161613704, guid: a899b129f00f8d241b04515e29f9c2b0, type: 3}
+  _baseWallPrefab: {fileID: 5885014229014005874, guid: 2ba9a0a52acaed04a902d481efa1b0cd, type: 3}
   _startBiomeGroup: {fileID: 11400000, guid: 53cede1caf37fdb479b6082ea9e79e16, type: 2}
   _lastBiomeGroup: {fileID: 11400000, guid: 46a17fb36760e3d48973f2cbeba00f0a, type: 2}
   _tileGroups:

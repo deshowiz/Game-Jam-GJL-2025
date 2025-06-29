@@ -10,6 +10,9 @@ public class BiomeInteractableData : ScriptableObject
     private Tile _basePrefab = null;
     public Tile BasePrefab { get { return _basePrefab;}}
     [SerializeField]
+    private Wall _baseWallPrefab = null;
+    public Wall BaseWallPrefab { get { return _baseWallPrefab;}}
+    [SerializeField]
     private TileGroup _startBiomeGroup = null;
     public TileGroup StartBiomeGroup{get{return _startBiomeGroup;}}
     [SerializeField]
