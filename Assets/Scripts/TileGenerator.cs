@@ -49,7 +49,7 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private int maxNegativeInteractableScore = -3;
     [SerializeField]
-    private int currentBiome = 0;
+    private int currentBiomeIndex = 0;
     private int currentInteractableScore = 0;
     private int _repeatPositiveInteractables = 0;
 
@@ -80,7 +80,7 @@ public class TileGenerator : MonoBehaviour
     public void FullInitialization(int newBiomeIndex)
     {
         Debug.Log(newBiomeIndex);
-        SetCurrentBiome(currentBiome);
+        SetCurrentBiome(newBiomeIndex);
         _baseTilePrefab = _currentBiome.BasePrefab;
         if (_playerMovement == null)
         {
@@ -96,13 +96,15 @@ public class TileGenerator : MonoBehaviour
 
     public void SetCurrentBiome(int biomeIndex)
     {
-        _currentBiome = _interactableBiomes[biomeIndex];
+        currentBiomeIndex = biomeIndex;
+        _currentBiome = _interactableBiomes[currentBiomeIndex];
         _currentBiome.InitializeBiome();
     }
 
     private void InitializeTiles() // Change to add integer parameter for reloading scene as next biome
     {
-        SetCurrentBiome(currentBiome); // Swap biome specific texture in beginning of scene for base prefab before cloning
+        _tileGroupStepIndex = 0;
+        //SetCurrentBiome(currentBiomeIndex); // Swap biome specific texture in beginning of scene for base prefab before cloning
         // OR material in case color over settings need changing
         _biomeGroupLimit = _currentBiome.GroupLevelLength;
         _baseWallPrefab = _currentBiome.BaseWallPrefab;
@@ -284,6 +286,7 @@ public class TileGenerator : MonoBehaviour
         _lastPosition = newTilePosition - new Vector3(0f, 10f, 0f); // Magic Y again
         if (_tileGroupStepIndex >= _currentTileGroup.Count)
         {
+            _tileGroupStepIndex = 0;
             SetNewTileGroup();
         }
     }
@@ -373,6 +376,6 @@ public class TileGenerator : MonoBehaviour
             newPlaceableWall.gameObject.SetActive(true);
         }
 
-        _tileGroupStepIndex = 0;
+        
     }
 }

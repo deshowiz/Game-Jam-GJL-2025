@@ -42,19 +42,20 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        if (Instance == null)
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.None).Length != 2)
         {
             Instance = this;
             DontDestroyOnLoad(this);
         }
         else
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
     public void Start()
     {
+        _currentBiome = 0;
         Initialize();
     }
 
@@ -79,16 +80,12 @@ public class GameManager : MonoBehaviour
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
 
-        if (_tileGenerator == null)
-        {
-            _tileGenerator = GetComponent<TileGenerator>();
-        }
+        _tileGenerator = GameObject.FindAnyObjectByType<TileGenerator>();
 
         GameObject gameMenu = Instantiate(Resources.Load<GameObject>("GameMenu"), Vector3.zero, Quaternion.identity);
 
         if (UIMinotaurBar == null)
         {
-            Debug.Log("Spawning from " + this.gameObject.name);
             GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
             UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
         }
@@ -98,8 +95,8 @@ public class GameManager : MonoBehaviour
             //Spawn AudioManager if Editor and ShawnScene because AudioManager should spawn in MainMenu.
             GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
         }
-
-        NextBiome();
+       
+        _tileGenerator.FullInitialization(_currentBiome);
         _isLoading = false;
     }
 
@@ -112,34 +109,47 @@ public class GameManager : MonoBehaviour
     public void LoadNextBiome()
     {
         if (_isLoading) return;
-        Debug.Log("Switching Scenes?");
-        LoadNewScene();
+        _isLoading = true;
+        LoadNewSceneDelayed();
     }
 
     public void RestartScene()
     {
-        LoadNewScene();
+        if (_isLoading) return;
+        _isLoading = true;
+        ReloadNewSceneDelayed();
     }
 
-    public void ReloadScene()
+    public async Task ReloadNewSceneDelayed()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        await SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("reload scene");
+        Initialize();
     }
 
-    IEnumerator LoadNewSceneDelayed()
+    public async Task LoadNewSceneDelayed()
     {
         FadeOutEvent?.Raise();
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //SceneManager.LoadScene(0, LoadSceneMode.Single);
-        //Initialize();
+        //yield return new WaitForSeconds(1f);
+        await Task.Delay(1000);
+        _currentBiome++;
+        if (_currentBiome == 3)
+        {
+            _currentBiome = 0;
+        }
+        await SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("new scene");
+        Initialize();
     }
 
-    public void LoadNewScene()
-    {
-        _isLoading = true;
-        StartCoroutine(LoadNewSceneDelayed());
-    }
+    // public void LoadNewScene()
+    // {
+    //     _isLoading = true;
+    //     //StartCoroutine(LoadNewSceneDelayed());
+    //     LoadNewSceneDelayed();
+    // }
 
     public void NextBiome()
     {
@@ -164,7 +174,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _tileGenerator.FullInitialization(_currentBiome);
+            
             //_tileGenerator.FullInitialization(_currentBiome);
         }
     }

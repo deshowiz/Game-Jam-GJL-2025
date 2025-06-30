@@ -887,7 +887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovement: {fileID: 1216750092}
-  _minotaurMovement: {fileID: 0}
+  _minotaurMovement: {fileID: 991306588197831596}
   _baseWallPrefab: {fileID: 5885014229014005874, guid: 5897a371cfa6af846b9efb9cb7b72c8c, type: 3}
   _interactableBiomes:
   - {fileID: 11400000, guid: 7d49fc27203d4c14b941f6d72f0e391b, type: 2}
@@ -1197,6 +1197,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+--- !u!114 &991306588197831596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+  m_PrefabInstance: {fileID: 991306588197831595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a3063fcc525534a9f6a4a86b483fa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8086336241073247427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1222,6 +1233,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445278598052040480, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ReloadScene
       objectReference: {fileID: 0}
@@ -1236,6 +1251,10 @@ PrefabInstance:
     - target: {fileID: 3605028395880254680, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
       propertyPath: m_Name
       value: Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444170611062606203, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadNextBiome
       objectReference: {fileID: 0}
     - target: {fileID: 8133652819119185325, guid: d9dfb3d1f54b5bb4c897faa658a9f59f, type: 3}
       propertyPath: _player

@@ -322,7 +322,6 @@ public class PlayerMovement : MonoBehaviour
         _fullSpeed = _baseSpeed + _boostSpeed;
         RouteData newRouteData = _interactableRouteTimings[0];
         _currentRouteBaseTiming = newRouteData.fullTiming;
-        Debug.Log(_currentRouteBaseTiming);
         Vector3 normalizedDir = (newRouteData.newTilePosition - newRouteData.lastTilePosition).normalized;
         float newAngle = Mathf.Atan2(normalizedDir.x, normalizedDir.z) * Mathf.Rad2Deg; ;
         // if (normalizedDir.z < 0) newAngle = 180f - newAngle;
