@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
 
         if (UIMinotaurBar == null)
         {
+            Debug.Log("Spawning from " + this.gameObject.name);
             GameObject minotaurBar = Instantiate(Resources.Load<GameObject>("MinotaurDistanceCanvas"), Vector3.zero, Quaternion.identity);
             UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
         }

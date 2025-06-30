@@ -126,50 +126,18 @@ public class TileGenerator : MonoBehaviour
         {
             PlaceNextTile();
         }
-        // float firstDistValue = Vector3.Distance(_steppingTileQueue[0].transform.position,
-        //  _steppingTileQueue[1].transform.position);
-        // if (firstDistValue > 1f)
-        // {
-        //     _interactableRouteTimingTotal -= firstDistValue;
-        // }
-        // else
-        // {
-        //     _interactableRouteTimingTotal -= 1f;
-        // }
-        //_interactableRouteTimingTotal -= 1f;
 
-        // float currentPairDistance = Vector2.Distance(new Vector2(_steppingTileQueue[0].transform.position.x, _steppingTileQueue[0].transform.position.z),
-        //          new Vector2(_steppingTileQueue[1].transform.position.x, _steppingTileQueue[1].transform.position.z));
-        // if (currentPairDistance == 1)
-        // {
-        //     float fullDistance = Vector3.Distance(_lastPosition + new Vector3(0f, 10f, 0f), _steppingTileQueue[1].transform.position);
-        //     if (fullDistance == 1f)
-        //     {
-        //         _lastTileTiming = 1f;
-        //         _interactableRouteTimingTotal -= 1f;
-        //     }
-        //     else
-        //     {
-        //         _lastTileTiming = fullDistance;
-        //         _interactableRouteTimingTotal -= _lastTileTiming;
-        //     }
-        // }
-        // else
-        // {
-        //     _lastTileTiming = currentPairDistance;
-        //     _interactableRouteTimingTotal -= _lastTileTiming;
-        // }
         _interactableRouteTimingTotal -= 1f;
 
-        //Debug.Log(_lastTileTiming);
+
         for (int i = 2; i < _maximumQueueSpawnSize / 2; i++)
         {
             PlaceNextTile();
         }
-        _lastPosition = _steppingTileQueue[0].transform.position;
+        //_lastPosition = _steppingTileQueue[0].transform.position;
         GameManager.Instance._nextTilePosition = _lastPosition;
         _isRunning = true;
-        //Debug.Log("Raising running event");
+
         _runningEvent.Raise();
     }
 
@@ -283,22 +251,6 @@ public class TileGenerator : MonoBehaviour
 
         if (isInteractable)
         {
-
-            // if (_tileGroupStepIndex >= _currentTileGroup.Count)
-            // {
-            //     float currentPairDistance = Vector2.Distance(new Vector2(_lastPosition.x, _lastPosition.z),
-            //      new Vector2(newTilePosition.x, newTilePosition.z));
-            //     if (currentPairDistance == 1)
-            //     {
-            //         _lastTileTiming = 1f;
-            //         _interactableRouteTimingTotal += 1f;
-            //     }
-            //     else
-            //     {
-            //         _lastTileTiming = GameManager.Instance._jumpBaseTiming;
-            //         _interactableRouteTimingTotal += _lastTileTiming;
-            //     }
-            // }
             InteractableTile newInteractable = SetNextInteractable(newTilePosition);
             _playerMovement._interactableRouteTimings.Add(
             new PlayerMovement.RouteData(_interactableRouteTimingTotal, storedLastPos, newTilePosition, newInteractable));

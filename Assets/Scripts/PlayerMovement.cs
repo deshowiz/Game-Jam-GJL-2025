@@ -66,12 +66,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool gamestart = false;
 
+    //private int routeCounter = 0;
+
     // private float _totalDegreesMovedThisRoute = 0f;
 
     // private float _currentTimingThisRoute = 0f;
     private void Start()
     {
-       // _playerLoaded.Raise();
+        // _playerLoaded.Raise();
     }
     private void Update()
     {
@@ -272,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void InteractableRouteComplete() // Sent here since it has access to speed for dynamic scaling of rotations
     {
-
+        //routeCounter++;
         // Debug.Log(_totalHeightProgress);
         // Debug.Log(Mathf.Abs(_totalDegreesMovedThisRoute) / Mathf.Abs(_totalDegreesThisRoute));
         // _currentTimingThisRoute = 0f;
@@ -304,12 +306,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 lastTilePos = newRouteData.lastTilePosition;
         float newRadius = Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z));
         orbRotater.SetRadius(newRadius);
-        if (newRadius >= 10f)
-        {
-            Debug.Log("Large radius new tile position: " + newTilePos);
-            Debug.Log("Large radius last tile position: " + lastTilePos);
-            Time.timeScale = 0f;
-        }
+        // if (newRadius >= 10f)
+        // {
+        //     Debug.Log("Large radius at route index: " + routeCounter);
+        //     Debug.Log("Large radius new tile position: " + newTilePos);
+        //     Debug.Log("Large radius last tile position: " + lastTilePos);
+        //     Time.timeScale = 0f;
+        // }
     }
 
     public void StartFirstRoute()
