@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         {
             //Debug.LogError("Player ref empty");
             //_player = GetComponent<Player>();
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            _player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
         }
     }
 

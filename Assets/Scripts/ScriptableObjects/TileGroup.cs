@@ -10,21 +10,21 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "TileGroup", menuName = "Scriptable Objects/TileGroup")]
 public class TileGroup : ScriptableObject
 {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [Header("Tile Data")]
     [SerializeField]
     private Tile _baseTilePrefab = null;
-    public Tile BaseTilePrefab {get{ return _baseTilePrefab; }}
-    #endif
+    public Tile BaseTilePrefab { get { return _baseTilePrefab; } }
+#endif
 
     [Header("Wall Data")]
     [SerializeField]
     private Wall _baseWallPrefab = null;
-    public Wall BaseWallPrefab { get { return _baseWallPrefab;}}
+    public Wall BaseWallPrefab { get { return _baseWallPrefab; } }
 
     [SerializeField]
     private WallPositionList _wallSection;
-    public WallPositionList WallSection{get{ return _wallSection;}}
+    public WallPositionList WallSection { get { return _wallSection; } }
 
     [Serializable]
     public struct WallPositionList
@@ -63,6 +63,26 @@ public class TileGroup : ScriptableObject
             this.position = newPosition;
         }
     }
+
+#if UNITY_EDITOR
+    public void ScanForDuplicatePairs()
+    {
+        for (int i = 0; i < _positionedTilePrefabs.Count; i++)
+        {
+            for (int j = 0; j < _positionedTilePrefabs.Count; j++)
+            {
+                if (i != j)
+                {
+                    if (_positionedTilePrefabs[i].position == _positionedTilePrefabs[j].position)
+                    {
+                        Debug.Log("Duplicate found for " + this.name + " at index " + i + ", please remove duplicate manually");
+                    }
+                }
+                
+            }
+        }
+    }
+    #endif
 
     
 }
@@ -128,6 +148,17 @@ public class GroupSpawner : Editor
             if (currentHolder != null)
             {
                 DestroyImmediate(currentHolder);
+            }
+        }
+
+        if (GUILayout.Button("Scan All Groups")) // Had to repeat this code cause of an editor bug
+        {
+            string[] tileGroupGUIDs = AssetDatabase.FindAssets("t:TileGroup");
+            //Debug.Log(tileGroupGUIDs.Length);
+            for (int i = 0; i < tileGroupGUIDs.Length; i++)
+            {
+                TileGroup currentGroup = AssetDatabase.LoadAssetAtPath<TileGroup>(AssetDatabase.GUIDToAssetPath(tileGroupGUIDs[i]));
+                currentGroup.ScanForDuplicatePairs();
             }
         }
     }

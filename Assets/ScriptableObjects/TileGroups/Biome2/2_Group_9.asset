@@ -56,8 +56,6 @@ MonoBehaviour:
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 4, y: 0, z: 0}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    position: {x: 4, y: 0, z: 0}
-  - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 4, y: 0, z: 1}
   - tileMeshPrefab: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     position: {x: 5, y: 0, z: 1}

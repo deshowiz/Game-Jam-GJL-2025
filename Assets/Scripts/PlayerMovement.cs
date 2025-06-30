@@ -287,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
         if (_interactableRouteTimings.Count == 0)
         {
             orbRotater.EndBiomeSpin();
-             return;
+            return;
         }
         RouteData newRouteData = _interactableRouteTimings.First();
         _currentRouteBaseTiming = newRouteData.fullTiming;
@@ -302,7 +302,14 @@ public class PlayerMovement : MonoBehaviour
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
         Vector3 newTilePos = newRouteData.newTilePosition;
         Vector3 lastTilePos = newRouteData.lastTilePosition;
-        orbRotater.SetRadius(Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z)));
+        float newRadius = Vector2.Distance(new Vector2(newTilePos.x, newTilePos.z), new Vector2(lastTilePos.x, lastTilePos.z));
+        orbRotater.SetRadius(newRadius);
+        if (newRadius >= 10f)
+        {
+            Debug.Log("Large radius new tile position: " + newTilePos);
+            Debug.Log("Large radius last tile position: " + lastTilePos);
+            Time.timeScale = 0f;
+        }
     }
 
     public void StartFirstRoute()
