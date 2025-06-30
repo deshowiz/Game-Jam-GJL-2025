@@ -15,8 +15,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private GameEvent _OnPlayerFinishBiome;
-    [SerializeField]
-    private GameEvent _playerLoaded = null;
 
     [Header("Settings")]
     [SerializeField]
@@ -452,7 +450,6 @@ public class PlayerMovement : MonoBehaviour
         {
             // End Biome Event
             ready = false;
-            Debug.Log("Raisin Canes");
             _OnPlayerFinishBiome.Raise();
             return Vector3.negativeInfinity;
         }

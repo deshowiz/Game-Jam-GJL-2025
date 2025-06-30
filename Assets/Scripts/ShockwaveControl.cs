@@ -24,7 +24,6 @@ public class ShockwaveControl : MonoBehaviour
     private Coroutine _shockwaveRoutine = null;
     public void InitiateShockwave()
     {
-        Debug.Log("shockwave");
         if (_shockwaveRoutine != null)
         {
             StopCoroutine(_shockwaveRoutine);

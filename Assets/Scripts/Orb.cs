@@ -20,7 +20,6 @@ public class Orb : MonoBehaviour
     private bool _isDisabled = false;
     public bool IsDisabled {get{ return _isDisabled; }}
     Coroutine _glowRoutine = null;
-    private bool _isGlowing = false;
     private bool _isRecovering = false;
 
     public async void DisableOrb()
@@ -29,7 +28,6 @@ public class Orb : MonoBehaviour
         _isDisabled = true;
         if (_glowRoutine != null)
         {
-            _isGlowing = false;
             StopCoroutine(_glowRoutine);
         }
         Color enabledColor = _orbMat.GetColor("_OrbColor");
@@ -52,8 +50,6 @@ public class Orb : MonoBehaviour
 
     public void ReEnable()
     {
-        // _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
-        // _orbMat.SetColor("_OrbColor", _usualColor);
         _isDisabled = false;
         _isRecovering = false;
     }

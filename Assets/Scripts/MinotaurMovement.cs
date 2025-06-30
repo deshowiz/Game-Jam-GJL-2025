@@ -10,14 +10,10 @@ public class MinotaurMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    private Transform _minotaurTransform = null;
-    [SerializeField]
     private GameEvent _contactEvent = null;
     [Header("Settings")]
     [SerializeField]
     private float _baseSpeed = 3f;
-    [SerializeField]
-    private float _boostSpeed = 0f;
 
     private float _fullSpeed = 0f;
     [Range(0f, 5f)]

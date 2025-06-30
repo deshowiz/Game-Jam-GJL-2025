@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     private int _currentBiome = -1;
 
     private bool _isLoading = false;
-    private bool _isInitialized = false;
 
     public void Awake()
     {
@@ -63,20 +62,15 @@ public class GameManager : MonoBehaviour
     {
         if (_player == null)
         {
-            //Debug.LogError("Player ref empty");
-            //_player = GetComponent<Player>();
             _player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
         }
     }
 
     public void Initialize()
     {
-        //Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
-        
         if (_player == null)
         {
-            //Debug.LogError("Player ref empty");
-            //_player = GetComponent<Player>();
+
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
 
@@ -96,6 +90,7 @@ public class GameManager : MonoBehaviour
             GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
         }
        
+        NextBiome();
         _tileGenerator.FullInitialization(_currentBiome);
         _isLoading = false;
     }
@@ -123,7 +118,6 @@ public class GameManager : MonoBehaviour
     public async Task ReloadNewSceneDelayed()
     {
         await SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("reload scene");
         Initialize();
     }
@@ -131,7 +125,6 @@ public class GameManager : MonoBehaviour
     public async Task LoadNewSceneDelayed()
     {
         FadeOutEvent?.Raise();
-        //yield return new WaitForSeconds(1f);
         await Task.Delay(1000);
         _currentBiome++;
         if (_currentBiome == 3)
@@ -139,22 +132,12 @@ public class GameManager : MonoBehaviour
             _currentBiome = 0;
         }
         await SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("new scene");
         Initialize();
     }
 
-    // public void LoadNewScene()
-    // {
-    //     _isLoading = true;
-    //     //StartCoroutine(LoadNewSceneDelayed());
-    //     LoadNewSceneDelayed();
-    // }
 
     public void NextBiome()
     {
-        _currentBiome++;
-
         switch (_currentBiome)
         {
             case 0:

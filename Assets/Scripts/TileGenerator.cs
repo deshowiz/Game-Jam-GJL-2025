@@ -54,7 +54,6 @@ public class TileGenerator : MonoBehaviour
     private int _repeatPositiveInteractables = 0;
 
     private bool _isRunning = false;
-    private bool _isGenerating = false;
     private bool _generateLevelEnd = false;
     private bool _startedLevelEnd = false;
     private bool _finishedBiome = false;
@@ -79,7 +78,6 @@ public class TileGenerator : MonoBehaviour
 
     public void FullInitialization(int newBiomeIndex)
     {
-        Debug.Log(newBiomeIndex);
         SetCurrentBiome(newBiomeIndex);
         _baseTilePrefab = _currentBiome.BasePrefab;
         if (_playerMovement == null)
