@@ -62,6 +62,11 @@ public class PlayerMovement : MonoBehaviour
     private float _totalHeightProgress = 0f;
     private bool _isBlueOrb = true;
 
+    [SerializeField]
+    private bool _singleOrbMode = false;
+    [SerializeField]
+    private bool _turboMode = false;
+
     private bool gamestart = false;
 
     //private int routeCounter = 0;
@@ -72,6 +77,10 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         // _playerLoaded.Raise();
+        if (_singleOrbMode)
+        {
+            orbRotater.SingleOrbMode();
+        }
     }
     private void Update()
     {
@@ -83,16 +92,40 @@ public class PlayerMovement : MonoBehaviour
         }
         if (!ready) return;
 
-        if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
+        if (!_turboMode) // I could just make a sub class of playermovement but nah
         {
-            int keyNum = 0;
-            if (Input.GetKeyDown(_movementKey1))
+            if (Input.GetKeyDown(_movementKey0) || Input.GetKeyDown(_movementKey1))
             {
-                keyNum = 1;
-            }
+                int keyNum = 0;
+                if (Input.GetKeyDown(_movementKey1))
+                {
+                    keyNum = 1;
+                }
 
-            orbRotater.CheckOrbAccuracy(keyNum, _interactableRouteTimings);
+                orbRotater.CheckOrbAccuracy(keyNum, _interactableRouteTimings);
+            }
         }
+        else
+        {
+            if (Input.GetKey(_movementKey0))
+            {
+                orbRotater.CheckOrbAccuracyHeld(0, _interactableRouteTimings);
+            }
+            else
+            {
+                orbRotater.UnHeldOrb(0);
+            }
+            if (Input.GetKey(_movementKey1))
+            {
+                orbRotater.CheckOrbAccuracyHeld(1, _interactableRouteTimings);
+            }else
+            {
+                orbRotater.UnHeldOrb(1);
+            }
+                
+        }
+
+        
 
 
         Friction();
@@ -328,7 +361,6 @@ public class PlayerMovement : MonoBehaviour
         orbRotater._currentAngle = 90f;
         _startRouteRotation = orbRotater._currentAngle;
         float angleDiff = Mathf.DeltaAngle(_startRouteRotation, newAngle);
-        //Debug.Log(IsBlue(angleDiff));
         _isBlueOrb = IsBlue(angleDiff);
         _totalDegreesThisRoute = GetTotalRouteDegrees(angleDiff);
         Vector3 newTilePos = newRouteData.newTilePosition;
@@ -338,12 +370,26 @@ public class PlayerMovement : MonoBehaviour
 
     private float GetTotalRouteDegrees(float angleDiff)
     {
-        float direction = Mathf.Sign(angleDiff);
-        if (direction == -1f || angleDiff == 0f) // 180f is a half rotation
+        if (!_singleOrbMode)
         {
-            angleDiff += 180f;
-            return angleDiff;
+            float direction = Mathf.Sign(angleDiff);
+            if (direction == -1f || angleDiff == 0f) // 180f is a half rotation
+            {
+                angleDiff += 180f;
+                return angleDiff;
+            }
         }
+        else if (angleDiff == 0f)
+        {
+            angleDiff += 360f;
+            //Debug.Log("new angle diff: " + angleDiff);
+        }
+        // else if (Mathf.Abs(angleDiff) < 45f)
+        // {
+        //     angleDiff += 360f * Mathf.Sign(angleDiff);
+        //     return angleDiff;
+        // }
+        
         return angleDiff;
     }
 

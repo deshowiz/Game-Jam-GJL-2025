@@ -10373,7 +10373,7 @@ MonoBehaviour:
   _orbMat: {fileID: 2100000, guid: 47012709b9bd20a41964d4d2803fbf03, type: 2}
   _missDisableTimeMilliseconds: 300
   _usualColor: {r: 1, g: 0.58431375, b: 0, a: 1}
-  _emissionAdditive: 100
+  _emissionAdditive: 20
   _emissionSpeed: 0.3
   _baseEmissiveLevel: 5.9
 --- !u!1 &9100280036871797377
@@ -10447,7 +10447,6 @@ MonoBehaviour:
   OnPlayerStepEvent: {fileID: 11400000, guid: c3b37e80cfc714c469b6380984ec4a39, type: 2}
   teleportFx: {fileID: 161147849587626264, guid: 4ebc2fb010ed46c4998fbd184f1522d0, type: 3}
   _OnPlayerFinishBiome: {fileID: 11400000, guid: b4ecef3e2b91c55439b01ea37faa3894, type: 2}
-  _playerLoaded: {fileID: 0}
   _movementKey0: 97
   _movementKey1: 100
   _baseSpeed: 3
@@ -10536,6 +10535,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   movementTweenSpeed: 2.63
+  _singleOrbMode: 0
+  _turboMode: 0
   _currentlyTravelledIndex: 0
 --- !u!114 &2107569289126800199
 MonoBehaviour:
@@ -10561,6 +10562,7 @@ MonoBehaviour:
   _hitThreshold: 1.25
   _orb0RecoveryKey: 97
   _orb1RecoveryKey: 100
+  _turboMode: 0
   _currentAngle: 0
 --- !u!114 &7923301327082663180
 MonoBehaviour:

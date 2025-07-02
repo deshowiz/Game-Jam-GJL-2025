@@ -84,9 +84,9 @@ public class GameManager : MonoBehaviour
             UIMinotaurBar = minotaurBar.GetComponent<UIMinotaurBar>();
         }
 
-        if (Application.isEditor && SceneManager.GetActiveScene().name == "PathTestSceneShawn")
+        if (Application.isEditor && SceneManager.GetActiveScene().name != "MainMenu")
         {
-            //Spawn AudioManager if Editor and ShawnScene because AudioManager should spawn in MainMenu.
+            //Spawn AudioManager if Editor and !MainMenu because AudioManager should spawn in MainMenu.
             GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
         }
        

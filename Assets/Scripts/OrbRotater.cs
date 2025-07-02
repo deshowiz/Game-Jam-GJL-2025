@@ -34,6 +34,8 @@ public class OrbRotater : MonoBehaviour
     private KeyCode _orb0RecoveryKey = KeyCode.A;
     [SerializeField]
     private KeyCode _orb1RecoveryKey = KeyCode.D;
+    [SerializeField]
+    private bool _turboMode = false;
 
     public float _currentAngle = 90f;
 
@@ -42,6 +44,8 @@ public class OrbRotater : MonoBehaviour
     WaitForFixedUpdate _endFrameWaiter = null;
 
     private bool _endSpin = false;
+
+    private Vector3 _lastPositionHit = Vector3.positiveInfinity;
 
     private void Awake()
     {
@@ -75,6 +79,11 @@ public class OrbRotater : MonoBehaviour
         // _orbTrail2.time = _trailLength / fullSpeed;
     }
 
+    public void SingleOrbMode()
+    {
+        _orbs[1].gameObject.SetActive(false);
+    }
+
     public void SetOrbSize(float newScale)
     {
         _orbs[0].transform.localScale = new Vector3(newScale, newScale, newScale);
@@ -99,20 +108,72 @@ public class OrbRotater : MonoBehaviour
             //         Mathf.Abs(currentInteractable.transform.position.y - GameManager.Instance.transform.position.y);
             if (accuracyDistance < scaledHitThreshold/* + yDiff * 0.5f*/)
             {
+                if (_lastPositionHit == currentInteractable.transform.position) break;
+                _lastPositionHit = currentInteractable.transform.position;
                 currentInteractable.Interact();
                 _orbs[orbIndex].GlowOnHit();
-                // Orb _firstIndexOrb = _orbs[0];
-                // _orbs[0] = _orbs[1];
-                // _orbs[1] = _firstIndexOrb;
                 return true;
             }
         }
 
         // Timed Disabling of orb?
-        AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_OrbFailToHit_04");
-        _orbs[0].DisableOrb();
-        _orbs[1].DisableOrb();
+        if (!_turboMode)
+        {
+            AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_OrbFailToHit_04");
+            _orbs[0].DisableOrb();
+            _orbs[1].DisableOrb();
+        }
+        else
+        {
+            _orbs[orbIndex].GlowOnHit();
+        }
+        
         return false;
+    }
+
+    public bool CheckOrbAccuracyHeld(int orbIndex, List<PlayerMovement.RouteData> allInteractables)
+    {
+        if (_orbs[orbIndex].IsDisabled || allInteractables.Count == 0) return false;
+        Transform chosenOrb = _orbs[orbIndex].transform;
+        float scaledHitThreshold = _hitThreshold * chosenOrb.localScale.x;
+        InteractableTile currentInteractable;
+        Vector2 orbXZ = new Vector2(chosenOrb.position.x, chosenOrb.position.z);
+        for (int i = 0; i < allInteractables.Count; i++)
+        {
+            currentInteractable = allInteractables[i].interactableTile;
+            float accuracyDistance = Vector2.Distance(orbXZ,
+             new Vector2(currentInteractable.transform.position.x, currentInteractable.transform.position.z));
+            // float yDiff = GameManager.Instance.transform.position.y > currentInteractable.transform.position.y ?
+            //     Mathf.Abs(GameManager.Instance.transform.position.y - currentInteractable.transform.position.y) :
+            //         Mathf.Abs(currentInteractable.transform.position.y - GameManager.Instance.transform.position.y);
+            if (accuracyDistance < scaledHitThreshold/* + yDiff * 0.5f*/)
+            {
+                if (_lastPositionHit == currentInteractable.transform.position) break;
+                _lastPositionHit = currentInteractable.transform.position;
+                currentInteractable.Interact();
+                _orbs[orbIndex].HeldGlow();
+                return true;
+            }
+        }
+
+        // Timed Disabling of orb?
+        if (!_turboMode)
+        {
+            AudioManager.Instance.PlaySFX("WAV_GJLSpringJam2025_INT_OrbFailToHit_04");
+            _orbs[0].DisableOrb();
+            _orbs[1].DisableOrb();
+        }
+        else
+        {
+            _orbs[orbIndex].HeldGlow();
+        }
+        
+        return false;
+    }
+
+    public void UnHeldOrb(int orbIndex)
+    {
+        _orbs[orbIndex].UnHeldGlow();
     }
 
     public void SetRadius(float newRadius)

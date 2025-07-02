@@ -9,9 +9,19 @@ public class MainMenu : MonoBehaviour
         GameObject audioManager = Instantiate(Resources.Load<GameObject>("AudioManager"), Vector3.zero, Quaternion.identity);
     }
 
-    public void Play()
+    public void PlaySingle()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void PlayDouble()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void PlayTurbo()
+    {
+        SceneManager.LoadScene(4);
     }
     
     public void Quit()

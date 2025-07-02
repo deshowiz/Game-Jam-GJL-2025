@@ -70,6 +70,15 @@ public class Orb : MonoBehaviour
         _glowRoutine = StartCoroutine(Glow());
     }
 
+    public void HeldGlow()
+    {
+        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel + _emissionAdditive);
+    }
+    public void UnHeldGlow()
+    {
+        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
+    }
+
     private IEnumerator Glow()
     {
         float endTime = Time.time + _emissionSpeed;
