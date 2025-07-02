@@ -22,6 +22,15 @@ public class Orb : MonoBehaviour
     Coroutine _glowRoutine = null;
     private bool _isRecovering = false;
 
+    int _emissionID;
+    int _colorID;
+
+    private void Awake()
+    {
+        _emissionID = Shader.PropertyToID("_EmissionStrength");
+        _colorID = Shader.PropertyToID("_OrbColor");
+    }
+
     public async void DisableOrb()
     {
         if (_isDisabled) return;
@@ -30,13 +39,13 @@ public class Orb : MonoBehaviour
         {
             StopCoroutine(_glowRoutine);
         }
-        Color enabledColor = _orbMat.GetColor("_OrbColor");
-        _orbMat.SetColor("_OrbColor", Color.black);
-        _orbMat.SetFloat("_EmissionStrength", 1f);
+        Color enabledColor = _orbMat.GetColor(_colorID);
+        _orbMat.SetColor(_colorID, Color.black);
+        _orbMat.SetFloat(_emissionID, 1f);
         await Task.Delay(_missDisableTimeMilliseconds);
         if (_isRecovering) return;
-        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
-        _orbMat.SetColor("_OrbColor", enabledColor);
+        _orbMat.SetFloat(_emissionID, _baseEmissiveLevel);
+        _orbMat.SetColor(_colorID, enabledColor);
         _isDisabled = false;
     }
 
@@ -44,8 +53,8 @@ public class Orb : MonoBehaviour
     {
         _isRecovering = true;
         _isDisabled = true;
-        _orbMat.SetFloat("_EmissionStrength", 1f);
-        _orbMat.SetColor("_OrbColor", Color.black);
+        _orbMat.SetFloat(_emissionID, 1f);
+        _orbMat.SetColor(_colorID, Color.black);
     }
 
     public void ReEnable()
@@ -56,8 +65,8 @@ public class Orb : MonoBehaviour
 
     public bool SetOrbRecovery(float progressPercentage)
     {
-        _orbMat.SetColor("_OrbColor", Color.Lerp(Color.black, _usualColor, progressPercentage));
-        _orbMat.SetFloat("_EmissionStrength", Mathf.Lerp(1f, _baseEmissiveLevel, progressPercentage));
+        _orbMat.SetColor(_colorID, Color.Lerp(Color.black, _usualColor, progressPercentage));
+        _orbMat.SetFloat(_emissionID, Mathf.Lerp(1f, _baseEmissiveLevel, progressPercentage));
         return true;
     }
 
@@ -72,11 +81,11 @@ public class Orb : MonoBehaviour
 
     public void HeldGlow()
     {
-        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel + _emissionAdditive / 2f);
+        _orbMat.SetFloat(_emissionID, _baseEmissiveLevel + _emissionAdditive / 2f);
     }
     public void UnHeldGlow()
     {
-        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
+        _orbMat.SetFloat(_emissionID, _baseEmissiveLevel);
     }
 
     private IEnumerator Glow()
@@ -86,14 +95,14 @@ public class Orb : MonoBehaviour
         {
             if (_isDisabled) break;
             yield return null;
-            _orbMat.SetFloat("_EmissionStrength", Mathf.Lerp(_baseEmissiveLevel,
+            _orbMat.SetFloat(_emissionID, Mathf.Lerp(_baseEmissiveLevel,
             _baseEmissiveLevel + _emissionAdditive, (endTime - Time.time) / _emissionSpeed));
         }
     }
 
     public void OnDisable()
     {
-        _orbMat.SetColor("_OrbColor", _usualColor);
-        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel);
+        _orbMat.SetColor(_colorID, _usualColor);
+        _orbMat.SetFloat(_emissionID, _baseEmissiveLevel);
     }
 }
