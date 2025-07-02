@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         
 
 
-        Friction();
+        //Friction();
         _fullSpeed = _baseSpeed + _boostSpeed;
         // _currentTimingThisRoute += Time.deltaTime * _fullSpeed;
         float distToNext = DistanceToNextTile();
