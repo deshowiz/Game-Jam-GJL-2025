@@ -11,10 +11,6 @@ public class OrbRotater : MonoBehaviour
     [SerializeField]
     private Orb[] _orbs = new Orb[2];
     [SerializeField]
-    private TrailRenderer _orbTrail = null;
-    [SerializeField]
-    private TrailRenderer _orbTrail2 = null;
-    [SerializeField]
     private GameEvent _brokeSlowMoEvent = null;
 
     public Vector3 _playerPosition = Vector3.zero;
@@ -41,18 +37,9 @@ public class OrbRotater : MonoBehaviour
 
     Coroutine _slowMoRecovery = null;
 
-    WaitForFixedUpdate _endFrameWaiter = null;
-
     private bool _endSpin = false;
 
     private Vector3 _lastPositionHit = Vector3.positiveInfinity;
-
-    private void Awake()
-    {
-        _orbTrail.GetComponent<TrailRenderer>().material.renderQueue = 4000;
-        _orbTrail2.GetComponent<TrailRenderer>().material.renderQueue = 4000;
-        _endFrameWaiter = new WaitForFixedUpdate();
-    }
 
     public void BeginRunning()
     {
