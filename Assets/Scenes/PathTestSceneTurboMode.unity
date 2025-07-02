@@ -1217,39 +1217,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].time
-      value: 0.37423337
+      value: 0.3546787
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].time
+      value: 0.95111793
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].value
-      value: 2.337714
+      value: 3.5544596
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].value
-      value: 2.8
+      value: 4.00669
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].inSlope
-      value: 2.1566482
+      value: 0.98100144
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].inSlope
-      value: 0.7387514
+      value: 0.73365533
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].outSlope
-      value: 2.1566482
+      value: 0.98100144
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].inWeight
+      value: 0.63948995
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].outSlope
-      value: 0.7387514
+      value: 0.73365533
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].outWeight
+      value: 0.6248263
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].time
-      value: 0.5832566
+      value: 0.41242328
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].time
-      value: 0.75923085
+      value: 0.60923696
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[3].time
@@ -1257,15 +1269,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].value
-      value: 1.0947306
+      value: 1.275683
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].value
-      value: 1.4282784
+      value: 1.6354318
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[3].value
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _rubberBandSpeed.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _rubberBandSpeed.m_Curve.Array.data[2].tangentMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].inSlope
@@ -1273,27 +1293,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].inSlope
-      value: 0.46652982
+      value: 1.4734238
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].inSlope
-      value: 2.1349993
+      value: 1.3804147
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[3].inSlope
-      value: 2.3745632
+      value: 0.932965
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].outSlope
       value: 0.04571457
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
+      propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].inWeight
+      value: 0.17156309
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[1].outSlope
-      value: 0.46652982
+      value: 1.4734238
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[2].outSlope
-      value: 2.1349993
+      value: 1.3804147
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[3].inWeight
@@ -1301,7 +1325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[3].outSlope
-      value: 2.3745632
+      value: 0.932965
       objectReference: {fileID: 0}
     - target: {fileID: 8216278815053818433, guid: 10ab3fbeefb4dfc4aabd8813113369ef, type: 3}
       propertyPath: _levelSpeedProgression.m_Curve.Array.data[0].outWeight
