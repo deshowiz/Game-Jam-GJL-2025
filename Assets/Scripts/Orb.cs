@@ -72,7 +72,7 @@ public class Orb : MonoBehaviour
 
     public void HeldGlow()
     {
-        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel + _emissionAdditive);
+        _orbMat.SetFloat("_EmissionStrength", _baseEmissiveLevel + _emissionAdditive / 2f);
     }
     public void UnHeldGlow()
     {

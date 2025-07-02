@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         if (_currentBiome == 3)
         {
             _currentBiome = 0;
-            await SceneManager.LoadSceneAsync(0);
+            await SceneManager.LoadSceneAsync(1);
             Destroy(this.gameObject);
             return;
         }
